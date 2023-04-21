@@ -1,0 +1,10 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+svg{
+    margin-right: 10px;
+}
+.logout-menu{
+    cursor: pointer;
+}

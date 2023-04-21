@@ -1,0 +1,149 @@
+.hero-block{
+    background-image: url("/public/pp-hero-1980x600.jpg");
+    background-position: center center;
+    height: 550px;
+    background-size: cover;
+}
+.become-header{
+    background-image: url("/public/become1.webp");
+    background-position: center center;
+    min-height: 800px;
+    background-size: cover;
+}
+.become-block{
+    background-image: url("/public/become3.webp");
+    background-position: center center;
+    height: 450px;
+    background-size: cover;
+    padding-top: 80px;
+}
+.hero-block .info{
+    padding-top: 220px;
+}
+.main-img{
+    /*max-width: 500px;*/
+    /*max-height: 500px;*/
+}
+.student-section svg, .tutor-section svg {
+    margin-right: 20px;
+}
+.student-section, .tutor-section{
+    padding: 50px;
+}
+.login-svg{
+    margin-right: 8px;
+}
+.tutor-block, .student-block{
+    width: 400px;
+    margin: 0 auto;
+}
+footer{
+    color: white;
+}
+.form-check-label{
+    margin-left: 10px;
+}
+.avatar-wrap{
+    width: 127px;
+}
+.blog-image{
+    width: 260px;
+    height: 140px;
+    object-fit: cover;
+}
+.find-wrap{
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 17px;
+    min-height: 100px;
+    border-radius: 3px;
+    height: 100%;
+    transition: border .2s ease;
+}
+.find-left-side{
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 17px;
+    min-height: 100px;
+    border-radius: 3px;
+    height: 100%;
+    transition: border .2s ease;
+}
+.pills{
+    padding: 5px;
+    margin:5px;
+    background: #dee2e6;
+    color: #495057;
+    border-radius: 10px;
+    line-height: 2.5;
+    font-size: 12px;
+}
+.form-check-input{
+    width: 20px !important;
+    height: 20px !important;
+}
+.fc-day-today {
+    background: #FFF !important;
+    border: none !important;
+}
+.fc-non-business{
+    background: hsla(120,100%,25%,0.3) !important;
+}
+.become-info-item{
+    margin-left: 12px;
+    color: black;
+}
+.parent-info-item{
+    background: white;
+    padding: 8px 12px;
+    border-radius: 10px;
+}
+.fz-18{
+    font-size: 18px;
+}
+.fz-15{
+    font-size: 15px;
+}
+.schedule-btn{
+    margin-right: 10px;
+}
+.terms-block p {
+    font-size: 18px;
+}
+#chat{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: -15px 0 13px rgb(0 0 0 / 15%);
+    width: 420px;
+    top: 0;
+}
+#chat .header{
+    height: 60px;
+    background: #efefef;
+}
+@media only screen and (max-width: 768px) {
+    .blog-image{
+        width: 100%;
+        height:300px
+    }
+}
+.fc-timegrid-event-harness .fc-v-event .fc-event-title{
+    font-size:14px;
+    font-weight: 800;
+    word-break: break-word;
+    white-space: break-spaces;
+}
+.fc-event-time{
+    font-weight:700;
+    font-size:14px
+}
+.my-lessons-dropdown .dropdown-item{
+    display: flex;
+    align-items: center;
+}
+.my-lessons-dropdown button{
+    font-size: 14px;
+    padding: 4px 10px;
+}
