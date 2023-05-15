@@ -3,10 +3,7 @@ import {useRef, useState} from "react";
 import AxiosClient from "../axios-client.js";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
 import { countries } from "../data";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db, storage } from "../firebase";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import firebaseChat from "../hooks/firebaseChat";
 export default function TutorSignup(){
     const nameRef = useRef();
     const emailRef = useRef();
@@ -41,7 +38,7 @@ export default function TutorSignup(){
             setUser(data.user);
             setToken(data.token);
             setType(data.type);
-            // firebaseCall(data)
+            firebaseChat(data.user.email, data.user.password, data.user.name);
 
         }).catch(err => {
             const response = err.response;
@@ -51,40 +48,7 @@ export default function TutorSignup(){
         })
     }
 
-    const firebaseCall = async (data) => {
-        try{
-            const res = await createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
 
-            await setDoc(doc(db,"users", res.user.uid),{
-                uid: res.user.uid,
-                email: data.user.email,
-                displayName: data.user.name
-            });
-            await setDoc(doc(db,"userChats", res.user.uid),{});
-
-            //  const storageRef = ref(storage, nameRef.current.value);
-            //  const uploadTask = uploadBytesResumable(storageRef, file);
-            //
-            // uploadTask.on(
-            //     (error) => {
-            //         // setErrors(true);
-            //     },
-            //     () => {
-            //         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            //             await updateProfile(res.user, {
-            //                 displayName: nameRef.current.value,
-            //                 photoURL: downloadURL,
-            //             });
-            //
-            //         });
-            //     }
-            // );
-            console.log('done');
-
-        }catch (error){
-            console.log(error);
-        }
-    }
 
     return(
         <div className="login-signup-form animated fadeInDown">

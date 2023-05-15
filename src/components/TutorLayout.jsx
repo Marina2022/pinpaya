@@ -1,10 +1,10 @@
-import {Link, Navigate, Outlet} from "react-router-dom";
+import {Link, Navigate, Outlet, useNavigate} from "react-router-dom";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
 import AxiosClient from "../axios-client.js";
 
 export default function TutorLayout(){
     const {user, token, setUser, setToken, type} = useStateContext()
-
+    const navigate = useNavigate();
     if(!token || type !== "tutor"){
         return <Navigate to={'/login'}/>
     }else{
@@ -17,6 +17,7 @@ export default function TutorLayout(){
         AxiosClient.post('/logout').then(() => {
             setUser({});
             setToken(null);
+            navigate('/');
         })
     }
 

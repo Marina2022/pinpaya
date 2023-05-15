@@ -9,6 +9,7 @@ import TimePicker from 'react-bootstrap-time-picker';
 import useMounted from "../../hooks/useMounted";
 import moment from "moment/moment";
 import FullCalendarTutor from "../FullCalendarTutor";
+import $ from "jquery";
 
 export default function MySchedule() {
     const mounted = useMounted();
@@ -86,7 +87,29 @@ export default function MySchedule() {
             getSchedule();
         })
     }
+    const onSetHoliday = () => {
+        getSchedule();
+    }
 
+    function setZindex(){
+        setTimeout(function (){
+            $('.selectedEvents').parent().css("z-index", 10);
+            $('.holiday').parent().css("z-index", 20);
+            $('.holiday').parent().css("width", '100%');
+        });
+    }
+    setZindex();
+
+    $('.fc-prev-button').click(function(){
+        setZindex();
+    });
+
+    $('.fc-next-button').click(function(){
+        setZindex();
+    });
+    $('.fc-today-button').click(function(){
+        setZindex();
+    });
 
 
     return (
@@ -109,50 +132,50 @@ export default function MySchedule() {
                                 <Col md={3}>
                                     <Form.Group className="mb-3" controlId="formBasicFirstName">
                                         <Form.Label>Sunday</Form.Label>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refSundayFrom} onChange={val => setRefSundayFrom(val)}/>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refSundayTo} onChange={val => setRefSundayTo(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refSundayFrom} onChange={val => setRefSundayFrom(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refSundayTo} onChange={val => setRefSundayTo(val)}/>
                                     </Form.Group>
                                 </Col>
                                 <Col md={3}>
                                     <Form.Group className="mb-3" controlId="formBasicFirstName">
                                         <Form.Label>Monday</Form.Label>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refMondayFrom} onChange={val => setRefMondayFrom(val)}/>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refMondayTo} onChange={val => setRefMondayTo(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refMondayFrom} onChange={val => setRefMondayFrom(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refMondayTo} onChange={val => setRefMondayTo(val)}/>
                                     </Form.Group>
                                 </Col>
                                 <Col md={3}>
                                     <Form.Group className="mb-3" controlId="formBasicFirstName">
                                         <Form.Label>Tuesday</Form.Label>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refTuesdayFrom} onChange={val => setRefTuesdayFrom(val)}/>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refTuesdayTo} onChange={val => setRefTuesdayTo(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refTuesdayFrom} onChange={val => setRefTuesdayFrom(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refTuesdayTo} onChange={val => setRefTuesdayTo(val)}/>
                                     </Form.Group>
                                 </Col>
                                 <Col md={3}>
                                     <Form.Group className="mb-3" controlId="formBasicFirstName">
                                         <Form.Label>Wednesday</Form.Label>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refWednesdayFrom} onChange={val => setRefWednesdayFrom(val)}/>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refWednesdayTo} onChange={val => setRefWednesdayTo(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refWednesdayFrom} onChange={val => setRefWednesdayFrom(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refWednesdayTo} onChange={val => setRefWednesdayTo(val)}/>
                                     </Form.Group>
                                 </Col>
                                 <Col md={3}>
                                     <Form.Group className="mb-3" controlId="formBasicFirstName">
-                                        <Form.Label>Wednesday</Form.Label>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refThursdayFrom} onChange={val => setRefThursdayFrom(val)}/>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refThursdayTo} onChange={val => setRefThursdayTo(val)}/>
+                                        <Form.Label>Thursday</Form.Label>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refThursdayFrom} onChange={val => setRefThursdayFrom(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refThursdayTo} onChange={val => setRefThursdayTo(val)}/>
                                     </Form.Group>
                                 </Col>
                                 <Col md={3}>
                                     <Form.Group className="mb-3" controlId="formBasicFirstName">
                                         <Form.Label>Friday</Form.Label>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refFridayFrom} onChange={val => setRefFridayFrom(val)}/>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refFridayTo} onChange={val => setRefFridayTo(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refFridayFrom} onChange={val => setRefFridayFrom(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refFridayTo} onChange={val => setRefFridayTo(val)}/>
                                     </Form.Group>
                                 </Col>
                                 <Col md={3}>
                                     <Form.Group className="mb-3" controlId="formBasicFirstName">
                                         <Form.Label>Saturday</Form.Label>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refSaturdayFrom} onChange={val => setRefSaturdayFrom(val)}/>
-                                        <TimePicker format={24} start="00:00" end="23:00" step={30} value={refSaturdayTo} onChange={val => setRefSaturdayTo(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refSaturdayFrom} onChange={val => setRefSaturdayFrom(val)}/>
+                                        <TimePicker format={24} start="00:00" end="23:00" step={60} value={refSaturdayTo} onChange={val => setRefSaturdayTo(val)}/>
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -169,19 +192,29 @@ export default function MySchedule() {
                         <FullCalendar
                             // selectable
                             events={booked}
-                            businessHours={events}
+                            // businessHours={events}
                             defaultView="daysOfWeek"
                             plugins={[ timeGridPlugin, dayGridPlugin, interactionPlugin ]}
                             // defaultTimedEventDuration='02:00'
-                            allDaySlot={false}
+                            validRange={{
+                                start: moment().add(3,'hours').format('Y-MM-DD HH:mm:ss'),
+                                end: moment().add(1,'months').format('Y-MM-DD HH:mm:ss'),
+                            }}
+                            ignoreTimezone={true}
                             defaultAllDay={false}
+                            eventTextColor='white'
+                            allDaySlot={false}
                             header={{
                                 left: 'prev,next today',
                                 center: 'title',
                                 right: 'timeGridWeek,timeGridDay',
                             }}
-                            ignoreTimezone={true}
+                            displayEventTime={false}
+                            selectConstraint="businessHours"
+                            eventOverlap={false}
+                            selectOverlap={false}
                             locale='en-GB'
+                            slotDuration='01:00:00'
                             slotLabelFormat={{
                                 hour: 'numeric',
                                 minute: '2-digit',
@@ -192,7 +225,7 @@ export default function MySchedule() {
                     ) : (
                         <>
                             <h3 className="mb-3">Please select your holidays</h3>
-                            <FullCalendarTutor></FullCalendarTutor>
+                            <FullCalendarTutor onSetHoliday={onSetHoliday}></FullCalendarTutor>
                         </>
                     )
                 }

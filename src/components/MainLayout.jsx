@@ -13,13 +13,14 @@ import {useStateContext} from "../contexts/ContextProvider";
 import {useContext, useEffect, useState} from "react";
 import axiosClient from "../axios-client";
 import {AuthContext} from "../contexts/AuthContext";
+import Home from "./chat/Home";
 
 export default function MainLayout(){
     const {user, type, setUser} = useStateContext()
-    // const [showChat, setShowChat] = useState(false);
+     const [showChat, setShowChat] = useState(false);
     // const {currentUser} = useContext(AuthContext);
 
-    // const handleChatClose = () => setShowChat(false);
+    const handleChatClose = () => setShowChat(false);
     // const handleChatShow = () => setShowChat(!showChat);
 
     useEffect(() => {
@@ -44,7 +45,7 @@ export default function MainLayout(){
 
                         {user ? (
                             <>
-                                <Link className="text-decoration-none" to={`/${type}/chat`}><div className="p-2 fw-bold"><ChatSquareFill size={24}/> </div></Link>
+                                <Link className="text-decoration-none messageTrigger" onClick={() => setShowChat(true)}><div className="p-2 fw-bold"><ChatSquareFill size={24}/> </div></Link>
                                 <Link className="text-decoration-none" to={`/${type}`}><div className="p-2 fw-bold"><PersonCircle className="login-svg" size={24} /></div> </Link>
                                 <Link className="text-decoration-none" to={type === 'tutor' ? '/tutor/my-earnings' : '/student/my-wallet'}><div className="p-2 fw-bold text-dark"><Wallet2 size={24}/> {user?.wallet} €</div></Link>
 
@@ -99,16 +100,11 @@ export default function MainLayout(){
                     </footer>
                 </Container>
             </div>
-{/*            {showChat && user &&
-                <div id="chat">
-                    <div className="header bg-silver d-flex justify-content-between p-2">
-                        <span className="fz-15">Messages</span>
-                        <CloseButton onClick={handleChatClose}></CloseButton>
-                    </div>
-                    <div className="p-2">
-                    </div>
-                </div>
-            }*/}
+            {showChat && user &&
+              <div>
+                  <Home handleChatClose={handleChatClose}/>
+              </div>
+            }
         </>
     )
 }

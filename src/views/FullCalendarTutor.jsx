@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import AxiosClient from "../axios-client";
 import interactionPlugin from "@fullcalendar/interaction";
 import moment from "moment/moment";
-export default function FullCalendarTutor(){
+export default function FullCalendarTutor({ onSetHoliday}){
     const [holidays, setHolidays] = useState([]);
 
     useEffect(() => {
@@ -28,6 +28,7 @@ export default function FullCalendarTutor(){
                         id: data.id,
                     }
                 ])
+                onSetHoliday();
             }
 
         }).catch(err => {})
@@ -44,6 +45,9 @@ export default function FullCalendarTutor(){
                     );
 
                 }).catch(err => {})
+                setTimeout(function (){
+                    onSetHoliday();
+                }, 2000)
             }
 
 

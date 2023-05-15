@@ -11,7 +11,7 @@ const firebaseConfig = {
     projectId: "chat2-5f64a",
     storageBucket: "chat2-5f64a.appspot.com",
     messagingSenderId: "223575069811",
-    appId: "1:223575069811:web:2be87dd6caeb441498c606"
+    appId: "1:223575069811:web:c8348833689c019798c606"
 };
 
 

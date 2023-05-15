@@ -1,5 +1,5 @@
 import {Col, Row, } from "react-bootstrap";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -10,17 +10,23 @@ import {
     CaretRight,
     CaretRightSquareFill,
     ChatSquare,
-    Check2, Circle, CircleFill,
+    Check2, Circle, CircleFill, Exclamation, ExclamationCircle, InfoCircle,
     Square,
     SquareFill,
     Trash
 } from "react-bootstrap-icons";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import firebaseCreateChat from "../../hooks/firebaseCreateChat";
+import {AuthContext} from "../../contexts/AuthContext";
+import {useStateContext} from "../../contexts/ContextProvider";
 
 export default function MyLessons(){
     const [lessons, setLessons] = useState([]);
+    const [reschedule, setReschedule] = useState([]);
     const MySwal = withReactContent(Swal)
-
+    const navigate = useNavigate();
+    const { currentUser } = useContext(AuthContext);
+    const {type, user} = useStateContext();
     useEffect(() => {
         const interval = setInterval(() => {
             getLessons()
@@ -30,6 +36,7 @@ export default function MyLessons(){
     const getLessons = () => {
         axiosClient.post('student/my-lessons').then(({data}) => {
             setLessons(data.lessons);
+            setReschedule(data.reschedule);
         }).catch(err => {})
     }
 
@@ -54,11 +61,36 @@ export default function MyLessons(){
             }
         })
     }
+    const message = (item) => {
+        firebaseCreateChat(currentUser, item, user);
+        document.getElementsByClassName('messageTrigger')[0].click();
+    }
+
+    const quit = (id, count) => {
+        MySwal.fire({
+            title: 'Termination of learning with tutor',
+            html: ` <b>Are you sure to quit learning for this tutor?</b> <br> By clicking "Quit learning & refund" we will make a refund into your pinpaya wallet for ${count} lesson/-s.`,
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Quit learning & refund',
+            denyButtonText: `Cancel`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosClient.post('student/quit-learning',{id}).then(({data}) => {
+                    getLessons();
+                }).catch(err => {})
+            }
+        })
+    }
 
     return(
         <>
             <h2 className="mb-4">My lessons</h2>
             <div className="bg-white p-4">
+                {
+                    reschedule?.tutor_id &&
+                    <div className="text-danger d-flex align-items-center fw-bold"><ExclamationCircle size={20} /> Tutor canceled one or more lessons, please reschedule <Link style={{paddingLeft: '5px'}} to={`/student/reschedule/${reschedule.tutor_id}`}> here. </Link></div>
+                }
                 {
                     lessons?.length > 0 &&
                     lessons.map(item =>
@@ -77,6 +109,10 @@ export default function MyLessons(){
                                         <div><h5 className="mb-2">{item.name}</h5></div>
                                         <div><b>Order</b> #14256</div>
                                         <div><b>Next Lesson:</b> <b className="text-danger">{item.last ? item.last.start_time : '-'}</b></div>
+                                        {
+                                            item.last &&
+                                            <div><b>Subject:</b> {item.last.subject ? item.last.subject.name : '-'}</div>
+                                        }
                                         <div><b>Email:</b> {item.email}</div>
                                         <div className="my-lessons-dropdown">
                                             <div><b>Lessons left:</b> {item.count}</div>
@@ -87,7 +123,7 @@ export default function MyLessons(){
                                                 <Dropdown.Menu>
                                                     {
                                                         item.calendars?.length > 0  &&
-                                                        item.calendars.map((item_calendar, index) => (<Dropdown.Item style={{position:'relative'}}>{item.last && item.last.start_time === item_calendar.start_time ? <CircleFill style={{position:'absolute', left:'1px',top:'9px', fontSize: '14px', }} /> : ''  } <div style={{width:'2px',height:'45px',background:'black', position:'absolute', left:'7px'}}></div> <div style={{margin:'0 10px'}}>{item_calendar.start_time}</div> {item_calendar.confirm == 2 ? <Check2 color="green" /> : ''}</Dropdown.Item>))}
+                                                        item.calendars.map((item_calendar, index) => (<Dropdown.Item style={{position:'relative'}}>{item.last && item.last.start_time === item_calendar.start_time ? <CircleFill color="red" style={{position:'absolute', left:'1px',top:'9px', fontSize: '14px', zIndex:'9'}} /> : ''  } <div style={{width:'2px',height:'45px',background:'black', position:'absolute', left:'7px'}}></div> <div style={{margin:'0 10px'}}>{item_calendar.start_time}</div> {item_calendar.confirm == 2 ? <Check2 color="green" /> : ''}</Dropdown.Item>))}
                                                 </Dropdown.Menu>
                                             </Dropdown>
 
@@ -104,13 +140,16 @@ export default function MyLessons(){
                                         )}
                                     </Col>
                                     <div className="d-flex justify-content-between mt-4">
-                                        <div style={{cursor:'pointer'}}><Trash size={20}/> Quit learning</div>
-                                        <div style={{cursor:'pointer'}}><CalendarDate size={20}/> Change lessons dates</div>
-                                        <div style={{cursor:'pointer'}}><ChatSquare size={20}/> Chat with tutor</div>
+                                        <div style={{cursor:'pointer'}} onClick={() => quit(item.id, item.count_done)}><Trash size={20}/> Quit learning</div>
+                                        <div style={{cursor:'pointer'}}><Link to={'/student/reschedule/'+item.id}><CalendarDate size={20}/> Change lessons dates</Link></div>
+                                        <div style={{cursor:'pointer'}} onClick={() => message(item)}><ChatSquare size={20}/> Chat with tutor</div>
                                     </div>
                                 </Row>
                             </div>
                     )}
+                {lessons?.length == 0 &&
+                    <h4 className="d-flex align-items-center text-primary"><InfoCircle/> Lessons are empty</h4>
+                }
 
                 {/*<Link to="find-tutor"><Button className="mt-4" variant="danger">ORDER LESSONS</Button></Link>*/}
             </div>

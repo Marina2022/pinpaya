@@ -1,6 +1,6 @@
 import {Col, Row} from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {
     BoxArrowRight,
     Calendar2,
@@ -18,6 +18,7 @@ import { auth } from '../../firebase'
 export default function Menu(){
     const {setUser, setToken, token, type} = useStateContext()
     const location = useLocation();
+    const navigate = useNavigate();
 
     if(!token || type !== "tutor"){
         return <Navigate to={'/login'}/>

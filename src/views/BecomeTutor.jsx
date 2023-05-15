@@ -9,6 +9,7 @@ import {useRef, useState} from "react";
 import {useStateContext} from "../contexts/ContextProvider";
 import AxiosClient from "../axios-client";
 import {countries} from "../data";
+import firebaseChat from "../hooks/firebaseChat";
 
 export default function BecomeTutor(){
     const nameRef = useRef();
@@ -44,6 +45,7 @@ export default function BecomeTutor(){
             setUser(data.user);
             setToken(data.token);
             setType(data.type);
+            firebaseChat(data.user.email, data.user.password, data.user.name);
             navigate('/');
         }).catch(err => {
             const response = err.response;

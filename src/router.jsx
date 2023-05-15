@@ -31,7 +31,9 @@ import Support from "./views/Support";
 import Blog from "./views/Blog";
 import Terms from "./views/Terms";
 import BlogSingle from "./views/BlogSingle";
-import HomeChat from "./components/chat/Home";
+
+import Reschedule from "./views/student/Reschedule";
+import TutorReschedule from "./views/tutor/Reschedule";
 
 const router = createBrowserRouter([
     {
@@ -97,11 +99,11 @@ const router = createBrowserRouter([
                         element: <MyLessons />,
                         exact: true,
                     },
-                    {
-                        path: 'chat',
-                        element: <HomeChat />,
-                        exact: true,
-                    },
+                    // {
+                    //     path: 'chat',
+                    //     element: <HomeChat />,
+                    //     exact: true,
+                    // },
                     {
                         path: 'account-settings',
                         element: <AccountSettings />,
@@ -122,6 +124,11 @@ const router = createBrowserRouter([
                         element: <PaymentMethods />,
                         exact: true,
                     },
+                    {
+                        path: 'reschedule/:id',
+                        element: <Reschedule />,
+                        exact: true,
+                    }
                 ],
                 exact: true,
             },
@@ -135,11 +142,11 @@ const router = createBrowserRouter([
                         element: <TutorMyLessons/>,
                         exact: true
                     },
-                    {
-                        path: 'chat',
-                        element: <HomeChat />,
-                        exact: true,
-                    },
+                    // {
+                    //     path: 'chat',
+                    //     element: <HomeChat />,
+                    //     exact: true,
+                    // },
                     {
                         path: 'my-tutor-profile',
                         element: <MyTutorProfile/>,
@@ -170,6 +177,11 @@ const router = createBrowserRouter([
                         element: <TutorAccountSettings/>,
                         exact: true
                     },
+                    {
+                        path: 'reschedule/:id',
+                        element: <TutorReschedule />,
+                        exact: true,
+                    }
                 ],
                 exact: true,
             },

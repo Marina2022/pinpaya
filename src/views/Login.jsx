@@ -5,27 +5,35 @@ import {useStateContext} from "../contexts/ContextProvider.jsx";
 import '../index.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import firebaseChat from "../hooks/firebaseChat";
 export default function Login(){
     const emailRef = useRef();
     const passwordRef = useRef();
     const {setUser, setToken, setType} = useStateContext();
     const [errors, setErrors] = useState(null);
+
+    const firebase = async (email, password, name) => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        }catch (err){
+            if(err.code == 'auth/user-not-found'){
+                firebaseChat(email, password, name);
+            }
+        }
+    }
     const onSubmit = async (e) => {
         e.preventDefault()
-
-        // try {
-        //     await signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
-        // }catch (err){}
 
         const payload = {
             email: emailRef.current.value,
             password: passwordRef.current.value
         }
         setErrors(null);
-        AxiosClient.post('/login', payload).then(({data}) => {
+      await  AxiosClient.post('/login', payload).then(({data}) => {
             setUser(data.user);
             setToken(data.token);
             setType(data.type);
+            firebase(emailRef.current.value, passwordRef.current.value, data.user.name);
 
         }).catch(err => {
             const response = err.response;

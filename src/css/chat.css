@@ -66,23 +66,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position:fixed;
+    top:0;
+    right:0;
+    width: 400px;
+    z-index: 9;
 }
 .home .container {
-    border: 1px solid white;
     border-radius: 10px;
-    width: 65%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     display: flex;
     overflow: hidden;
 }
 @media screen and (max-width: 768px) {
-    .home .container {
-        width: 90%;
-    }
+    /*.home .container {*/
+    /*    width: 90%;*/
+    /*}*/
 }
 .home .container .sidebar {
     flex: 1;
-    background-color: #3e3c61;
+    background-color: white;
     position: relative;
 }
 .home .container .sidebar .navbar {
@@ -148,9 +152,10 @@
     gap: 10px;
     color: white;
     cursor: pointer;
+    border-left: 7px solid #cacafa;
 }
 .home .container .sidebar .userChat:hover {
-    background-color: #2f2d52;
+    background-color: #ddddf7;
 }
 .home .container .sidebar .userChat img {
     width: 50px;
@@ -161,10 +166,11 @@
 .home .container .sidebar .userChat .userChatInfo span {
     font-size: 18px;
     font-weight: 500;
+    color:black;
 }
 .home .container .sidebar .userChat .userChatInfo p {
     font-size: 14px;
-    color: lightgray;
+    color: black;
 }
 .home .container .chat {
     flex: 2;
@@ -189,8 +195,8 @@
 .home .container .chat .messages {
     background-color: #ddddf7;
     padding: 10px;
-    height: calc(100% - 160px);
-    overflow: scroll;
+    height: calc(100% - 50px);
+    overflow: auto;
 }
 .home .container .chat .messages .message {
     display: flex;
@@ -236,7 +242,7 @@
     border-radius: 10px 0px 10px 10px;
 }
 .home .container .chat .input {
-    height: 50px;
+    height: 72px;
     background-color: white;
     padding: 10px;
     display: flex;
@@ -268,4 +274,33 @@
     color: white;
     background-color: #8da4f1;
     cursor: pointer;
+}
+.chatClose{
+    height: 40px;
+    top:40px;
+    cursor: pointer;
+    position: absolute;
+    left:-8px;
+}
+.chatCloseBtn{
+    position:absolute;
+    left:-8px;
+    top:0px;
+    cursor: pointer;
+    background: #8da4f1;
+    padding: 5px;
+    z-index: 9;
+    border-radius: 50px;
+}
+.chatMainImg{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.attachFile{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80px;
 }

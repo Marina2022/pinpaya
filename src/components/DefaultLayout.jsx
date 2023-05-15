@@ -1,11 +1,11 @@
-import {Link, Navigate, Outlet} from "react-router-dom";
+import {Link, Navigate, Outlet, useNavigate} from "react-router-dom";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
 import AxiosClient from "../axios-client.js";
 import {Col, Container, Row} from "react-bootstrap";
 
 export default function DefaultLayout(){
     const {user, token, setUser, setToken, type} = useStateContext()
-
+    const navigate = useNavigate();
 
     if(!token || type !== "student"){
         return <Navigate to={'/login'}/>

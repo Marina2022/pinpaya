@@ -20,17 +20,19 @@ const Search = () => {
     const { currentUser } = useContext(AuthContext);
 
     const handleSearch = async () => {
-        const q = query(
-            collection(db, "users"),
-            where("displayName", "==", username)
-        );
 
         try {
+            const q = query(
+                collection(db, "users"),
+                where("displayName", "==", username)
+            );
+            
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
                 setUser(doc.data());
             });
         } catch (err) {
+            console.log(err);
             setErr(true);
         }
     };

@@ -1082,6 +1082,11 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
+"@braintree/browser-detection@^1.11.1":
+  "integrity" "sha512-OsqU+28RhNvSw8Y5JEiUHUrAyn4OpYazFkjSJe8ZVZfkAaRXQc6hsV38MMEpIlkPMig+A68buk/diY+0O8/dMQ=="
+  "resolved" "https://registry.npmjs.org/@braintree/browser-detection/-/browser-detection-1.14.0.tgz"
+  "version" "1.14.0"
+
 "@carbon/colors@^11.13.0":
   "integrity" "sha512-SYuU7KC8aNwekd8hoUSFja+b9/w2QHkfMORSWKzwdUWkLZo84xdaMmtqy2pGeyWDw/a+Q2UxeJPzUHiL6UqnxA=="
   "resolved" "https://registry.npmjs.org/@carbon/colors/-/colors-11.13.0.tgz"
@@ -4320,6 +4325,13 @@
     "parse-json" "^5.0.0"
     "path-type" "^4.0.0"
     "yaml" "^1.10.0"
+
+"credit-card-input-mask@^3.0.0":
+  "integrity" "sha512-lkXbGVkLy9Q/S8aw8f1i1VQNrJSKoLdVllrWPhb/do8gQtJkwG1vI6C5MIUtWlCYEZgiMXynVscV6qAdcZIsdA=="
+  "resolved" "https://registry.npmjs.org/credit-card-input-mask/-/credit-card-input-mask-3.0.0.tgz"
+  "version" "3.0.0"
+  dependencies:
+    "@braintree/browser-detection" "^1.11.1"
 
 "cross-spawn@^7.0.2", "cross-spawn@^7.0.3":
   "integrity" "sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w=="
@@ -9067,6 +9079,14 @@
     "detect-element-overflow" "^1.3.1"
     "prop-types" "^15.6.0"
     "tiny-warning" "^1.0.0"
+
+"react-input-mask@^2.0.4":
+  "integrity" "sha512-1hwzMr/aO9tXfiroiVCx5EtKohKwLk/NT8QlJXHQ4N+yJJFyUuMT+zfTpLBwX/lK3PkuMlievIffncpMZ3HGRQ=="
+  "resolved" "https://registry.npmjs.org/react-input-mask/-/react-input-mask-2.0.4.tgz"
+  "version" "2.0.4"
+  dependencies:
+    "invariant" "^2.2.4"
+    "warning" "^4.0.2"
 
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="

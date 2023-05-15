@@ -1,6 +1,6 @@
 import {Col, Row} from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import {Link, Navigate, Outlet, useLocation} from "react-router-dom";
+import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {
     BoxArrowRight,
     CardChecklist,
@@ -20,6 +20,7 @@ import { auth } from '../../firebase'
 export default function Menu(){
     const {setUser, setToken, token, type} = useStateContext()
     const location = useLocation();
+    const navigate = useNavigate();
     useEffect(() => {
         axiosClient.get('/user').then(({data}) => {
             setUser(data);

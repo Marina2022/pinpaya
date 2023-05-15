@@ -1,36 +1,50 @@
 import Container from "react-bootstrap/Container";
-import {Badge, Button, Col, Form, Modal, Row} from "react-bootstrap";
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {Badge, Button, Col, Form, Modal, Row, Spinner} from "react-bootstrap";
+import {useNavigate, useParams} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import AxiosClient from "../axios-client";
-import { Messenger, ShieldFillCheck, Star, StarFill} from "react-bootstrap-icons";
+import {CreditCard, CreditCardFill, Messenger, ShieldFillCheck, Star, StarFill} from "react-bootstrap-icons";
 import moment from "moment";
 import {useStateContext} from "../contexts/ContextProvider";
 import $ from 'jquery';
+import firebaseCreateChat from "../hooks/firebaseCreateChat";
+import {AuthContext} from "../contexts/AuthContext";
+import {v4 as uuid} from "uuid";
+import InputMask from 'react-input-mask';
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
 export default function TutorPage(){
     let { id } = useParams();
     const [tutor, setTutor] = useState([]);
     const [schedule, setSchedule] = useState([]);
     const [events, setEvents] = useState([]);
+    const [selected, setSelected] = useState([]);
+    const [loading, setLoading] = useState(false);
     const {type, user} = useStateContext();
     const [show, setShow] = useState(false);
     const [info, setInfo] = useState([]);
+    const [error, setError] = useState(null);
+    const { currentUser } = useContext(AuthContext);
+    const MySwal = withReactContent(Swal);
     const [data, setData] = useState({
         useWallet: 0,
         subject: '',
-        note: ''
+        note: '',
+        card:'',
+        exp:'',
+        cvc:''
     });
-
+    const navigate = useNavigate();
     const [newEvents, setNewEvents] = useState([]);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    useEffect(() => {
+    const getData = () => {
         AxiosClient.get('/get-tutor/'+id).then(({data}) => {
             setTutor(data.tutor);
             setSchedule(data.schedule);
@@ -39,105 +53,159 @@ export default function TutorPage(){
             setEvents(data.data);
 
         })
+    }
+
+    useEffect(() => {
+        getData();
     }, [])
 
     const handleSelect = (info) => {
-        if(isAnOverlapEvent(info.start, info.end) == true){
-            window.alert('You cant use this date, It`s overlapping another event');
-        }else{
+
             if(user && type == 'student'){
                 setShow(true);
                 setInfo(info);
             }else{
                 window.alert('Please Log in as student')
             }
-        }
-
 
     };
+    $('.fc-prev-button').click(function(){
+        setZindex();
+    });
+
+    $('.fc-next-button').click(function(){
+        setZindex();
+    });
+    $('.fc-today-button').click(function(){
+        setZindex();
+    });
+    function setZindex(){
+        setTimeout(function (){
+            $('.holiday').parent().css("z-index", 20);
+            $('.holiday').parent().css("width", '100%');
+        });
+    }
+    setZindex();
     const remove = (element) => {
-        if(user && type == 'student'){
-            let el = events.filter(item => item.id == element.event.id);
-            if(el[0].studentId == user.id){
-                if(window.confirm('Are you sure?')){
-                    let id = element.event.id;
-                    AxiosClient.post('/student/schedule-delete', {id:id}).then(({data}) => {
-                        setEvents(current =>
-                            current.filter(employee => {
-                                return employee.id != id;
-                            })
-                        );
+            if(user && type == 'student'){
+                if(element.event.classNames[0] !== 'holiday'){
+                    let el = events.filter(item => item.id == element.event.id);
+                    if(el[0].studentId == user.id){
+                        if(window.confirm('Are you sure?')){
 
-                    }).catch(err => {})
+                            let id = element.event.id;
+                            AxiosClient.post('/student/schedule-delete', {id:id}).then(({data}) => {
+                                getData();
+                            }).catch(err => {})
+                        }
+                    }else{
+                        if(element.event.classNames[0] != 'selectedEvents'){
+                            if(user && type == 'student'){
+
+                                // setInfo(element.event);
+                                const {startStr, endStr} = element.event;
+
+                                const newState = events.map(obj => {
+                                    if (obj.id === element.event.id) {
+                                        const temp =    {
+                                            id: element.event.id,
+                                            start: moment(startStr).format('Y-MM-DD HH:mm:ss'),
+                                            end: moment(startStr).add(1, 'hours').format('Y-MM-DD HH:mm:ss'),
+                                            tutor_id: id
+                                        };
+                                        if(obj.backgroundColor == '#36ab36'){
+                                            setSelected([
+                                                ...selected,
+                                                temp
+                                            ]);
+                                            return {...obj, backgroundColor: 'silver'};
+
+                                        }else{
+                                            setSelected(oldValues => {
+                                                return oldValues.filter(item => item.id !== element.event.id)
+                                            })
+                                            return {...obj, backgroundColor: '#36ab36'};
+
+                                        }
+                                    }
+
+                                    // 👇️ otherwise return the object as is
+                                    return obj;
+                                });
+
+                                setEvents(newState);
+
+                                // setSelected([
+                                //     ...selected,
+                                //         {
+                                //             id: element.event.id,
+                                //             start: moment(startStr).format('Y-MM-DD HH:mm:ss'),
+                                //             end: moment(startStr).add(1, 'hours').format('Y-MM-DD HH:mm:ss'),
+                                //             tutor_id: id
+                                //         }
+                                //     ]
+                                // )
+
+
+                            }else{
+                                window.alert('Please Log in as student')
+                            }
+                        }
+                    }
                 }
-            }
+        }else{
+            window.alert('Please Log in as student')
         }
+
     }
 
-    function isAnOverlapEvent(eventStartDay, eventEndDay) {
-
-        eventStartDay = moment(eventStartDay).format('Y-MM-DD HH:mm:ss');
-        eventEndDay = moment(eventEndDay).add(2, 'hours').format('Y-MM-DD HH:mm:ss');
-
-        for (let i = 0; i < events.length; i++) {
-
-            let eventA = events[i];
-
-            let eventStartDayDate = moment(eventStartDay).format('Y-MM-DD');
-            let eventADate = moment(eventA.start).format('Y-MM-DD');
-
-            if(eventStartDayDate == eventADate){
-
-                // start-time in between any of the events
-                if (moment(eventStartDay).isAfter(eventA.start) && moment(eventStartDay).isBefore(eventA.end)) {
-                    console.log("start-time in between any of the events")
-                    return true;
-                }
-                //end-time in between any of the events
-                if (moment(eventEndDay).isAfter(eventA.start) && moment(eventEndDay).isBefore(eventA.end)) {
-                    console.log("end-time in between any of the events")
-                    return true;
-                }
-                //any of the events in between/on the start-time and end-time
-                if (moment(eventStartDay).isSameOrBefore(eventA.start) && moment(eventEndDay).isSameOrAfter(eventA.end)) {
-                    console.log("any of the events in between/on the start-time and end-time")
-                    return true;
-                }
-            }
-
-        }
-        return false;
-    }
-    const eventRender = (info) => {
-            info.el.querySelectorAll('.fc-title')[0].innerHTML = info.el.querySelectorAll('.fc-title')[0].innerText;
-        }
     const onSubmitCheckout = (e) =>{
         e.preventDefault();
+        setLoading(true);
 
-        const {startStr, endStr} = info;
+        // const {startStr, endStr} = info;
+        // const payloadToSend = {
+        //     start: moment(startStr).format('Y-MM-DD HH:mm:ss'),
+        //     end: moment(startStr).add(1, 'hours').format('Y-MM-DD HH:mm:ss'),
+        //     tutor_id: id,
+        //     subject_id: data.subject
+        // }
 
-        const payloadToSend = {
-            start: moment(startStr).format('Y-MM-DD HH:mm:ss'),
-            end: moment(startStr).add(2, 'hours').format('Y-MM-DD HH:mm:ss'),
+        const payload = {
+            selected: selected,
+            subject_id: data.subject,
             tutor_id: id,
-            subject_id: data.subject
+            data: data,
+            amount: selected.length > 0 ? tutor.price * selected.length + 1 : tutor.price + 1,
+            price: tutor.price
         }
 
-        if(user && type == 'student'){
-            handleClose();
-            AxiosClient.post('/student/schedule', payloadToSend).then(({data}) => {
-                setEvents([
-                    ...events,
-                    {
-                        id: data.id,
-                        start: data.start,
-                        end: data.end,
-                        studentId: data.studentId,
-                        title: user?.name
-                    }
-                ])
-            }).catch(err => {})
+        if(user && type == 'student' && selected.length > 0){
+            AxiosClient.post('/student/schedule', payload).then(({data}) => {
+                getData();
+                setZindex();
+                setSelected([]);
+                handleClose();
+                MySwal.fire({
+                    icon: 'success',
+                    text: 'Done',
+                })
+
+                setLoading(false);
+            }).catch(err => {
+
+                 setError(err.response.data.error);
+            })
         }
+    }
+
+    const message = () => {
+        firebaseCreateChat(currentUser, tutor, user);
+        document.getElementsByClassName('messageTrigger')[0].click();
+    }
+
+    const bookLessons = () => {
+        setShow(true);
     }
 
     return(
@@ -223,7 +291,7 @@ export default function TutorPage(){
                                                     <FullCalendar
                                                         selectable
                                                         select={handleSelect}
-                                                        businessHours={schedule}
+                                                        // businessHours={schedule}
                                                         selectConstraint="businessHours"
                                                         eventOverlap={false}
                                                         selectOverlap={false}
@@ -242,22 +310,24 @@ export default function TutorPage(){
                                                         eventTextColor='white'
                                                         eventClick={remove}
                                                         validRange={{
-                                                            start: moment().add(3,'hours').format('Y-MM-DD HH:mm:ss'),
-                                                            end: moment().add(6,'months').format('Y-MM-DD HH:mm:ss'),
+                                                            start: moment().add(24,'hours').format('Y-MM-DD HH:mm:ss'),
+                                                            end: moment().add(1,'months').format('Y-MM-DD HH:mm:ss'),
                                                         }}
                                                         // forceEventDuration={true}
                                                         // defaultTimedEventDuration='02:00:00'
+                                                        displayEventTime={false}
                                                         header={{
                                                             left: 'prev,next today',
                                                             center: 'title',
                                                             right: 'timeGridWeek,timeGridDay',
                                                         }}
+                                                        slotDuration='01:00:00'
                                                         locale='en-GB'
                                                         // timeZone='UTC'
                                                         allDaySlot={false}
-                                                        eventRender={eventRender}
                                                         // slotLabelInterval={30}
                                                     />
+                                                    <div><button disabled={selected.length > 0 ? false : true} className="btn btn-lg border my-3" onClick={bookLessons}>Book lessons</button></div>
                                                 </div>
                                             </>
                                     </Col>
@@ -281,15 +351,19 @@ export default function TutorPage(){
                                         <div>If your lesson does not take place, or you are not satisfied with the tutor, we will provide you a full refund.</div>
                                     </div>
                                 </div>
-                                <button className="btn btn-secondary w-100 mt-5 d-flex justify-content-center align-items-center">
-                                 <Messenger/> MESSAGE
+                                { user &&
+                                <button onClick={message} className="btn btn-secondary w-100 mt-5 d-flex justify-content-center align-items-center">
+                                    <Messenger/> MESSAGE
                                 </button>
+                                 }
                                 <button className="btn btn-secondary w-100 mt-3 d-flex justify-content-center align-items-center">
                                     <Star/> READ REVIEWS (0)
                                 </button>
-                                <button className="btn btn-secondary w-100 mt-5 d-flex justify-content-center align-items-center">
-                                    <Star/> LEAVE FIRST  REVIEW
-                                </button>
+                                { user &&
+                                    <button className="btn btn-secondary w-100 mt-5 d-flex justify-content-center align-items-center">
+                                        <Star/> LEAVE FIRST  REVIEW
+                                    </button>
+                                }
                             </div>
                         </Col>
                     </Row>
@@ -309,7 +383,7 @@ export default function TutorPage(){
                             }
 
                         </div>
-                        <div className="mb-4 text-center fw-bold">1 lesson with {tutor.name} {tutor.lastname}</div>
+                        <div className="mb-4 text-center fw-bold">{selected.length > 0 ? selected.length : 1} lesson with {tutor.name} {tutor.lastname}</div>
                         <div className="my-4">
                             <div className="d-flex justify-content-between">
                                 <div className="fz-15">
@@ -322,12 +396,12 @@ export default function TutorPage(){
                                     <div className="fw-bold m-2">Price</div>
                                     <div>{tutor.price} €</div>
                                     <div>1.00 €</div>
-                                    <div className="mt-2 fz-18 fw-bold">{tutor.price + 1} €</div>
+                                    <div className="mt-2 fz-18 fw-bold">{selected.length > 0 ? tutor.price * selected.length + 1 : tutor.price + 1} €</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="mb-5">
+                    <div className="mb-4">
                         <Row>
                             <Col md={10}>
                                 <Form.Group className="mb-3" controlId="13">
@@ -341,7 +415,58 @@ export default function TutorPage(){
                             <Col md={2} className="align-items-center d-flex"><Button className="btn btn-sm">USE</Button></Col>
                         </Row>
                     </div>
-                    <Form.Group className="mb-3" controlId="12">
+                    <div className="p-2 mb-4 mt-1" style={{background:'#5b08a7'}}>
+                        <div className="mb-4 text-white"><CreditCardFill size={26}/>Pay with your credit card via Stripe. </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label htmlFor="cc-number" className="text-white">Card Number *</label>
+                                <InputMask
+                                    mask='9999 9999 9999 9999'
+                                    placeholder='XXXX XXXX XXXX XXXX'
+                                    required
+                                    onChange={ev => setData({...data, card : ev.target.value})}
+                                >
+                                </InputMask>
+                                    <div class="invalid-feedback">
+                                        Credit card number is required
+                                    </div>
+
+                            </div>
+                                <div class="col-md-6 mb-3">
+                                    <label htmlFor="cc-expiration" className="text-white">Expiry Date *</label>
+                                    <InputMask
+                                        mask='99/99'
+                                        onChange={ev => setData({...data, exp : ev.target.value})}
+                                        required
+                                        placeholder='MM/YY'>
+                                    </InputMask>
+                                        <div class="invalid-feedback">
+                                            Expiration date required
+                                        </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label htmlFor="cc-expiration" className="text-white">Card Code (CVC) *</label>
+                                    <InputMask
+                                        mask='999'
+                                        onChange={ev => setData({...data, cvc : ev.target.value})}
+                                        required
+                                        placeholder='XXX'>
+                                    </InputMask>
+                                        <div class="invalid-feedback">
+                                            Security code required
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="custom-control custom-checkbox d-flex justify-content-around">
+                            <input type="checkbox" className="custom-control-input" style={{marginRight: '10px'}} id="same-address1" />
+                            <label className="custom-control-label text-white" htmlFor="same-address1"><b>Save payment information to my account for future purchases.</b></label>
+                        </div>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex justify-content-around">
+                        <input type="checkbox" className="custom-control-input" style={{marginRight: '10px'}} id="same-address2" />
+                        <label className="custom-control-label" htmlFor="same-address2"><b>By checking this box you agree to Pinpaya Terms of use & General conditions *</b></label>
+                    </div>
+                    <Form.Group className="mb-3 mt-3" controlId="12">
                         <Form.Label className="fw-bold">What do you want to study?</Form.Label>
                         <Form.Select required
                                      value={data?.subject}
@@ -362,10 +487,19 @@ export default function TutorPage(){
                                       placeholder="Tell the tutor about your goals and what exactly you want to learn"
                         />
                     </Form.Group>
+                    {error &&
+                        <div className="text-danger"><b>{error}</b></div>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" type="submit">
-                        Confirm
+                    <Button variant="primary" type="submit" disabled={loading}>
+                        {loading ? (
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                            ) : 'Confirm'
+                        }
+
                     </Button>
                 </Modal.Footer>
                 </Form>

@@ -1,15 +1,15 @@
-import React from "react";
-import Navbar from "./Navbar"
-import Search from "./Search"
+import React, {useState} from "react";
+
 import Chats from "./Chats"
 
-const Sidebar = () => {
+const Sidebar = (onHandleSelectParent) => {
+    const [show, setShow] = useState(true);
+
+    const onBack = () => {
+        setShow(true);
+    }
     return (
-        <div className="sidebar">
-            <Navbar />
-            <Search/>
-            <Chats/>
-        </div>
+        <div className="sidebar shadow"> <Chats  onBack={onBack}/> </div>
     );
 };
 

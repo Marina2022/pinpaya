@@ -147,3 +147,18 @@ footer{
     font-size: 14px;
     padding: 4px 10px;
 }
+.selectedEvents{
+    z-index: 3;
+}
+.fc-event{
+    text-align:center;
+}
+.emptyTemplate, .selectedEvents{
+    cursor: pointer;
+}
+.yellow-bg{
+    background-color: silver !important;
+    border: 1px solid black !important;
+}
+/*.yellow-bg div{*/
+/*    color:black !important;*/

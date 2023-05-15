@@ -1,9 +1,19 @@
 import {Wallet2} from "react-bootstrap-icons";
 import {Table} from "react-bootstrap";
 import {useStateContext} from "../../contexts/ContextProvider";
+import {useEffect, useState} from "react";
+import axiosClient from "../../axios-client";
+import moment from "moment/moment";
 
 export default function MyWallet(){
     const {user} = useStateContext();
+    const [wallet, setWallet] = useState([]);
+
+    useEffect(() => {
+        axiosClient.get('student/wallet').then(({data}) => {
+            setWallet(data.wallet);
+        }).catch(err => {})
+    }, [])
 
     return(
         <>
@@ -15,16 +25,20 @@ export default function MyWallet(){
                         <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Type</th>
+                            <th>Message</th>
                             <th>Amount</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>26.08.2022 19:36</td>
-                            <td>Bonus</td>
-                            <td>+5.00 €</td>
-                        </tr>
+                        {
+                            wallet?.length > 0 &&
+                            wallet.map(item =>
+                                <tr>
+                                    <td>{moment(item.created_at).format('Y.MM.DD')}</td>
+                                    <td>{item.text}</td>
+                                    <td>{item.amount}</td>
+                                </tr>
+                            )}
                         </tbody>
                     </Table>
                 </div>
