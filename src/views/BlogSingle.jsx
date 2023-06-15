@@ -27,7 +27,7 @@ export default function BlogSingle(){
                 <Row>
                     <Col>
                         <div className="p-5">
-                            <div className="mt-5"><small>{moment(blog.created_at).format('Y.MM.DD')}</small></div>
+                            <div className="mt-5"><small>{moment(blog.created_at).format('DD.MM.Y')}</small></div>
                             <h1 className="mb-4">{blog.title}</h1>
                             { blog.main_image ?
                                 <img className="img-fluid" src={'https://web.pinpaya.com/storage/'+blog.main_image} alt="avatar"/>
@@ -50,7 +50,7 @@ export default function BlogSingle(){
                 {/*                          <img className="blog-image" src={'https://web.pinpaya.com/storage/'+item.main_image} alt="avatar"/>*/}
                 {/*                          : <img className="blog-image" src="https://web.pinpaya.com/no-image.png" />*/}
                 {/*                      }*/}
-                {/*                      <div><small>{moment(item.created_at).format('Y.MM.DD')}</small></div>*/}
+                {/*                      <div><small>{moment(item.created_at).format('DD.MM.Y')}</small></div>*/}
                 {/*                      <h4><Link to={'/blog/'+item.id} >{item.title}</Link></h4>*/}
                 {/*                  </div>*/}
                 {/*              </Col>*/}

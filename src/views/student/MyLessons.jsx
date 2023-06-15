@@ -1,5 +1,5 @@
 import {Col, Row, } from "react-bootstrap";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axiosClient from "../../axios-client";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -19,6 +19,8 @@ import {Link, useNavigate} from "react-router-dom";
 import firebaseCreateChat from "../../hooks/firebaseCreateChat";
 import {AuthContext} from "../../contexts/AuthContext";
 import {useStateContext} from "../../contexts/ContextProvider";
+import moment from "moment/moment";
+import chatNotif from "../../hooks/chatNotif";
 
 export default function MyLessons(){
     const [lessons, setLessons] = useState([]);
@@ -47,7 +49,7 @@ export default function MyLessons(){
     const confirmLesson = (id, time) => {
 
         MySwal.fire({
-            title: `Has the lesson <b class="text-danger"> ${time} </b> already taken place? `,
+            title: `Has the lesson <b class="text-danger"> ${moment(time).format('DD.MM.Y HH:mm:ss')} </b> already taken place? `,
             text: 'Please confirm the lessons only after they have taken place.',
             showDenyButton: true,
             showCancelButton: false,
@@ -57,6 +59,9 @@ export default function MyLessons(){
             if (result.isConfirmed) {
                 axiosClient.post('student/confirm-lesson',{id}).then(({data}) => {
                     getLessons();
+                    if(data.notif != false){
+                        chatNotif(data.notif, currentUser, data.tutor_id);
+                    }
                 }).catch(err => {})
             }
         })
@@ -78,15 +83,18 @@ export default function MyLessons(){
             if (result.isConfirmed) {
                 axiosClient.post('student/quit-learning',{id}).then(({data}) => {
                     getLessons();
+                    if(data.notif != false){
+                        chatNotif(data.notif, currentUser, data.tutor_id);
+                    }
                 }).catch(err => {})
             }
         })
     }
 
     return(
-        <>
-            <h2 className="mb-4">My lessons</h2>
-            <div className="bg-white p-4">
+        <div>
+            <h2 className="mb-4"><b>My lessons</b></h2>
+            <div>
                 {
                     reschedule?.tutor_id &&
                     <div className="text-danger d-flex align-items-center fw-bold"><ExclamationCircle size={20} /> Tutor canceled one or more lessons, please reschedule <Link style={{paddingLeft: '5px'}} to={`/student/reschedule/${reschedule.tutor_id}`}> here. </Link></div>
@@ -94,66 +102,71 @@ export default function MyLessons(){
                 {
                     lessons?.length > 0 &&
                     lessons.map(item =>
-                            <div key={item.id} className="m-4 border p-3">
+                            <div key={item.id} className="m-1 mb-3 p-4 bg-white" style={{borderRadius:'3px',marginBottom:'5px'}}>
                                 <Row>
-                                    <Col  lg="2" className="">
+                                    <Col  lg="2" style={{display:'flex',alignItems:'center'}}>
                                         <div>
                                             { item.avatar ?
-                                                <img className="avatar-wrap" src={'https://web.pinpaya.com/storage/'+item.avatar} alt="avatar"/>
-                                                : <img className="avatar-wrap" src="https://app.pinpaya.com/no-image.png" />
+                                                <Link to={'/tutor/'+ item.id }><img className="avatar-wrap" src={'https://web.pinpaya.com/storage/'+item.avatar} alt="avatar"/></Link>
+                                                : <Link to={'/tutor/'+ item.id }><img className="avatar-wrap" src="https://app.pinpaya.com/no-image.png" /></Link>
                                             }
                                         </div>
 
                                     </Col>
-                                    <Col  lg="6">
-                                        <div><h5 className="mb-2">{item.name}</h5></div>
-                                        <div><b>Order</b> #14256</div>
-                                        <div><b>Next Lesson:</b> <b className="text-danger">{item.last ? item.last.start_time : '-'}</b></div>
-                                        {
-                                            item.last &&
-                                            <div><b>Subject:</b> {item.last.subject ? item.last.subject.name : '-'}</div>
-                                        }
-                                        <div><b>Email:</b> {item.email}</div>
-                                        <div className="my-lessons-dropdown">
+                                    <Col  lg="6" className="my-lessons-area">
+                                        <div>
+                                            <h5 ><Link to={'/tutor/'+ item.id }>{item.name}</Link></h5>
+                                            <div className="mb-2">Order #{item?.orderId}</div>
+                                        </div>
+
+                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>Next Lesson:</b> <b className="text-danger">{item.last ? moment(item.last.start_time).format('DD.MM.Y HH:mm:ss') : '-'}</b></div>
+                                        <div style={{display:'flex', justifyContent:'space-between'}} className="my-lessons-dropdown">
                                             <div><b>Lessons left:</b> {item.count}</div>
-                                            <Dropdown size="xs" className="mt-2" >
+                                            <Dropdown size="xs">
                                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                     Show Schedule
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu>
                                                     {
                                                         item.calendars?.length > 0  &&
-                                                        item.calendars.map((item_calendar, index) => (<Dropdown.Item style={{position:'relative'}}>{item.last && item.last.start_time === item_calendar.start_time ? <CircleFill color="red" style={{position:'absolute', left:'1px',top:'9px', fontSize: '14px', zIndex:'9'}} /> : ''  } <div style={{width:'2px',height:'45px',background:'black', position:'absolute', left:'7px'}}></div> <div style={{margin:'0 10px'}}>{item_calendar.start_time}</div> {item_calendar.confirm == 2 ? <Check2 color="green" /> : ''}</Dropdown.Item>))}
+                                                        item.calendars.map((item_calendar, index) => (<Dropdown.Item style={{position:'relative'}}>{item.last && item.last.start_time === item_calendar.start_time ? <CircleFill color="red" style={{position:'absolute', left:'1px',top:'9px', fontSize: '14px', zIndex:'9'}} /> : ''  } <div style={{width:'2px',height:'45px',background:'black', position:'absolute', left:'7px'}}></div> <div style={{margin:'0 10px'}}>{moment(item_calendar.start_time).format('DD.MM.Y HH:mm:ss')}</div> {item_calendar.confirm == 2 ? <Check2 color="green" /> : ''}</Dropdown.Item>))}
                                                 </Dropdown.Menu>
                                             </Dropdown>
 
                                         </div>
+                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>Email:</b> {item.email}</div>
+                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>Phone:</b> {item.phone}</div>
+                                        {
+                                            item.last &&
+                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>Subject:</b> {item.last?.subject ? item.last.subject.name : '-'}</div>
+                                        }
+
                                     </Col>
                                     <Col  lg="4">
                                         {item.last ? (
                                             <>
-                                                <button className="btn d-block w-100 mb-2" disabled={item.last.first_confirmed =='student' ? true : false}   onClick={() => confirmLesson(item.last ? item.last.id : 0, item.last.start_time)}>{item.last.first_confirmed =='student' ? 'YOU CONFIRMED THE LAST LESSON' : item.last.first_confirmed == 'tutor' ? `WAITING CONFIRMATION ${item.last.start_time}` : 'CONFIRM LAST LESSON'} </button>
-                                                <button className="btn d-block w-100">START LESSON</button>
+                                                <button style={{fontSize:'14px', borderRadius:'3px', height:'53px'}} className="btn d-block w-100 mb-2" disabled={item.last.first_confirmed =='student' ? true : false}   onClick={() => confirmLesson(item.last ? item.last.id : 0, item.last.start_time)}>{item.last.first_confirmed =='student' ? 'YOU CONFIRMED THE LAST LESSON' : item.last.first_confirmed == 'tutor' ? `WAITING CONFIRMATION ${moment(item.last.start_time).format('DD.MM.Y HH:mm:ss')}` : 'CONFIRM LAST LESSON'} </button>
+                                                <button style={{fontSize:'14px', borderRadius:'3px', height:'53px', background:'#FFE33C',color:'black'}} className="btn d-block w-100 btn7"><img src="/videocam.svg" style={{width:'24px'}} alt=""/>  START LESSON</button>
                                             </>
                                             ) : (
                                                 <Link style={{color:'white'}} to={`/tutor/${item.id}`}> <button className="btn d-block w-100">Book new lessons</button> </Link>
                                         )}
                                     </Col>
-                                    <div className="d-flex justify-content-between mt-4">
-                                        <div style={{cursor:'pointer'}} onClick={() => quit(item.id, item.count_done)}><Trash size={20}/> Quit learning</div>
-                                        <div style={{cursor:'pointer'}}><Link to={'/student/reschedule/'+item.id}><CalendarDate size={20}/> Change lessons dates</Link></div>
-                                        <div style={{cursor:'pointer'}} onClick={() => message(item)}><ChatSquare size={20}/> Chat with tutor</div>
+                                    <div className="d-flex mt-4 my-lesson-activity">
+                                        <div style={{cursor:'pointer', marginRight:'25px',color:'#666666'}} onClick={() => quit(item.id, item.count_done)}><Trash color="#666666" size={20}/> Quit learning</div>
+                                        <div style={{cursor:'pointer', marginRight:'25px'}}><Link style={{color:'#666666'}} to={'/student/reschedule/'+item.id}><CalendarDate color="#666666" size={20}/> Change lessons dates</Link></div>
+                                        <div style={{cursor:'pointer', marginRight:'25px', color:'#666666'}} onClick={() => message(item)}><ChatSquare color="#666666" size={20}/> Chat with tutor</div>
                                     </div>
                                 </Row>
                             </div>
                     )}
                 {lessons?.length == 0 &&
-                    <h4 className="d-flex align-items-center text-primary"><InfoCircle/> Lessons are empty</h4>
+                    <h4 className="d-flex align-items-center text-danger"><InfoCircle/> Lessons are empty</h4>
                 }
 
                 {/*<Link to="find-tutor"><Button className="mt-4" variant="danger">ORDER LESSONS</Button></Link>*/}
             </div>
 
-        </>
+        </div>
     )
 }

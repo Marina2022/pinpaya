@@ -26,7 +26,7 @@ const Home = ({handleChatClose}) => {
     }
 
     return (
-        <div className='home shadow'>
+        <div className='home'>
             <div className="chatCloseBtn">
                 <CloseButton style={{color: 'white'}} variant="white" onClick={handleChatClose}></CloseButton>
             </div>
@@ -39,7 +39,7 @@ const Home = ({handleChatClose}) => {
                         { show &&
                             <div className="chat">
                                 <div style={{height:'100%'}}>
-                                    <div className="chatClose"><ArrowLeftCircleFill color="#8da4f1" size={30} onClick={handleBack}/></div>
+                                    <div className="chatClose"><ArrowLeftCircleFill color="#bbbbbb" size={35} onClick={handleBack}/></div>
                                     <Messages mainUser={mainUser} />
                                     <Input/>
                                 </div>

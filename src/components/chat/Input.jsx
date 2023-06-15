@@ -14,6 +14,7 @@ import { db, storage } from "../../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import {Upload} from "react-bootstrap-icons";
+import AxiosClient from "../../axios-client";
 
 const Input = () => {
     const [text, setText] = useState("");
@@ -45,8 +46,9 @@ const Input = () => {
                                 date: Timestamp.now(),
                                 img: downloadURL,
                                 filename: filename,
-                                type: type
+                                type: type,
                             }),
+                            read: false
                         });
                     });
                 }
@@ -59,21 +61,26 @@ const Input = () => {
                         text,
                         senderId: currentUser.uid,
                         date: Timestamp.now(),
+
                     }),
+                    read: false
                 });
             }
         }
 
+        // AxiosClient.post('/set-notif',{type: data.user.isTutor ? 'tutor' : 'student' , id: data.user.aid, notif: 1, msgType:'message'}).then(() => {
+        //
+        // })
         await updateDoc(doc(db, "userChats", currentUser.uid), {
             [data.chatId + ".lastMessage"]: {
-                text,
+                text
             },
             [data.chatId + ".date"]: serverTimestamp(),
         });
 
         await updateDoc(doc(db, "userChats", data.user.uid), {
             [data.chatId + ".lastMessage"]: {
-                text,
+                text
             },
             [data.chatId + ".date"]: serverTimestamp(),
         });
@@ -118,7 +125,7 @@ const Input = () => {
                 <label htmlFor="file">
                    <Upload size={20} style={{cursor:'pointer'}} />
                 </label>
-                <button onClick={handleSend}>Send</button>
+                <button style={{background:'#f0500b'}} onClick={handleSend}>Send</button>
             </div>
         </div>
     );

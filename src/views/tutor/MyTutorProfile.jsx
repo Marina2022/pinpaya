@@ -117,9 +117,9 @@ export default function MyTutorProfile(){
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicStatus">
                             <Form.Label >Status</Form.Label>
-                            <Form.Select required value={data?.status} onChange={ev => setData({...data, status : ev.target.value})}>
+                            <Form.Select style={{height:'55px'}} required value={data?.status} onChange={ev => setData({...data, status : ev.target.value})}>
                                 <option  value="1">Accepting lessons</option>
-                                <option  value="0">No accepting lessons</option>
+                                <option  value="0">Not accepting lessons</option>
                             </Form.Select>
                         </Form.Group>
                     </Col>
@@ -196,7 +196,7 @@ export default function MyTutorProfile(){
                     <Col >
                         <Form.Group  controlId="formBasicVideo">
                             <Form.Label className="fw-bold">Introduction video </Form.Label>
-                            <Form.Control required value={data?.video_url} onChange={ev => setData({...data, video_url : ev.target.value})} style={{marginBottom: '0'}} type="url" />
+                            <Form.Control value={data?.video_url} onChange={ev => setData({...data, video_url : ev.target.value})} style={{marginBottom: '0'}} type="url" />
                             <small className="text-secondary">A short video about yourself. Upload it to YouTube and insert the link above. Profile with video is always ranked in the top in comparison with others.</small>
                         </Form.Group>
                     </Col>

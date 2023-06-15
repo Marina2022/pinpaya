@@ -4,16 +4,29 @@ import { ChatContext } from "../../contexts/ChatContext";
 import { db } from "../../firebase";
 import Message from "./Message";
 import {Link} from "react-router-dom";
+import {Spinner} from "react-bootstrap";
 
 const Messages = ({mainUser}) => {
     const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [count, setCount] = useState(30);
     const { data } = useContext(ChatContext);
     const { user } = useContext(ChatContext);
+
+    const handleScroll = (event) => {
+        const target = event.target;
+        if(target.scrollTop === 0){
+            setLoading(true);
+           setTimeout(()=>{
+               setCount(count + 30);
+               setLoading(false);
+           }, 2000)
+        }
+    }
 
     useEffect(() => {
         const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
             doc.exists() && setMessages(doc.data().messages);
-            console.log(doc.data().messages);
 
         });
 
@@ -23,20 +36,33 @@ const Messages = ({mainUser}) => {
     }, [data.chatId]);
 
     return (
-        <div className="messages">
-            <div className="d-flex align-items-center" style={{margin: '18px 0'}}>
+        <div className="messages" onScroll={handleScroll}>
+            <div className="d-flex align-items-center" style={{margin: '18px 0'}} >
                 { mainUser.isTutor == true ? (
-                    <Link  to={'/tutor/'+ mainUser.aid} >
+                    <Link  to={'/tutor/'+ mainUser.aid} style={{display:'flex', alignItems:'center'}}>
                         <img className="chatMainImg" src={mainUser.photoURL} alt="" />
+                        <div style={{marginLeft: '10px'}} className="fw-bold">{mainUser?.displayName}</div>
                     </Link>
                 ) : (
-                    <img className="chatMainImg" src={mainUser.photoURL} alt="" />
+                   <>
+                       <img className="chatMainImg" src={mainUser.photoURL} alt="" />
+                       <div style={{marginLeft: '10px'}} className="fw-bold">{mainUser?.displayName}</div>
+                   </>
                 )}
-                <div style={{marginLeft: '10px'}} className="fw-bold">{mainUser?.displayName}</div>
+
+                {
+                    loading &&
+                    <div style={{display:'flex', justifyContent: 'center'}}>
+                        <Spinner animation="border" role="status" style={{width:'20px',height:'20px', marginLeft: '10px'}}>
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                }
             </div>
-            {messages.map((m) => (
-                <Message message={m} key={m.id} />
-            ))}
+                {messages.length > 0 && Object.entries(messages).map(([index,m])=> (
+                    index > (messages.length - count) &&
+                    <Message message={m} key={m.id} />
+                ))}
             {data.chatId == 'null' &&
             <h4 className="text-center mt-4 text-secondary">Please select conversation</h4>
             }

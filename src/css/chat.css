@@ -69,8 +69,10 @@
     position:fixed;
     top:0;
     right:0;
-    width: 400px;
+    width: 440px;
     z-index: 9;
+    box-shadow: -15px 0 13px rgb(0 0 0 / 15%);
+    background:white;
 }
 .home .container {
     border-radius: 10px;
@@ -152,10 +154,9 @@
     gap: 10px;
     color: white;
     cursor: pointer;
-    border-left: 7px solid #cacafa;
 }
 .home .container .sidebar .userChat:hover {
-    background-color: #ddddf7;
+    background-color: #efefef;
 }
 .home .container .sidebar .userChat img {
     width: 50px;
@@ -193,7 +194,7 @@
     cursor: pointer;
 }
 .home .container .chat .messages {
-    background-color: #ddddf7;
+    background-color: white;
     padding: 10px;
     height: calc(100% - 50px);
     overflow: auto;
@@ -222,7 +223,7 @@
     gap: 10px;
 }
 .home .container .chat .messages .message .messageContent p {
-    background-color: white;
+    background-color: #FFE33C;
     padding: 10px 20px;
     border-radius: 0px 10px 10px 10px;
     max-width: max-content;
@@ -237,8 +238,8 @@
     align-items: flex-end;
 }
 .home .container .chat .messages .message.owner .messageContent p {
-    background-color: #8da4f1;
-    color: white;
+    background-color: #f5f2f2;
+    color: black;
     border-radius: 10px 0px 10px 10px;
 }
 .home .container .chat .input {
@@ -287,7 +288,7 @@
     left:-8px;
     top:0px;
     cursor: pointer;
-    background: #8da4f1;
+    background: #bbbbbb;
     padding: 5px;
     z-index: 9;
     border-radius: 50px;
@@ -303,4 +304,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 80px;
+}
+.btn-close{
+    opacity:1;
+}
+@media screen and (max-width: 768px) {
+    /*.home {*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*}*/
+    /*.input{*/
+    /*    position: fixed;*/
+    /*    bottom:0;*/
+    /*}*/
 }

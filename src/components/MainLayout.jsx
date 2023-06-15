@@ -6,62 +6,132 @@ import {
     Person, PersonBadge, PersonCircle, Wallet, Wallet2, WalletFill,
 } from 'react-bootstrap-icons';
 
-import {CloseButton, Col, Row} from "react-bootstrap";
+import {CloseButton, Col, Row, Spinner} from "react-bootstrap";
 import '../css/main.css'
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useStateContext} from "../contexts/ContextProvider";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axiosClient from "../axios-client";
 import {AuthContext} from "../contexts/AuthContext";
 import Home from "./chat/Home";
+import AxiosClient from "../axios-client";
 
 export default function MainLayout(){
     const {user, type, setUser} = useStateContext()
      const [showChat, setShowChat] = useState(false);
+     const [showLoader, setShowLoader] = useState(null);
     // const {currentUser} = useContext(AuthContext);
-
-    const handleChatClose = () => setShowChat(false);
-    // const handleChatShow = () => setShowChat(!showChat);
+    const location = useLocation();
 
     useEffect(() => {
+        setShowLoader(true);
+        axiosClient.get('/user').then(({data}) => {
+            setUser(data);
+            setShowLoader(false);
+        }).catch(err => { setShowLoader(false)})
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            axiosClient.get('/user').then(({data}) => {
+                setUser(data);
+            })
+        }, 3000);
+        return () => {
+            document.body.style.overflow = 'unset';
+            clearInterval(interval);
+        };
+    }, []);
+
+    const handleChatClose = () => {
+        setShowChat(false);
+        document.body.style.overflow = 'unset';
+    }
+    // const handleChatShow = () => setShowChat(!showChat);
+
+    // useEffect(() => {
+    //     axiosClient.get('/user').then(({data}) => {
+    //         setUser(data);
+    //     })
+    // }, [])
+
+    const triggerMessage = () => {
+        setShowChat(true);
+        document.body.style.overflow = 'hidden';
+        AxiosClient.post('/set-notif',{type: type ?? null, id: user ? user.id : null, notif: 0}).then((data) => {
+            setUser(data)
+        })
         axiosClient.get('/user').then(({data}) => {
             setUser(data);
         })
-    }, [])
+    }
 
     return(
         <>
             <Navbar bg="light" expand="lg">
-                <Container>
-                    <Navbar.Brand> <Link to="/">PINPAYA</Link></Navbar.Brand>
+                <Container style={{maxWidth:'100%', margin:'0 40px'}}>
+                    <Navbar.Brand> <Link to="/"><img src="/pinpaya-logo.svg" alt="logo"/></Link></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="me-auto">
-                            <Nav.Link className="m-2 fw-bold text-dark" href="#"><Link to="/find-tutor">Find a private tutor</Link></Nav.Link>
-                            <Nav.Link className="m-2 fw-bold text-dark" href="#"><Link to="/become-tutor">Become a private tutor</Link></Nav.Link>
-                            <Nav.Link className="m-2 fw-bold text-dark" href="#"><Link to="/faq">FAQ</Link></Nav.Link>
+                        <Nav className="me-auto top-navbar">
+                            <Nav.Link className={location.pathname == '/find-tutor' ? 'active-top m-2 fw-bold text-white' : 'm-2 fw-bold text-dark'} href="#"> <Link to="/find-tutor" className={location.pathname == '/find-tutor' ? 'text-white' : ''} >Find a private tutor</Link></Nav.Link>
+                            <Nav.Link className={location.pathname == '/become-tutor' ? 'active-top m-2 fw-bold text-white' : 'm-2 fw-bold text-dark'} href="#"><Link to="/become-tutor" className={location.pathname == '/become-tutor' ? 'text-white' : ''}>Become a private tutor</Link></Nav.Link>
+                            <Nav.Link className={location.pathname == '/faq' ? 'active-top m-2 fw-bold text-white' : 'm-2 fw-bold text-dark'} href="#"><Link to="/faq" className={location.pathname == '/faq' ? 'text-white' : ''}>FAQ</Link></Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
 
-                        {user ? (
-                            <>
-                                <Link className="text-decoration-none messageTrigger" onClick={() => setShowChat(true)}><div className="p-2 fw-bold"><ChatSquareFill size={24}/> </div></Link>
-                                <Link className="text-decoration-none" to={`/${type}`}><div className="p-2 fw-bold"><PersonCircle className="login-svg" size={24} /></div> </Link>
-                                <Link className="text-decoration-none" to={type === 'tutor' ? '/tutor/my-earnings' : '/student/my-wallet'}><div className="p-2 fw-bold text-dark"><Wallet2 size={24}/> {user?.wallet} €</div></Link>
+                    {showLoader ? (
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    ) : (
+                        user ? (
+                                <div className="menu-glob-icons">
+                                    <Link className="text-decoration-none" to={type === 'tutor' ? '/tutor/my-earnings' : '/student/my-wallet'}>
+                                    <div className="p-2 fw-bold text-dark">
+                                        <div style={{display: 'flex'}}>
+                                            {/*<Wallet2 size={24}/>*/}
+                                            <img src="/coin.svg" style={{width:'34px'}} />
+                                            <div style={{marginLeft:'10px'}} className="hide-mobile">
+                                                <div className="amount-block" style={ !user?.cashback ? {fontSize:'22px'} : {}}>
+                                                    <div>{user?.wallet} €</div>
+                                                    <div className="text-success" style={{fontSize:'11px'}}>{user?.cashback ? `+ ${user?.cashback}€ cashback` : ''}</div>
+                                                </div>
 
-                            </>
-                        ) : (
-                            <Link
-                                className="btn btn-danger"
-                                role="button"
-                                to="/login"
-                            >
-                            <div className="px-3 d-flex align-items-center fw-bold text-decoration-none"><Person className="login-svg" size={18} /> <span>Log in</span></div>
-                            </Link>
-                        )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
 
+                                    <Link className="text-decoration-none messageTrigger position-relative" onClick={() => triggerMessage()}><div className="p-2 fw-bold">
+                                        <img src="/nchat.svg" alt=""/>
+                                        { user?.notif == 1 &&
+                                            <div className="unread"></div>
+                                        }
+                                    </div></Link>
+                                    <Link className="text-decoration-none" to={`/${type}`}><div className="p-2 fw-bold">
+                                        {/*<PersonCircle className="login-svg" size={24} />*/}
+                                        { user?.avatar ?
+                                            <img className="glob-nav-user" style={{width:'30px', height:'30px'}} src={'https://web.pinpaya.com/storage/'+user.avatar} /> :
+                                            <img className="glob-nav-user" style={{width:'30px', height:'30px'}} src='https://app.pinpaya.com/no-image.png' />
+                                        }
+                                    </div>
+                                    </Link>
 
-                </Container>
+                                </div>
+                            ) : (
+                                !showLoader &&
+                                <Link
+                                    className="btn btn-danger login-btn"
+                                    role="button"
+                                    to="/login"
+                                >
+                                    <div className="px-3 d-flex align-items-center fw-bold text-decoration-none "><Person className="login-svg" size={18} /> <span>Log in</span></div>
+                                </Link>
+                            )
+                    )}
+
+                        </Container>
             </Navbar>
             <main>
                 <Outlet/>

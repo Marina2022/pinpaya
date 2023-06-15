@@ -30,7 +30,7 @@ export default function Blog(){
                                             <img className="blog-image" src={'https://web.pinpaya.com/storage/'+item.main_image} alt="avatar"/>
                                             : <img className="blog-image" src="https://web.pinpaya.com/no-image.png" />
                                         }
-                                        <div><small>{moment(item.created_at).format('Y.MM.DD')}</small></div>
+                                        <div><small>{moment(item.created_at).format('DD.MM.Y')}</small></div>
                                         <h4><Link to={'/blog/'+item.id} >{item.title}</Link></h4>
                                     </div>
                                 </Col>

@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
 import {Badge, Button, Col, Form, Modal, Row, Spinner} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -17,10 +17,13 @@ import {v4 as uuid} from "uuid";
 import InputMask from 'react-input-mask';
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
+import chatNotif from "../hooks/chatNotif";
+import {ChatContext} from "../contexts/ChatContext";
 export default function TutorPage(){
     let { id } = useParams();
     const [tutor, setTutor] = useState([]);
     const [schedule, setSchedule] = useState([]);
+    const [certificates, setCertificates] = useState([]);
     const [events, setEvents] = useState([]);
     const [selected, setSelected] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -47,6 +50,7 @@ export default function TutorPage(){
     const getData = () => {
         AxiosClient.get('/get-tutor/'+id).then(({data}) => {
             setTutor(data.tutor);
+            setCertificates(data.certificates);
             setSchedule(data.schedule);
         })
         AxiosClient.post('get-schedule',{id:id}).then(({data}) => {
@@ -58,6 +62,13 @@ export default function TutorPage(){
     useEffect(() => {
         getData();
     }, [])
+
+    const scrollTo = () => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth',
+        });
+    }
 
     const handleSelect = (info) => {
 
@@ -91,13 +102,13 @@ export default function TutorPage(){
                 if(element.event.classNames[0] !== 'holiday'){
                     let el = events.filter(item => item.id == element.event.id);
                     if(el[0].studentId == user.id){
-                        if(window.confirm('Are you sure?')){
-
-                            let id = element.event.id;
-                            AxiosClient.post('/student/schedule-delete', {id:id}).then(({data}) => {
-                                getData();
-                            }).catch(err => {})
-                        }
+                        // if(window.confirm('Are you sure?')){
+                        //
+                        //     let id = element.event.id;
+                        //     AxiosClient.post('/student/schedule-delete', {id:id}).then(({data}) => {
+                        //         getData();
+                        //     }).catch(err => {})
+                        // }
                     }else{
                         if(element.event.classNames[0] != 'selectedEvents'){
                             if(user && type == 'student'){
@@ -191,10 +202,14 @@ export default function TutorPage(){
                     text: 'Done',
                 })
 
+
+                chatNotif(data.notif, currentUser, tutor.email);
+
                 setLoading(false);
             }).catch(err => {
 
                  setError(err.response.data.error);
+                setLoading(false);
             })
         }
     }
@@ -212,35 +227,46 @@ export default function TutorPage(){
         <>
             <Container className="tutor-page">
                     <Row className="my-5">
-                        <Col md="8 border">
-                            <div className="part-top p-2">
+                        <Col lg={8}>
+                            {
+                                tutor.video_url &&
+                                <Col lg={12}>
+                                    <iframe src={tutor.video_url} style={{width:'100%', marginBottom:'15px',height:'400px'}} frameborder="0"></iframe>
+                                </Col>
+                            }
+                            <div className="part-top p-4 border bg-white">
                                 <Row>
-                                    <Col md="3" className=" d-flex align-items-center justify-content-center">
+                                    <Col lg={3} className=" d-flex align-items-start mt-3 justify-content-center">
                                         { tutor.avatar ?
                                             <img className="avatar-wrap" src={'https://web.pinpaya.com/storage/'+tutor.avatar} alt="avatar"/>
                                             : <img className="avatar-wrap" src="https://app.pinpaya.com/no-image.png" />
                                         }
                                     </Col>
-                                    <Col md="9">
+                                    <Col lg={9}>
                                         <div className="mb-2">
                                             <div className="mt-2">
-                                                <h4>{tutor.name} {tutor.lastname}</h4>
-                                                <span className="fw-bold ">Location: </span>
-                                                 {tutor.location}
+                                                <h3><b>{tutor.name} {tutor.lastname}</b></h3>
+                                                { tutor.status == 0 &&
+                                                    <h6 className="text-danger">Not accepting lessons</h6>
+                                                }
+                                            <span style={{color: '#666666', fontSize:'14px'}}>{tutor.location}</span>
                                             </div>
-                                            <div>
-                                                <span className="fw-bold ">Experience: </span>
-                                                {tutor.experience}
-                                            </div>
-                                            <div className="pt-2">
-                                                <span className="fw-bold ">Teaches:</span>
-                                                {tutor.subject && tutor.subject.map(item => <span className="pills">{item.name }</span>)}
-                                            </div>
-                                            <div className="mb-2">
-                                                <div className="pt-2">
-                                                    <span className="fw-bold mb-2">Speaks:</span>
-                                                    { tutor.language && tutor.language.map(item => <span className="pills">{item.name}</span>)}
+
+                                            <div className="mt-4" style={{display:'flex'}}>
+                                                <span style={{width:'250px',flexShrink:'0'}} className="fw-bold tutor-page-desc">Teaches: </span>
+                                                <div>
+                                                    {tutor.subject && tutor.subject.map((item, index) => <span>{index != 0 ? ', ' : ''}{item.name }</span>)}
                                                 </div>
+                                            </div>
+                                            <div style={{display:'flex'}}>
+                                                <div style={{width:'250px',flexShrink:'0'}}  className="fw-bold tutor-page-desc">Experience: </div>
+                                                <div>{tutor.experience}</div>
+                                            </div>
+                                            <div className="mb-2" style={{display:'flex'}}>
+                                                    <div style={{width:'250px',flexShrink:'0'}}  className="fw-bold mb-2 tutor-page-desc">Speaks: </div>
+                                                    <div>
+                                                        { tutor.language && tutor.language.map((item, index) => <span>{index != 0 ? ', ' : ''}{item.name}</span>)}
+                                                    </div>
                                             </div>
                                             <div className="mb-1">
                                                 <div className="pt-1">
@@ -271,11 +297,32 @@ export default function TutorPage(){
                                         </div>
                                     </Col>
                                 </Row>
+                                {
+                                    certificates?.length > 0 &&
+                                    <Row className="mt-5">
+                                        <Col lg={3}></Col>
+                                        <Col lg={7}>
+                                            <h4 className="mb-3"><b>Certificates</b></h4>
+                                            <div className="my-3 d-flex certificates-block">
+                                                {
+                                                    certificates?.length > 0 &&
+                                                    certificates.map(item =>
+                                                        <div className="border m-2" >
+                                                            <a target="_blank" href={`https://web.pinpaya.com/storage/${item.images}`}><img style={{width:'150px', height: '150px', objectFit:'cover'}} className="img-fluid mx-2" key={item.id} src={'https://web.pinpaya.com/storage/'+item.images} width="150" alt=""/></a>
+                                                        </div>
+
+                                                    )}
+
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                }
+
                             </div>
-                            <div className="part-bottom mt-5">
+                            <div className="part-bottom mt-3 bg-white border">
                                 <Row>
-                                    <Col md="12">
-                                            <>
+                                    <Col md={12}>
+                                            <div className="p-4">
                                                 <h4 className="fw-bold mb-2">Schedule lessons</h4>
                                                 <h6>1 trial lesson with -50% discount for each new student, select a time below and let's get started</h6>
                                                 <small>The timings are displayed in your local timezone.</small>
@@ -311,7 +358,7 @@ export default function TutorPage(){
                                                         eventClick={remove}
                                                         validRange={{
                                                             start: moment().add(24,'hours').format('Y-MM-DD HH:mm:ss'),
-                                                            end: moment().add(1,'months').format('Y-MM-DD HH:mm:ss'),
+                                                            end: moment().add(3,'months').format('Y-MM-DD HH:mm:ss'),
                                                         }}
                                                         // forceEventDuration={true}
                                                         // defaultTimedEventDuration='02:00:00'
@@ -327,44 +374,53 @@ export default function TutorPage(){
                                                         allDaySlot={false}
                                                         // slotLabelInterval={30}
                                                     />
-                                                    <div><button disabled={selected.length > 0 ? false : true} className="btn btn-lg border my-3" onClick={bookLessons}>Book lessons</button></div>
+                                                    <div><button disabled={selected.length > 0 && tutor.status == 1 ? false : true} className="btn btn-lg border my-3" onClick={bookLessons}>{tutor.status == 0 ? 'Not accepting lesons' : 'Book lessons'}</button></div>
                                                 </div>
-                                            </>
+                                            </div>
                                     </Col>
                                 </Row>
                             </div>
                         </Col>
-                        <Col md="4">
-                            <div className="p-5 border">
-                                <h4 className="text-center"><span className="pr-4">Average rating</span> <StarFill  color="gold" /> </h4>
+                        <Col lg={4}>
+                            <div className="p-5 border bg-white">
+                                <h4 className="text-center"><span className="pr-4">Average rating</span> <img src="/star12gold.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> - </h4>
                                 <div className="mt-3 justify-content-center align-items-center d-flex pr-2"><h2>{tutor.price} € </h2>
                                     {
-                                        tutor.check_trial == 1 &&
-                                        <span className="text-secondary">/first trial lesson</span>
+                                        tutor.check_trial == 1 ?
+                                        <span className="text-secondary" style={{marginLeft:'10px'}}>/first trial lesson</span>
+                                            : <span style={{fontSize:'12px', color:'silver', fontWeight:'bold', marginLeft:'10px'}}>/per hour</span>
                                     }
 
                                 </div>
+                                <button className="btn6 mt-3" onClick={scrollTo}>
+                                    BOOK LESSONS
+                                </button>
                                 <div className="d-flex mt-4 align-items-center">
-                                    <div><ShieldFillCheck color="gold" size={28}/></div>
+                                    <div><img src="/learlogo.svg" style={{width:'40px',marginRight:'5px'}}/></div>
                                     <div>
                                         <div className="fw-bold mb-1">Learn with 100% refund guarantee</div>
                                         <div>If your lesson does not take place, or you are not satisfied with the tutor, we will provide you a full refund.</div>
                                     </div>
                                 </div>
                                 { user &&
-                                <button onClick={message} className="btn btn-secondary w-100 mt-5 d-flex justify-content-center align-items-center">
-                                    <Messenger/> MESSAGE
+                                <button onClick={message} className="btn4 mt-4">
+                                    <img src="/nchat.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> MESSAGE
                                 </button>
                                  }
-                                <button className="btn btn-secondary w-100 mt-3 d-flex justify-content-center align-items-center">
-                                    <Star/> READ REVIEWS (0)
+                                <button className="btn4 mb-4 mt-3">
+                                    <img src="/star12.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> READ REVIEWS (0)
                                 </button>
-                                { user &&
-                                    <button className="btn btn-secondary w-100 mt-5 d-flex justify-content-center align-items-center">
-                                        <Star/> LEAVE FIRST  REVIEW
-                                    </button>
-                                }
+
                             </div>
+
+                                { user &&
+                                    <div className="p-5 border mt-3 bg-white">
+                                        <button className="btn5">
+                                            LEAVE FIRST REVIEW
+                                        </button>
+                                    </div>
+                                }
+
                         </Col>
                     </Row>
             </Container>
@@ -405,7 +461,7 @@ export default function TutorPage(){
                         <Row>
                             <Col md={10}>
                                 <Form.Group className="mb-3" controlId="13">
-                                    <Form.Label className="fw-bold">You have <Badge>{user?.wallet} €</Badge> in your wallet</Form.Label>
+                                    <Form.Label className="fw-bold">You have <Badge style={{color:'black'}} bg="warning">{user?.wallet} €</Badge> in your wallet</Form.Label>
                                     <Form.Control type="number"
                                                   value={data?.useWallet}
                                                   onChange={ev => setData({...data, useWallet : ev.target.value})}
@@ -415,11 +471,11 @@ export default function TutorPage(){
                             <Col md={2} className="align-items-center d-flex"><Button className="btn btn-sm">USE</Button></Col>
                         </Row>
                     </div>
-                    <div className="p-2 mb-4 mt-1" style={{background:'#5b08a7'}}>
-                        <div className="mb-4 text-white"><CreditCardFill size={26}/>Pay with your credit card via Stripe. </div>
+                    <div className="p-2 mb-4 mt-1" style={{background:'#dfdcde'}}>
+                        <div className="mb-4 text-dark"><CreditCardFill size={26}/>Pay with your credit card via Stripe. </div>
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <label htmlFor="cc-number" className="text-white">Card Number *</label>
+                                <label htmlFor="cc-number" className="text-dark">Card Number *</label>
                                 <InputMask
                                     mask='9999 9999 9999 9999'
                                     placeholder='XXXX XXXX XXXX XXXX'
@@ -433,7 +489,7 @@ export default function TutorPage(){
 
                             </div>
                                 <div class="col-md-6 mb-3">
-                                    <label htmlFor="cc-expiration" className="text-white">Expiry Date *</label>
+                                    <label htmlFor="cc-expiration" className="text-dark">Expiry Date *</label>
                                     <InputMask
                                         mask='99/99'
                                         onChange={ev => setData({...data, exp : ev.target.value})}
@@ -445,7 +501,7 @@ export default function TutorPage(){
                                         </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label htmlFor="cc-expiration" className="text-white">Card Code (CVC) *</label>
+                                    <label htmlFor="cc-expiration" className="text-dark">Card Code (CVC) *</label>
                                     <InputMask
                                         mask='999'
                                         onChange={ev => setData({...data, cvc : ev.target.value})}
@@ -459,7 +515,7 @@ export default function TutorPage(){
                         </div>
                         <div class="custom-control custom-checkbox d-flex justify-content-around">
                             <input type="checkbox" className="custom-control-input" style={{marginRight: '10px'}} id="same-address1" />
-                            <label className="custom-control-label text-white" htmlFor="same-address1"><b>Save payment information to my account for future purchases.</b></label>
+                            <label className="custom-control-label text-dark" htmlFor="same-address1"><b>Save payment information to my account for future purchases.</b></label>
                         </div>
                     </div>
                     <div class="custom-control custom-checkbox d-flex justify-content-around">

@@ -6,7 +6,7 @@ import {File, Folder2Open, Trash2} from "react-bootstrap-icons";
 const Message = ({ message }) => {
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
-
+    var parse = require('html-react-parser');
     const ref = useRef();
 
     useEffect(() => {
@@ -27,9 +27,9 @@ const Message = ({ message }) => {
             {/*        }*/}
             {/*    />*/}
             {/*</div>*/}
-            <div className="messageContent">
+            <div className={`messageContent ${message.notif == true ? 'isNotif' : ''}`}>
                 {message.text != '' &&
-                    <p>{message.text}</p>
+                    <p>{parse(message.text)}</p>
                 }
                 {message.img &&
                     <p>

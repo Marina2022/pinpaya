@@ -34,6 +34,8 @@ import BlogSingle from "./views/BlogSingle";
 
 import Reschedule from "./views/student/Reschedule";
 import TutorReschedule from "./views/tutor/Reschedule";
+import Cache from "./components/Cache";
+import VerifEmail from "./components/VerifEmail";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +44,16 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
+                exact: true,
+            },
+            {
+                path: '/cache',
+                element: <Cache />,
+                exact: true,
+            },
+            {
+                path: '/verif-token/:token',
+                element: <VerifEmail />,
                 exact: true,
             },
             {

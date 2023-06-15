@@ -3,9 +3,9 @@ import {Table} from "react-bootstrap";
 export default function PaymentMethods(){
     return(
         <>
-            <h2>Payment Methods</h2>
-            <div>
-                <Table bordered hover className="mt-3 bg-white">
+            <div className="bg-white p-4">
+                <h2 className="mb-2">Payment Methods</h2>
+                <Table hover className="mt-3 bg-white">
                     <thead>
                     <tr>
                         <th>ID</th>

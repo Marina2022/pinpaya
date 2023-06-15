@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import AxiosClient from "../axios-client.js";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
 import '../index.css';
@@ -53,6 +53,9 @@ export default function Login(){
     return(
         <div className="login-signup-form animated fadeInDown">
             <div className="form">
+                <div className="text-center my-4">
+                    <Link to="/"><img src="/pinpaya-logo.svg" alt="logo"/></Link>
+                </div>
                 <form onSubmit={onSubmit}>
                     <h1 className="title">
                         Login into your account

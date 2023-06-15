@@ -34,7 +34,7 @@ export default function Home(){
     }
     return(
         <>
-            <div className="hero-block">
+            <div className="hero-block" >
                 <Container>
                     <div className="info pb-4">
                         <div >
@@ -73,7 +73,7 @@ export default function Home(){
                                     </Form.Group>
                                 </Col>
                                 <Col className="pb-3" sm="4">
-                                    <Button className="w-100 py-2 fw-bold" variant="danger" type="submit" >
+                                    <Button className="w-100 py-2 fw-bold" variant="danger" type="submit" style={{borderRadius: '3px'}}>
                                         Search
                                     </Button>
                                 </Col>

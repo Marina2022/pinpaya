@@ -113,7 +113,7 @@ export default function MySchedule() {
 
 
     return (
-        <div>
+        <div className="bg-white p-4">
             <div>
                 {success &&
                     <div className='success-block mt-3'>

@@ -14,18 +14,27 @@ export default function OrderHistory(){
 
     return(
         <>
-            <h2>Order History</h2>
-            <div>
-                <Table bordered hover className="mt-3 bg-white">
+            <div className="bg-white p-4">
+                <h2>Order History</h2>
+                <Table responsive striped hover className="mt-3 bg-white ">
+                    <thead>
+                    <tr>
+                        <td><b>#Order</b></td>
+                        <td><b>Date</b></td>
+                        <td><b>Status</b></td>
+                        <td><b>Tutor</b></td>
+                        <td><b>Lessons</b></td>
+                    </tr>
+                    </thead>
                     <tbody>
                     {
                         orders?.length > 0 &&
                         orders.map(item =>
                             <tr>
                                 <td>{item.id}</td>
-                                <td>{moment(item.created_at).format('Y.MM.DD')}</td>
+                                <td>{moment(item.created_at).format('DD.MM.Y')}</td>
                                 <td>{item.status}</td>
-                                <td>{item.student.name}</td>
+                                <td>{item?.student?.name}</td>
                                 <td>{item.lessons_count} {item.lessons_count == 1 ? 'lesson' : 'lessons'}</td>
                             </tr>
                         )}

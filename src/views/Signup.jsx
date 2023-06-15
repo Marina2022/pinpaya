@@ -1,7 +1,8 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import StudentSignup from "./StudentSignup.jsx";
 import TutorSignup from "./TutorSignup.jsx";
 import '../index.css';
+import {Link} from "react-router-dom";
 export default function Signup(){
 
     const [type, setType] = useState(null);
@@ -10,6 +11,9 @@ export default function Signup(){
             {type == null &&
                 <div className="login-signup-form animated fadeInDown">
                     <div className="form">
+                        <div className="text-center my-4">
+                            <Link to="/"><img src="/pinpaya-logo.svg" alt="logo"/></Link>
+                        </div>
                         <h1 className="title">
                             Select User type
                         </h1>

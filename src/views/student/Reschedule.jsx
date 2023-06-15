@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axiosClient from "../../axios-client";
 import Container from "react-bootstrap/Container";
-import {Badge, Button, Col, Form, Modal, Row} from "react-bootstrap";
+import {Badge, Button, Col, Form, Modal, Row, Spinner} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -14,6 +14,8 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {InfoCircle} from "react-bootstrap-icons";
 import $ from "jquery";
+import chatNotif from "../../hooks/chatNotif";
+import {AuthContext} from "../../contexts/AuthContext";
 
 
 export default function Reschedule(){
@@ -23,9 +25,11 @@ export default function Reschedule(){
     const [show, setShow] = useState(false);
     const [start, setStart] = useState(false);
     const [oldId, setOldId] = useState(false);
+    const [loader, setLoader] = useState(false);
     const [schedule, setSchedule] = useState([]);
     const [events, setEvents] = useState([]);
     const {type, user} = useStateContext();
+    const { currentUser } = useContext(AuthContext);
     const handleClose = () => setShow(false);
 
     const getReschedule = () => {
@@ -50,6 +54,7 @@ export default function Reschedule(){
     }
 
     const handleSelect = (element) => {
+        setLoader(true);
             if(user && type == 'student'){
                 if(element.event.classNames[0] !== 'holiday' && element.event.classNames[0] != 'selectedEvents'){
                     const {startStr, endStr} = element.event;
@@ -68,12 +73,16 @@ export default function Reschedule(){
                         })
                         getReschedule();
                         setShow(false);
+                        console.log(data, 8811);
+                        chatNotif(data.notif, currentUser, data.tutor_id);
+                        setLoader(false);
 
                     }).catch(err => {
                         MySwal.fire({
                             icon: 'error',
                             text: 'Something went wrong!',
                         })
+                        setLoader(false);
                     })
                 }
             }
@@ -111,10 +120,10 @@ export default function Reschedule(){
                             (
                                 lessons.map(item =>
                                     <Col >
-                                        <div className="my-3 border p-3" >
+                                        <div className="my-3 border p-3 bg-white" >
 
                                             <Row>
-                                                <Col md={4}><div><b>{item.start_time}</b></div></Col>
+                                                <Col md={4}><div><b>{moment(item.start_time).format('DD.MM.Y HH:mm:ss')}</b></div></Col>
                                                 <Col md={4}>
                                                     <div>Tutor: <b>{item.tutor.name}</b></div>
                                                     {
@@ -128,7 +137,7 @@ export default function Reschedule(){
                                     </Col>
                                 )
                             ) : (
-                                <h4 className="d-flex align-items-center text-primary"><InfoCircle/> Appointments are empty</h4>
+                                <h4 className="d-flex align-items-center text-danger"><InfoCircle/> Appointments are empty</h4>
                             )}
                 </div>
             </Container>
@@ -137,39 +146,48 @@ export default function Reschedule(){
                     <Modal.Title>Select new date</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FullCalendar
-                        selectable
-                        eventClick={handleSelect}
-                        // businessHours={schedule}
-                        displayEventTime={false}
-                        eventOverlap={false}
-                        selectOverlap={false}
-                        events={events}
-                        timeFormat='H(:mm)'
-                        // events={schedule}
-                        defaultView="timeGridWeek"
-                        slotLabelFormat={{
-                            hour: 'numeric',
-                            minute: '2-digit',
-                            omitZeroMinute: false,
-                        }}
-                        slotDuration='01:00:00'
-                        plugins={[ timeGridPlugin, dayGridPlugin, interactionPlugin ]}
-                        ignoreTimezone={true}
-                        defaultAllDay={false}
-                        eventTextColor='white'
-                        validRange={{
-                            start: moment().add(24,'hours').format('Y-MM-DD HH:mm:ss'),
-                            end: moment().add(1,'months').format('Y-MM-DD HH:mm:ss'),
-                        }}
-                        header={{
-                            left: 'prev,next today',
-                            center: 'title',
-                            right: 'timeGridWeek,timeGridDay',
-                        }}
-                        locale='en-GB'
-                        allDaySlot={false}
-                    />
+                    {!loader ?
+                        <FullCalendar
+                            selectable
+                            eventClick={handleSelect}
+                            // businessHours={schedule}
+                            displayEventTime={false}
+                            eventOverlap={false}
+                            selectOverlap={false}
+                            events={events}
+                            timeFormat='H(:mm)'
+                            // events={schedule}
+                            defaultView="timeGridWeek"
+                            slotLabelFormat={{
+                                hour: 'numeric',
+                                minute: '2-digit',
+                                omitZeroMinute: false,
+                            }}
+                            slotDuration='01:00:00'
+                            plugins={[ timeGridPlugin, dayGridPlugin, interactionPlugin ]}
+                            ignoreTimezone={true}
+                            defaultAllDay={false}
+                            eventTextColor='white'
+                            validRange={{
+                                start: moment().add(24,'hours').format('Y-MM-DD HH:mm:ss'),
+                                end: moment().add(1,'months').format('Y-MM-DD HH:mm:ss'),
+                            }}
+                            header={{
+                                left: 'prev,next today',
+                                center: 'title',
+                                right: 'timeGridWeek,timeGridDay',
+                            }}
+                            locale='en-GB'
+                            allDaySlot={false}
+                        />
+                        :
+                        <div style={{display:'flex', justifyContent: 'center'}}>
+                            <Spinner animation="border" role="status" >
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </div>
+                    }
+
                 </Modal.Body>
             </Modal>
         </>

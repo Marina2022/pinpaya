@@ -110,7 +110,7 @@ export default function AccountSettings(){
             <div className="mt-3">
                 <Form onSubmit={onSubmit}>
                     <Row>
-                        <Col md="6 my-2">
+                        <Col md="6" className="uploadAvatar my-2">
                             { user?.avatar &&
                                 <img className="float-right mb-2" width="80px" src={'https://web.pinpaya.com/storage/'+user.avatar} />
                             }
@@ -122,7 +122,7 @@ export default function AccountSettings(){
                                 src={src}
                             />
                         </Col>
-                        <Col md="6 my-2">
+                        <Col md="6" className="my-2">
                             {preview &&
                                 <img src={preview} alt="Preview" />
                             }
@@ -167,7 +167,7 @@ export default function AccountSettings(){
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicLocation">
                                 <Form.Label >Location</Form.Label>
-                                <Form.Select value={data?.location} onChange={ev => setData({...data, location : ev.target.value})}>
+                                <Form.Select style={{height:'55px'}} value={data?.location} onChange={ev => setData({...data, location : ev.target.value})}>
                                     {countries.map((item, index) => (<option selected={user?.location === item ? 'selected' : ''} key={index} value={item}>{item}</option>))}
                                 </Form.Select>
                             </Form.Group>
@@ -178,8 +178,8 @@ export default function AccountSettings(){
                         Update
                     </Button>
                 </Form>
-                <hr/>
-                <h3 className="my-3">Change password</h3>
+
+                <h3 className="my-3 mt-5">Change password</h3>
                 <Form className="mt-3" onSubmit={onSubmitPassword}>
                     <Row>
                         <Col md="6">
