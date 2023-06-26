@@ -3,10 +3,11 @@ import {useEffect, useState} from "react";
 import axiosClient from "../../axios-client";
 import moment from "moment";
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export default function OrderHistory(){
     const [orders, setOrders] = useState([]);
-
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         axiosClient.get('student/order-history').then(({data}) => {
             setOrders(data.orders);
@@ -16,15 +17,15 @@ export default function OrderHistory(){
     return(
         <>
             <div className="bg-white p-4">
-                <h2>Order History</h2>
+                <h2>{t('order_history')}</h2>
                 <Table responsive striped hover className="mt-3 bg-white ">
                     <thead>
                         <tr>
-                            <td><b>#Order</b></td>
-                            <td><b>Date</b></td>
-                            <td><b>Status</b></td>
-                            <td><b>Tutor</b></td>
-                            <td><b>Lessons</b></td>
+                            <td><b>#{t('order')}</b></td>
+                            <td><b>{t('date')}</b></td>
+                            <td><b>{t('status')}</b></td>
+                            <td><b>{t('tutor')}</b></td>
+                            <td><b>{t('lessons')}</b></td>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +38,7 @@ export default function OrderHistory(){
                                 <td>{item.status}</td>
                                 <td>{item?.tutor?.name}</td>
                                 <td>{item.lessons_count} {item.lessons_count == 1 ? 'lesson' : 'lessons'}</td>
-                                <td className="text-center"><button className="btn text-white"><Link className="text-white" to={'/tutor/'+ item?.tutor?.id }>SCHEDULE LESSONS</Link></button></td>
+                                <td className="text-center"><button className="btn text-white"><Link className="text-white" to={'/tutor/'+ item?.tutor?.id }>{t('schedule_lessons')}</Link></button></td>
                             </tr>
                         )}
 

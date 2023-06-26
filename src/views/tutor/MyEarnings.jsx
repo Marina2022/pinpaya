@@ -5,13 +5,14 @@ import React, {useEffect, useRef, useState} from "react";
 import axiosClient from "../../axios-client";
 import moment from "moment";
 import AxiosClient from "../../axios-client";
+import {useTranslation} from "react-i18next";
 
 export default function MyEarnings(){
     const {user} = useStateContext();
     const [wallet, setWallet] = useState([]);
     const [withdraw, setWithdraw] = useState(false);
     const ibanRef = useRef();
-
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         axiosClient.get('tutor/wallet').then(({data}) => {
             setWallet(data.wallet);
@@ -33,16 +34,16 @@ export default function MyEarnings(){
 
     return(
         <div className="bg-white p-4">
-            <h2>My Earnings</h2>
+            <h2>{t('my_earnings')}</h2>
             <div className="mt-3">
                 <div>
                     <h5>
-                        <b>Accumulated funds:</b>
+                        <b>{t('accumulated_funds')}:</b>
                         <span style={{fontSize: 20, marginLeft:'10px'}}>{user?.wallet} €</span>
                     </h5>
-                    <div className="mt-2">Minimum withdrawal amount 25,00 €</div>
+                    <div className="mt-2">{t('minimum_withdrawal')}</div>
                     { !withdraw &&
-                    <div className="mt-2 text-danger">Withdraw process in pending</div>
+                    <div className="mt-2 text-danger">{t('withdraw_pending')}</div>
                      }
 
                 </div>
@@ -50,13 +51,13 @@ export default function MyEarnings(){
                     <div className="mt-3 mb-4">
                         <input
                             type="text"
-                            placeholder="Your IBAN*"
+                            placeholder={t('your_iban')}
                             ref={ibanRef}
                             required={true}
                             // onChange={(e) => setUsername(e.target.value)}
                             // value={username}
                         />
-                        <button disabled={user?.wallet > 25 && withdraw ? false : true} className="btn">REQUEST WITHDRAWAL</button>
+                        <button disabled={user?.wallet > 25 && withdraw ? false : true} className="btn">{t('request_withdrawal')}</button>
                     </div>
                 </Form>
 
@@ -64,9 +65,9 @@ export default function MyEarnings(){
                     <Table responsive striped hover className="mt-3 bg-white">
                         <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Student</th>
+                            <th>{t('date')}</th>
+                            <th>{t('status')}</th>
+                            <th>{t('student')}</th>
                             {/*<th>Earning</th>*/}
                         </tr>
                         </thead>

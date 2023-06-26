@@ -16,6 +16,7 @@ import {InfoCircle} from "react-bootstrap-icons";
 import $ from "jquery";
 import chatNotif from "../../hooks/chatNotif";
 import {AuthContext} from "../../contexts/AuthContext";
+import {useTranslation} from "react-i18next";
 
 
 export default function Reschedule(){
@@ -30,6 +31,7 @@ export default function Reschedule(){
     const [events, setEvents] = useState([]);
     const {type, user} = useStateContext();
     const { currentUser } = useContext(AuthContext);
+    const {t, i18n} = useTranslation();
     const handleClose = () => setShow(false);
 
     const getReschedule = () => {
@@ -69,7 +71,7 @@ export default function Reschedule(){
                     AxiosClient.post('/student/schedule', payloadToSend).then(({data}) => {
                         MySwal.fire({
                             icon: 'success',
-                            text: 'Date changed',
+                            text: t('date_changed'),
                         })
                         getReschedule();
                         setShow(false);
@@ -80,7 +82,7 @@ export default function Reschedule(){
                     }).catch(err => {
                         MySwal.fire({
                             icon: 'error',
-                            text: 'Something went wrong!',
+                            text: t('something_wrong'),
                         })
                         setLoader(false);
                     })
@@ -114,7 +116,7 @@ export default function Reschedule(){
         <>
             <Container>
                 <div className="mb-5">
-                    <h2 className="mb-4">Reschedule</h2>
+                    <h2 className="mb-4">{t('reschedule')}</h2>
                     {
                         lessons?.length > 0 ?
                             (
@@ -125,25 +127,25 @@ export default function Reschedule(){
                                             <Row>
                                                 <Col md={4}><div><b>{moment(item.start_time).format('DD.MM.Y HH:mm:ss')}</b></div></Col>
                                                 <Col md={4}>
-                                                    <div>Tutor: <b>{item.tutor.name}</b></div>
+                                                    <div>{t('tutor')}: <b>{item.tutor.name}</b></div>
                                                     {
                                                         item.reschedule == 1 &&
-                                                        <div className="text-danger">Appointment has been canceled</div>
+                                                        <div className="text-danger">{t('appointment_canceled')}</div>
                                                     }
                                                 </Col>
-                                                <Col md={4}>  <button className="btn btn-danger" onClick={() => reschedule(item.start_time, item.tutor_id, item.id)}>RESCHEDULE</button></Col>
+                                                <Col md={4}>  <button className="btn btn-danger" onClick={() => reschedule(item.start_time, item.tutor_id, item.id)}>{t('reschedule')}</button></Col>
                                             </Row>
                                         </div>
                                     </Col>
                                 )
                             ) : (
-                                <h4 className="d-flex align-items-center text-danger"><InfoCircle/> Appointments are empty</h4>
+                                <h4 className="d-flex align-items-center text-danger"><InfoCircle/> {t('appointments_empty')}</h4>
                             )}
                 </div>
             </Container>
             <Modal show={show} onHide={handleClose} size="lg">
                 <Modal.Header closeButton>
-                    <Modal.Title>Select new date</Modal.Title>
+                    <Modal.Title>{t('select_new_date')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {!loader ?
@@ -177,8 +179,11 @@ export default function Reschedule(){
                                 center: 'title',
                                 right: 'timeGridWeek,timeGridDay',
                             }}
-                            locale='en-GB'
                             allDaySlot={false}
+                            buttonText={{
+                                today: t('today')
+                            }}
+                            locale={localStorage.getItem('i18next') || 'en'}
                         />
                         :
                         <div style={{display:'flex', justifyContent: 'center'}}>

@@ -7,6 +7,7 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use( (config) => {
     const token = localStorage.getItem('ACCESS_TOKEN')
     config.headers.Authorization = `Bearer ${token}`;
+    config.headers['Accept-Language'] = localStorage.getItem('i18next') || 'en';
 
     return config;
 })

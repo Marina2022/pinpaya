@@ -17,12 +17,13 @@ import {Link, useNavigate} from "react-router-dom";
 import {Trash, Trash2} from "react-bootstrap-icons";
 import {v4 as uuid} from "uuid";
 import AxiosClient from "../../axios-client";
+import {useTranslation} from "react-i18next";
 
 
 const Chats = ({onHandleSelect}) => {
     const [chats, setChats] = useState([]);
     const [chatId, setChatId] = useState([]);
-
+    const {t, i18n} = useTranslation();
     const { currentUser } = useContext(AuthContext);
     const { dispatch } = useContext(ChatContext);
     const navigate = useNavigate();
@@ -95,7 +96,7 @@ const Chats = ({onHandleSelect}) => {
                     className="userChat"
                 >
                     <div className="userChatInfo">
-                        <span style={{marginLeft:'10px'}}>Conversation empty</span>
+                        <span style={{marginLeft:'10px'}}>{t('conversation_empty')}</span>
                     </div>
                 </div>
             }

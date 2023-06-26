@@ -15,6 +15,7 @@ import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import {Upload} from "react-bootstrap-icons";
 import AxiosClient from "../../axios-client";
+import {useTranslation} from "react-i18next";
 
 const Input = () => {
     const [text, setText] = useState("");
@@ -22,7 +23,7 @@ const Input = () => {
     const [filename, setFilename] = useState(null);
     const [type, setType] = useState(null);
     const inputRef = useRef();
-
+    const {t, i18n} = useTranslation();
     const { currentUser } = useContext(AuthContext);
     const { data } = useContext(ChatContext);
 
@@ -100,7 +101,7 @@ const Input = () => {
         <div className="input">
             <input
                 type="text"
-                placeholder="Type something..."
+                placeholder={t('type_something')}
                 onChange={(e) => setText(e.target.value)}
                 onKeyPress={handleKeypress}
                 value={text}
@@ -125,7 +126,7 @@ const Input = () => {
                 <label htmlFor="file">
                    <Upload size={20} style={{cursor:'pointer'}} />
                 </label>
-                <button style={{background:'#f0500b'}} onClick={handleSend}>Send</button>
+                <button style={{background:'#f0500b'}} onClick={handleSend}>{t('send')}</button>
             </div>
         </div>
     );

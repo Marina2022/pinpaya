@@ -9,11 +9,13 @@ import {InfoCircle} from "react-bootstrap-icons";
 import moment from "moment/moment";
 import chatNotif from "../../hooks/chatNotif";
 import {AuthContext} from "../../contexts/AuthContext";
+import {useTranslation} from "react-i18next";
 export default function Reschedule(){
     const [lessons, setLessons] = useState([]);
     let { id } = useParams();
     const MySwal = withReactContent(Swal)
     const { currentUser } = useContext(AuthContext);
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         getItems();
     }, [])
@@ -28,8 +30,8 @@ export default function Reschedule(){
             title: 'Request time reschedule from student?',
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: 'Yes',
-            denyButtonText: `No`,
+            confirmButtonText: t('yes'),
+            denyButtonText: t('no'),
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.post('tutor/reschedule',{id}).then(({data}) => {
@@ -38,12 +40,12 @@ export default function Reschedule(){
                     chatNotif(data.notif, currentUser, data.student_id);
                     MySwal.fire({
                         icon: 'success',
-                        text: 'Sended',
+                        text: t('sended'),
                     })
                 }).catch(err => {
                     MySwal.fire({
                         icon: 'error',
-                        text: 'Something went wrong!',
+                        text: t('something_wrong'),
                     })
                 })
             }
@@ -55,20 +57,20 @@ export default function Reschedule(){
         <>
             <Container>
                 <div className="mb-5">
-                    <h2 className="mb-2">Reschedule</h2>
+                    <h2 className="mb-2">{t('reschedule')}</h2>
                         {
                             lessons?.length > 0 ? (
                                     lessons.map(item =>
                                         <div className="my-3 border p-3 bg-white" >
                                             <Row>
                                                 <Col md={4}><div><b>{moment(item.start_time).format('DD.MM.Y HH:mm:ss')}</b></div></Col>
-                                                <Col md={4}><div>Student: <b>{item.student.name}</b></div></Col>
-                                                <Col md={4}>  <button className="btn btn-danger" onClick={() => reschedule(item.id)}>REQUEST RESCHEDULE</button></Col>
+                                                <Col md={4}><div>{t('student')}: <b>{item.student.name}</b></div></Col>
+                                                <Col md={4}>  <button className="btn btn-danger" onClick={() => reschedule(item.id)}>{t('request_reschedule')}</button></Col>
                                             </Row>
                                         </div>
                                     )
                                 ) : (
-                                <h4 className="d-flex align-items-center text-danger"><InfoCircle/> Appointments are empty</h4>
+                                <h4 className="d-flex align-items-center text-danger"><InfoCircle/> {t('appointments_empty')}</h4>
                             )}
                 </div>
             </Container>

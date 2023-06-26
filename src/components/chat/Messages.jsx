@@ -5,6 +5,7 @@ import { db } from "../../firebase";
 import Message from "./Message";
 import {Link} from "react-router-dom";
 import {Spinner} from "react-bootstrap";
+import {useTranslation} from "react-i18next";
 
 const Messages = ({mainUser}) => {
     const [messages, setMessages] = useState([]);
@@ -12,7 +13,7 @@ const Messages = ({mainUser}) => {
     const [count, setCount] = useState(30);
     const { data } = useContext(ChatContext);
     const { user } = useContext(ChatContext);
-
+    const {t, i18n} = useTranslation();
     const handleScroll = (event) => {
         const target = event.target;
         if(target.scrollTop === 0){
@@ -54,7 +55,7 @@ const Messages = ({mainUser}) => {
                     loading &&
                     <div style={{display:'flex', justifyContent: 'center'}}>
                         <Spinner animation="border" role="status" style={{width:'20px',height:'20px', marginLeft: '10px'}}>
-                            <span className="visually-hidden">Loading...</span>
+                            <span className="visually-hidden">{t('loading')}...</span>
                         </Spinner>
                     </div>
                 }
@@ -64,10 +65,10 @@ const Messages = ({mainUser}) => {
                     <Message message={m} key={m.id} />
                 ))}
             {data.chatId == 'null' &&
-            <h4 className="text-center mt-4 text-secondary">Please select conversation</h4>
+            <h4 className="text-center mt-4 text-secondary">{t('select_conversation')}</h4>
             }
             {data.chatId != 'null' && messages.length == 0 &&
-                <h4 className="text-center mt-4 text-secondary">Be first, write your first message</h4>
+                <h4 className="text-center mt-4 text-secondary">{t('be_first')}</h4>
             }
         </div>
     );

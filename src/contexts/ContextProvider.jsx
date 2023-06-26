@@ -1,4 +1,6 @@
-import {createContext, useContext, useState} from "react";
+import {createContext, useContext, useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
+import cookies from 'js-cookie'
 
 const StateContext = createContext({
     user: null,
@@ -9,8 +11,11 @@ const StateContext = createContext({
     setType: () => {},
 });
 
+
+
 export const ContextProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [cookie, setCookie] = useState('en');
     const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
     const [type, _setType] = useState(localStorage.getItem('TYPE'));
 
@@ -33,6 +38,8 @@ export const ContextProvider = ({children}) => {
     }
 
 
+    const {i18n} = useTranslation();
+
     return(
         <StateContext.Provider value={{
             user,
@@ -42,6 +49,7 @@ export const ContextProvider = ({children}) => {
             setToken,
             setType
         }}>
+
             {children}
         </StateContext.Provider>
     )

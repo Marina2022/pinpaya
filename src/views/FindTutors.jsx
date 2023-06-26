@@ -7,6 +7,7 @@ import {Link, useLocation} from "react-router-dom";
 import firebaseCreateChat from "../hooks/firebaseCreateChat";
 import {AuthContext} from "../contexts/AuthContext";
 import {useStateContext} from "../contexts/ContextProvider";
+import {useTranslation} from "react-i18next";
 
 export default function FindTutors(){
     const [tutors, setTutors] = useState([]);
@@ -21,6 +22,7 @@ export default function FindTutors(){
     const formRef = useRef();
     const { currentUser } = useContext(AuthContext);
     const {type, user} = useStateContext();
+    const {t, i18n} = useTranslation();
     const [data, setData] = useState({
         search: '',
         subject: '',
@@ -100,30 +102,30 @@ export default function FindTutors(){
 
     return(
         <Container>
-            <h3 className="fw-bold my-5">Find a private tutor</h3>
+            <h3 className="fw-bold my-5">{t('find_private_tutor')}</h3>
             <Row className="mb-5" >
-                <Col md={3}><img src="/find1.svg" style={{width:'40px', marginRight:'10px'}} /> Where lessons take place</Col>
-                <Col md={3}><img src="/find2.svg" style={{width:'40px', marginRight:'10px'}} /> How to choose an Ideal tutor</Col>
-                <Col md={3}><img src="/find3.svg" style={{width:'40px', marginRight:'10px'}} /> How you can pay for lessons</Col>
-                <Col md={3}><img src="/find4.svg" style={{width:'40px', marginRight:'10px'}} /> 100% full refund</Col>
+                <Col md={3}><img src="/find1.svg" style={{width:'40px', marginRight:'10px'}} />{t('find_tutor_text1')}</Col>
+                <Col md={3}><img src="/find2.svg" style={{width:'40px', marginRight:'10px'}} /> {t('find_tutor_text2')}</Col>
+                <Col md={3}><img src="/find3.svg" style={{width:'40px', marginRight:'10px'}} /> {t('find_tutor_text3')}</Col>
+                <Col md={3}><img src="/find4.svg" style={{width:'40px', marginRight:'10px'}} /> {t('find_tutor_text4')}</Col>
             </Row>
             <Row className="my-4">
                 <Col md={4}>
                     <Form className="find-left-side" onSubmit={send}  ref={formRef}>
                         <Form.Group className="mb-4" controlId="11">
-                            <Form.Control placeholder="Search by name or keyword" type="text"
+                            <Form.Control placeholder={t('search_placeholder')} type="text"
                                           value={data?.search}
                                           className="search-select"
                                           onChange={ev => setData({...data, search : ev.target.value})}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="12">
-                            <Form.Label className="fw-bold">I want to learn</Form.Label>
+                            <Form.Label className="fw-bold">{t('i_want_learn')}</Form.Label>
                             <Form.Select
                                 className="search-select"
                                 value={data?.subject} onChange={ev => setData({...data, subject : ev.target.value})}
                             >
-                                <option value="">All</option>
+                                <option value="">{t('all')}</option>
                                 {   subjects &&
                                     subjects.map(({ id, name }) => (
                                     <option value={id}>{name}</option>
@@ -131,24 +133,24 @@ export default function FindTutors(){
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="13">
-                            <Form.Label className="fw-bold">Tutor is from</Form.Label>
+                            <Form.Label className="fw-bold">{t('tutor_from')}</Form.Label>
                             <Form.Select
                                 className="search-select"
                                 value={data?.location} onChange={ev => setData({...data, location : ev.target.value})}
                             >
-                                <option value="">All</option>
+                                <option value="">{t('all')}</option>
                                 {
                                     countries &&
                                     countries.map((item, index) => (<option key={index} value={item}>{item}</option>))}
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="12">
-                            <Form.Label className="fw-bold">Tutor speaks</Form.Label>
+                            <Form.Label className="fw-bold">{t('tutor_speaks')}</Form.Label>
                             <Form.Select
                                 className="search-select"
                                 value={data?.language} onChange={ev => setData({...data, language : ev.target.value})}
                             >
-                                <option value="">All</option>
+                                <option value="">{t('all')}</option>
                                 {   languages &&
                                     languages.map(({ id, name }) => (
                                     <option value={id}>{name}</option>
@@ -156,12 +158,12 @@ export default function FindTutors(){
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="12">
-                            <Form.Label className="fw-bold">Price per hour</Form.Label>
+                            <Form.Label className="fw-bold">{t('price_per_hour')}</Form.Label>
                                 <Form.Select
                                     className="search-select"
                                     value={data?.price} onChange={ev => setData({...data, price : ev.target.value})}
                                 >
-                                    <option value="">All</option>
+                                    <option value="">{t('all')}</option>
                                     <option value="1-10">1-10 €</option>
                                     <option value="10-20">10-20 €</option>
                                     <option value="20+">20+ €</option>
@@ -173,7 +175,7 @@ export default function FindTutors(){
                                     className="fw-bold mb-2"
                                     size="md"
                                     type="checkbox"
-                                    label="Tutors who teach kids only"
+                                    label={t('search_1')}
                                     color="white"
                                     value={checkTeach} onChange={(e) => setCheckTeach(!checkTeach)}
                                 />
@@ -183,7 +185,7 @@ export default function FindTutors(){
                                     className="fw-bold mb-2"
                                     size="md"
                                     type="checkbox"
-                                    label="Conducts trial lesson"
+                                    label={t('search_2')}
                                     value={checkTrial} onChange={(e) => setCheckTrial(!checkTrial)}
                                 />
                             </Col>
@@ -192,7 +194,7 @@ export default function FindTutors(){
                                     className="fw-bold mb-2"
                                     size="md"
                                     type="checkbox"
-                                    label="With introduction video"
+                                    label={t('search_3')}
                                     value={checkVideo} onChange={(e) => setCheckVideo(!checkVideo)}
                                 />
                             </Col>
@@ -203,7 +205,7 @@ export default function FindTutors(){
                                 loading ?
                                     <Spinner animation="border" role="status" style={{width:'20px',height:'20px'}}>
                                         <span className="visually-hidden">Loading...</span>
-                                    </Spinner> :'Search'
+                                    </Spinner> : t('search')
                             }
                         </Button>
                     </Form>
@@ -244,7 +246,7 @@ export default function FindTutors(){
                                                 <small className="mb-2" style={{fontSize:'10px'}}>{item.location}</small>
                                                 <div className="mb-2 mt-2">
                                                     <div>
-                                                        <span className="fw-bold ">Teaches: </span>
+                                                        <span className="fw-bold ">{t('teaches')}: </span>
 
                                                         {item.subject.map((item, index) => <span>{index != 0 ? ', ' : '' }{item.name}</span>)}
                                                     </div>
@@ -252,7 +254,7 @@ export default function FindTutors(){
                                                 </div>
                                                 <div className="mb-2">
                                                     <div>
-                                                        <span className="fw-bold mb-2">Speaks: </span>
+                                                        <span className="fw-bold mb-2">{t('speaks')}: </span>
                                                       {item.language.map((item, index) => <span>{index != 0 ? ', ' : '' }{item.name} </span>)}
                                                     </div>
                                                 </div>
@@ -261,22 +263,22 @@ export default function FindTutors(){
                                                 <div className="fw-bold" style={{textAlign:'right',fontWeight:'bold', fontSize:'22px'}}><StarFill  color="gold" /> {item.price} €</div>
                                                 {
                                                     item.check_trial == 1 ?
-                                                        <div className="text-secondary" style={{textAlign:'right',fontSize:'12px'}}>first trial lesson</div>
-                                                        : <div style={{fontSize:'12px', color:'silver', fontWeight:'bold',textAlign:'right'}}>per hour</div>
+                                                        <div className="text-secondary" style={{textAlign:'right',fontSize:'12px'}}>{t('first_trial')}</div>
+                                                        : <div style={{fontSize:'12px', color:'silver', fontWeight:'bold',textAlign:'right'}}>{t('per_hour')}</div>
                                                 }
                                             </Col>
                                             <Col md={12}>
                                                 <div className="d-flex justify-content-end">
                                                     <button className="btn1" style={{marginRight:'10px'}} onClick={() => message(item)}>
                                                         <img src="/nchat.svg" style={{width:'17px', marginRight: '10px'}} alt=""/>
-                                                        Message
+                                                        {t('message')}
                                                     </button>
                                                     {item.check_trial == 0 ?
                                                         (<button className="btn2">
-                                                            <Link className="text-white" to={'/tutor/'+ item.id }>Schedule lessons</Link>
+                                                            <Link className="text-white" to={'/tutor/'+ item.id }>{t('schedule_lessons')}</Link>
                                                         </button>) :
                                                         (
-                                                            <Link to={'/tutor/'+ item.id }>  <button className="btn3">Schedule trial lesson</button></Link>
+                                                            <Link to={'/tutor/'+ item.id }>  <button className="btn3">{t('schedule_trial_lesson')}</button></Link>
                                                         )
                                                     }
                                                 </div>
@@ -289,7 +291,7 @@ export default function FindTutors(){
                         {
                             tutors.length == 0 &&
                             <div className="text-center mt-3">
-                                <h3>No results</h3>
+                                <h3>{t('no_results')}</h3>
                             </div>
                         }
                     </Row>

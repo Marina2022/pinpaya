@@ -6,12 +6,13 @@ import '../index.css';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import firebaseChat from "../hooks/firebaseChat";
+import {useTranslation} from "react-i18next";
 export default function Login(){
     const emailRef = useRef();
     const passwordRef = useRef();
     const {setUser, setToken, setType} = useStateContext();
     const [errors, setErrors] = useState(null);
-
+    const {t, i18n} = useTranslation();
     const firebase = async (email, password, name) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
@@ -58,7 +59,7 @@ export default function Login(){
                 </div>
                 <form onSubmit={onSubmit}>
                     <h1 className="title">
-                        Login into your account
+                        {t('login_text')}
                     </h1>
                     {errors &&
                         <div className='alert'>
@@ -67,11 +68,11 @@ export default function Login(){
                             ))}
                         </div>
                     }
-                    <input ref={emailRef} placeholder="Email" type="email"/>
-                    <input ref={passwordRef} placeholder="Password" type="password"/>
-                    <button className="btn btn-block">Login</button>
+                    <input ref={emailRef} placeholder={t('email')} type="email"/>
+                    <input ref={passwordRef} placeholder={t('password')} type="password"/>
+                    <button className="btn btn-block">{t('login')}</button>
                     <p className="message">
-                        Not Registered? <Link to="/signup">Create an account</Link>
+                        {t('not_registered')} <Link to="/signup">{t('create_account')}</Link>
                     </p>
                 </form>
             </div>

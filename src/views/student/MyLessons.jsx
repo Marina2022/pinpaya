@@ -21,6 +21,7 @@ import {AuthContext} from "../../contexts/AuthContext";
 import {useStateContext} from "../../contexts/ContextProvider";
 import moment from "moment/moment";
 import chatNotif from "../../hooks/chatNotif";
+import {useTranslation} from "react-i18next";
 
 export default function MyLessons(){
     const [lessons, setLessons] = useState([]);
@@ -29,6 +30,7 @@ export default function MyLessons(){
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     const {type, user} = useStateContext();
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         const interval = setInterval(() => {
             getLessons()
@@ -49,12 +51,12 @@ export default function MyLessons(){
     const confirmLesson = (id, time) => {
 
         MySwal.fire({
-            title: `Has the lesson <b class="text-danger"> ${moment(time).format('DD.MM.Y HH:mm:ss')} </b> already taken place? `,
-            text: 'Please confirm the lessons only after they have taken place.',
+            title: `${t('confirm_modal_1')}  <b class="text-danger"> ${moment(time).format('DD.MM.Y HH:mm:ss')} </b> ${t('confirm_modal_2')}  `,
+            text: t('confirm_modal_3'),
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: 'Yes',
-            denyButtonText: `No`,
+            confirmButtonText: t('yes'),
+            denyButtonText: t('no'),
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.post('student/confirm-lesson',{id}).then(({data}) => {
@@ -73,12 +75,12 @@ export default function MyLessons(){
 
     const quit = (id, count) => {
         MySwal.fire({
-            title: 'Termination of learning with tutor',
-            html: ` <b>Are you sure to quit learning for this tutor?</b> <br> By clicking "Quit learning & refund" we will make a refund into your pinpaya wallet for ${count} lesson/-s.`,
+            title: t('popup1_title'),
+            html: ` <b>${t('popup1_body1')}</b> <br> ${t('popup1_body2')} ${count} ${t('multi_lessons')}.`,
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: 'Quit learning & refund',
-            denyButtonText: `Cancel`,
+            confirmButtonText: t('quit_l'),
+            denyButtonText: t('cancel'),
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.post('student/quit-learning',{id}).then(({data}) => {
@@ -93,7 +95,7 @@ export default function MyLessons(){
 
     return(
         <div>
-            <h2 className="mb-4"><b>My lessons</b></h2>
+            <h2 className="mb-4"><b>{t('my_lessons')}</b></h2>
             <div>
                 {
                     reschedule?.tutor_id &&
@@ -116,15 +118,15 @@ export default function MyLessons(){
                                     <Col  lg="6" className="my-lessons-area">
                                         <div>
                                             <h5 ><Link to={'/tutor/'+ item.id }>{item.name}</Link></h5>
-                                            <div className="mb-2">Order #{item?.orderId}</div>
+                                            <div className="mb-2">{t('order')} #{item?.orderId}</div>
                                         </div>
 
-                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>Next Lesson:</b> <b className="text-danger">{item.last ? moment(item.last.start_time).format('DD.MM.Y HH:mm:ss') : '-'}</b></div>
+                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>{t('next_lesson')}:</b> <b className="text-danger">{item.last ? moment(item.last.start_time).format('DD.MM.Y HH:mm:ss') : '-'}</b></div>
                                         <div style={{display:'flex', justifyContent:'space-between'}} className="my-lessons-dropdown">
-                                            <div><b>Lessons left:</b> {item.count}</div>
+                                            <div><b>{t('lessons_left')}:</b> {item.count}</div>
                                             <Dropdown size="xs">
                                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                    Show Schedule
+                                                    {t('show_schedule')}
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu>
                                                     {
@@ -134,34 +136,34 @@ export default function MyLessons(){
                                             </Dropdown>
 
                                         </div>
-                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>Email:</b> {item.email}</div>
-                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>Phone:</b> {item.phone}</div>
-                                        {
-                                            item.last &&
-                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>Subject:</b> {item.last?.subject ? item.last.subject.name : '-'}</div>
-                                        }
+                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>{t('email')}:</b> {item.email}</div>
+                                        <div style={{display:'flex', justifyContent:'space-between'}}><b>{t('phone')}:</b> {item.phone}</div>
+                                        {/*{*/}
+                                        {/*    item.last &&*/}
+                                        {/*    <div style={{display:'flex', justifyContent:'space-between'}}><b>Subject:</b> {item.last?.subject ? item.last.subject.name : '-'}</div>*/}
+                                        {/*}*/}
 
                                     </Col>
                                     <Col  lg="4">
                                         {item.last ? (
                                             <>
-                                                <button style={{fontSize:'14px', borderRadius:'3px', height:'53px'}} className="btn d-block w-100 mb-2" disabled={item.last.first_confirmed =='student' ? true : false}   onClick={() => confirmLesson(item.last ? item.last.id : 0, item.last.start_time)}>{item.last.first_confirmed =='student' ? 'YOU CONFIRMED THE LAST LESSON' : item.last.first_confirmed == 'tutor' ? `WAITING CONFIRMATION ${moment(item.last.start_time).format('DD.MM.Y HH:mm:ss')}` : 'CONFIRM LAST LESSON'} </button>
-                                                <button style={{fontSize:'14px', borderRadius:'3px', height:'53px', background:'#FFE33C',color:'black'}} className="btn d-block w-100 btn7"><img src="/videocam.svg" style={{width:'24px'}} alt=""/>  START LESSON</button>
+                                                <button style={{fontSize:'14px', borderRadius:'3px', height:'53px'}} className="btn d-block w-100 mb-2" disabled={item.last.first_confirmed =='student' ? true : false}   onClick={() => confirmLesson(item.last ? item.last.id : 0, item.last.start_time)}>{item.last.first_confirmed =='student' ? 'YOU CONFIRMED THE LAST LESSON' : item.last.first_confirmed == 'tutor' ? `WAITING CONFIRMATION ${moment(item.last.start_time).format('DD.MM.Y HH:mm:ss')}` : t('confirm_last_lesson')} </button>
+                                                <button style={{fontSize:'14px', borderRadius:'3px', height:'53px', background:'#FFE33C',color:'black'}} className="btn d-block w-100 btn7"><img src="/videocam.svg" style={{width:'24px'}} alt=""/>{t('start_lesson')}</button>
                                             </>
                                             ) : (
                                                 <Link style={{color:'white'}} to={`/tutor/${item.id}`}> <button className="btn d-block w-100">Book new lessons</button> </Link>
                                         )}
                                     </Col>
                                     <div className="d-flex mt-4 my-lesson-activity">
-                                        <div style={{cursor:'pointer', marginRight:'25px',color:'#666666'}} onClick={() => quit(item.id, item.count_done)}><Trash color="#666666" size={20}/> Quit learning</div>
-                                        <div style={{cursor:'pointer', marginRight:'25px'}}><Link style={{color:'#666666'}} to={'/student/reschedule/'+item.id}><CalendarDate color="#666666" size={20}/> Change lessons dates</Link></div>
-                                        <div style={{cursor:'pointer', marginRight:'25px', color:'#666666'}} onClick={() => message(item)}><ChatSquare color="#666666" size={20}/> Chat with tutor</div>
+                                        <div style={{cursor:'pointer', marginRight:'25px',color:'#666666'}} onClick={() => quit(item.id, item.count_done)}><Trash color="#666666" size={20}/> {t('quit_learning')}</div>
+                                        <div style={{cursor:'pointer', marginRight:'25px'}}><Link style={{color:'#666666'}} to={'/student/reschedule/'+item.id}><CalendarDate color="#666666" size={20}/> {t('change_lesson_dates')}</Link></div>
+                                        <div style={{cursor:'pointer', marginRight:'25px', color:'#666666'}} onClick={() => message(item)}><ChatSquare color="#666666" size={20}/> {t('chat')}</div>
                                     </div>
                                 </Row>
                             </div>
                     )}
                 {lessons?.length == 0 &&
-                    <h4 className="d-flex align-items-center text-danger"><InfoCircle/> Lessons are empty</h4>
+                    <h4 className="d-flex align-items-center text-danger"><InfoCircle/>{t('lessons_empty')}</h4>
                 }
 
                 {/*<Link to="find-tutor"><Button className="mt-4" variant="danger">ORDER LESSONS</Button></Link>*/}

@@ -11,6 +11,7 @@ import {AuthContext} from "../../contexts/AuthContext";
 import {useStateContext} from "../../contexts/ContextProvider";
 import moment from "moment";
 import chatNotif from "../../hooks/chatNotif";
+import {useTranslation} from "react-i18next";
 
 export default function MyLessons(){
     const [lessons, setLessons] = useState([]);
@@ -18,6 +19,7 @@ export default function MyLessons(){
     const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
     const {type, user} = useStateContext();
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         const interval = setInterval(() => {
             getLessons()
@@ -37,12 +39,12 @@ export default function MyLessons(){
     const confirmLesson = (id, time) => {
 
         MySwal.fire({
-            title: `Has the lesson <b class="text-danger"> ${moment(time).format('DD.MM.Y HH:mm:ss')} </b> already taken place? `,
-            text: 'Please confirm the lessons only after they have taken place.',
+            title: `${t('confirm_modal_1')} <b class="text-danger"> ${moment(time).format('DD.MM.Y HH:mm:ss')} </b> ${t('confirm_modal_2')}`,
+            text: t('confirm_modal_3'),
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: 'Yes',
-            denyButtonText: `No`,
+            confirmButtonText: t('yes'),
+            denyButtonText: t('no'),
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.post('tutor/confirm-lesson',{id}).then(({data}) => {
@@ -64,12 +66,12 @@ export default function MyLessons(){
 
     const quit = (id, count) => {
         MySwal.fire({
-            title: 'Termination of tutoring with student',
-            html: `<b>Are you sure to quit tutoring for this student?</b><br> The student may not order new lessons from you due to a unpleasant experience.`,
+            title: t('popup2_title'),
+            html: `<b>${t('popup2_body1')}</b><br> ${t('popup2_body2')}`,
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: 'Quit learning & refund',
-            denyButtonText: `Cancel`,
+            confirmButtonText: t('quit_l'),
+            denyButtonText: t('cancel'),
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosClient.post('tutor/quit-tutoring',{id}).then(({data}) => {
@@ -85,7 +87,7 @@ export default function MyLessons(){
 
     return(
         <div>
-            <h2 className="mb-4"><b>My lessons</b></h2>
+            <h2 className="mb-4"><b>{t('my_lessons')}</b></h2>
             <div >
                     {
                         lessons?.length > 0 &&
@@ -104,15 +106,15 @@ export default function MyLessons(){
                                         <Col md={12} lg={6} className="my-lessons-area">
                                             <div>
                                                 <h5 >{item.name}</h5>
-                                                <div className="mb-2">Order #{item?.orderId}</div>
+                                                <div className="mb-2">{t('order')} #{item?.orderId}</div>
                                             </div>
 
-                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>Next Lesson:</b> <b className="text-danger">{item.last ? moment(item.last.start_time).format('DD.MM.Y HH:mm:ss') : '-'}</b></div>
+                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>{t('next_lesson')}:</b> <b className="text-danger">{item.last ? moment(item.last.start_time).format('DD.MM.Y HH:mm:ss') : '-'}</b></div>
                                             <div style={{display:'flex', justifyContent:'space-between'}} className="my-lessons-dropdown">
-                                                <div><b>Lessons left:</b> {item.count}</div>
+                                                <div><b>{t('lessons_left')}:</b> {item.count}</div>
                                                 <Dropdown size="xs" >
                                                     <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                                                        Show Schedule
+                                                        {t('show_schedule')}
                                                     </Dropdown.Toggle>
                                                     <Dropdown.Menu>
                                                         {
@@ -123,23 +125,23 @@ export default function MyLessons(){
 
                                             </div>
 
-                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>Email:</b> {item.email}</div>
-                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>Phone:</b> {item.phone}</div>
-                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>Subject:</b> {item.last?.subject ? item.last.subject.name : '-'}</div>
+                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>{t('email')}:</b> {item.email}</div>
+                                            <div style={{display:'flex', justifyContent:'space-between'}}><b>{t('phone')}:</b> {item.phone}</div>
+                                            {/*<div style={{display:'flex', justifyContent:'space-between'}}><b>Subject:</b> {item.last?.subject ? item.last.subject.name : '-'}</div>*/}
 
                                         </Col>
                                         <Col md={12} lg={4}>
                                             {item.last &&
                                                 <>
-                                                    <button style={{fontSize:'14px', borderRadius:'3px',height:'53px'}} className="btn d-block w-100 mb-2" disabled={item.last.first_confirmed =='tutor' ? true : false}    onClick={() => confirmLesson(item.last ? item.last.id : 0, item.last.start_time)}>{item.last.first_confirmed =='tutor' ? 'WAITING STUDENT TO CONFIRM' : 'CONFIRM LAST LESSON' } </button>
-                                                    <button style={{fontSize:'14px', borderRadius:'3px',height:'53px', background:'#FFE33C', color:'black'}} className="btn d-block w-100 btn7"><img src="/videocam.svg" style={{width:'24px'}} alt=""/> START LESSON</button>
+                                                    <button style={{fontSize:'14px', borderRadius:'3px',height:'53px'}} className="btn d-block w-100 mb-2" disabled={item.last.first_confirmed =='tutor' ? true : false}    onClick={() => confirmLesson(item.last ? item.last.id : 0, item.last.start_time)}>{item.last.first_confirmed =='tutor' ? t('waiting_student_confirmation') : t('confirm_last_lesson') } </button>
+                                                    <button style={{fontSize:'14px', borderRadius:'3px',height:'53px', background:'#FFE33C', color:'black'}} className="btn d-block w-100 btn7"><img src="/videocam.svg" style={{width:'24px'}} alt=""/> {t('start_lesson')}</button>
                                                 </>
                                             }
                                         </Col>
                                         <div className="d-flex mt-4 my-lesson-activity">
-                                            <div style={{cursor:'pointer', marginRight:'25px',color:'#666666'}} onClick={() => quit(item.id, item.count_done)}><Trash color="#666666" size={20}/> Quit tutoring</div>
-                                            <div style={{cursor:'pointer', marginRight:'25px'}}><Link style={{color:'#666666'}} to={'/tutor/reschedule/'+item.id}><CalendarDate color="#666666" size={20}/> Change lessons dates</Link></div>
-                                            <div style={{cursor:'pointer', marginRight:'25px',color:'#666666'}} onClick={() => message(item)}><ChatSquare color="#666666" size={20}/> Chat with student</div>
+                                            <div style={{cursor:'pointer', marginRight:'25px',color:'#666666'}} onClick={() => quit(item.id, item.count_done)}><Trash color="#666666" size={20}/> {t('quit_tutoring')}</div>
+                                            <div style={{cursor:'pointer', marginRight:'25px'}}><Link style={{color:'#666666'}} to={'/tutor/reschedule/'+item.id}><CalendarDate color="#666666" size={20}/> {t('change_lesson_dates')}</Link></div>
+                                            <div style={{cursor:'pointer', marginRight:'25px',color:'#666666'}} onClick={() => message(item)}><ChatSquare color="#666666" size={20}/> {t('chat')}</div>
                                         </div>
                                     </Row>
                                 </div>
@@ -151,7 +153,7 @@ export default function MyLessons(){
                             // </tr>
                         )}
                 {lessons?.length == 0 &&
-                    <h4 className="d-flex align-items-center text-danger"><InfoCircle/> Lessons are empty</h4>
+                    <h4 className="d-flex align-items-center text-danger"><InfoCircle/>{t('lessons_empty')}</h4>
                 }
                 {/*<Table bordered hover className="mt-3 bg-white">*/}
                 {/*    <thead>*/}

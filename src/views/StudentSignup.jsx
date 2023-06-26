@@ -5,6 +5,7 @@ import {useStateContext} from "../contexts/ContextProvider.jsx";
 import {countries} from '../data'
 
 import firebaseChat from "../hooks/firebaseChat";
+import {useTranslation} from "react-i18next";
 export default function StudentSignup(){
     const nameRef = useRef();
     const emailRef = useRef();
@@ -16,7 +17,7 @@ export default function StudentSignup(){
     const passwordConfirmationRef = useRef();
     const {setUser, setToken, setType} = useStateContext();
     const [errors, setErrors] = useState(null);
-
+    const {t, i18n} = useTranslation();
     const onSubmit = async (e) => {
         e.preventDefault()
 
@@ -57,7 +58,7 @@ export default function StudentSignup(){
                 </div>
                 <form onSubmit={onSubmit}>
                     <h1 className="title">
-                        Student Signup
+                        {t('student_signup')}
                     </h1>
                     {errors &&
                         <div className='alert'>
@@ -66,20 +67,20 @@ export default function StudentSignup(){
                             ))}
                         </div>
                     }
-                    <input required ref={nameRef} placeholder="Name" type="text"/>
-                    <input required ref={lastNameRef} placeholder="Lastname" type="text"/>
-                    <input required ref={emailRef} placeholder="Email" type="email"/>
+                    <input required ref={nameRef} placeholder={t('first_name')} type="text"/>
+                    <input required ref={lastNameRef} placeholder={t('last_name')} type="text"/>
+                    <input required ref={emailRef} placeholder={t('email')} type="email"/>
                     <select required ref={locationRef}>
-                        <option value="">Select location</option>
+                        <option value="">{t('select_location')}</option>
                         {countries.map((item, index) => (<option key={index} value={item}>{item}</option>))}
                     </select>
-                    <input required ref={phoneRef} placeholder="Phone" type="text"/>
-                    <input required ref={ageRef} placeholder="Age" type="number"/>
-                    <input required ref={passwordRef} placeholder="Password" type="password"/>
-                    <input required ref={passwordConfirmationRef} placeholder="Password Confirmation" type="password"/>
-                    <button className="btn btn-block">Signup</button>
+                    <input required ref={phoneRef} placeholder={t('phone')} type="text"/>
+                    <input required ref={ageRef} placeholder={t('age')} type="number"/>
+                    <input required ref={passwordRef} placeholder={t('password')} type="password"/>
+                    <input required ref={passwordConfirmationRef} placeholder={t('password_confirmation')} type="password"/>
+                    <button className="btn btn-block">{t('signup')}</button>
                     <p className="message">
-                        Already Registered? <Link to="/login">Sign in</Link>
+                        {t('already_registered')} <Link to="/login">{t('signin')}</Link>
                     </p>
                 </form>
             </div>

@@ -4,10 +4,11 @@ import {useEffect, useRef, useState} from "react";
 import {countries} from '../../data'
 import {useStateContext} from "../../contexts/ContextProvider";
 import Avatar from "react-avatar-edit";
+import {useTranslation} from "react-i18next";
 export default function AccountSettings(){
     const passwordRef = useRef();
     const confirmPasswordRef = useRef();
-
+    const {t, i18n} = useTranslation();
     const [errors, setErrors] = useState(null);
     const [success, setSuccess] = useState(null);
     const [data, setData] = useState({
@@ -97,7 +98,7 @@ export default function AccountSettings(){
                 { user?.avatar &&
                     <img style={{marginRight:'20px'}} className="float-right mb-2" width="80px" src={'https://web.pinpaya.com/storage/'+user.avatar} />
                 }
-                <span >Account Settings</span>
+                <span >{t('account_settings')}</span>
             </h3>
             {errors &&
                 <div className='alert mt-3'>
@@ -108,7 +109,7 @@ export default function AccountSettings(){
             }
             {success &&
                 <div className='success-block mt-3'>
-                    <p>Update is done</p>
+                    <p>{t('update_done')}</p>
                 </div>
             }
             <div className="mt-3">
@@ -133,13 +134,13 @@ export default function AccountSettings(){
                     <Row>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicFirstName">
-                                <Form.Label>First name</Form.Label>
+                                <Form.Label>{t('first_name')}</Form.Label>
                                 <Form.Control type="text" value={data?.name} onChange={ev => setData({...data, name : ev.target.value})}/>
                             </Form.Group>
                         </Col>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicLastName">
-                                <Form.Label>Last name</Form.Label>
+                                <Form.Label>{t('last_name')}</Form.Label>
                                 <Form.Control type="text" value={data?.lastname} onChange={ev => setData({...data, lastname : ev.target.value})}/>
                             </Form.Group>
                         </Col>
@@ -147,13 +148,13 @@ export default function AccountSettings(){
                     <Row>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Email</Form.Label>
+                                <Form.Label>{t('email')}</Form.Label>
                                 <Form.Control type="email" value={data?.email} onChange={ev => setData({...data, email : ev.target.value})}/>
                             </Form.Group>
                         </Col>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicPhone">
-                                <Form.Label>Phone</Form.Label>
+                                <Form.Label>{t('phone')}</Form.Label>
                                 <Form.Control type="text" value={data?.phone} onChange={ev => setData({...data, phone : ev.target.value})}/>
                             </Form.Group>
                         </Col>
@@ -161,13 +162,13 @@ export default function AccountSettings(){
                     <Row>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicAge">
-                                <Form.Label>Age</Form.Label>
+                                <Form.Label>{t('age')}</Form.Label>
                                 <Form.Control type="number" value={data?.age} onChange={ev => setData({...data, age : ev.target.value})}/>
                             </Form.Group>
                         </Col>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicLocation">
-                                <Form.Label >Location</Form.Label>
+                                <Form.Label >{t('location')}</Form.Label>
                                 <Form.Select style={{height:'55px'}} value={data?.location} onChange={ev => setData({...data, location : ev.target.value})}>
                                     {countries.map((item, index) => (<option selected={user?.location === item ? 'selected' : ''} key={index} value={item}>{item}</option>))}
                                 </Form.Select>
@@ -176,28 +177,28 @@ export default function AccountSettings(){
                     </Row>
 
                     <Button variant="primary" type="submit">
-                        Update
+                        {t('update')}
                     </Button>
                 </Form>
-                <h3 className="my-3 mt-5">Change password</h3>
+                <h3 className="my-3 mt-5">{t('change_password')}</h3>
                 <Form className="mt-3" onSubmit={onSubmitPassword}>
                     <Row>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicNewPassword">
-                                <Form.Label>New password</Form.Label>
+                                <Form.Label>{t('new_password')}</Form.Label>
                                 <Form.Control type="password" ref={passwordRef} />
                             </Form.Group>
                         </Col>
                         <Col md="6">
                             <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-                                <Form.Label>Repeat password</Form.Label>
+                                <Form.Label>{t('repeat_password')}</Form.Label>
                                 <Form.Control type="password" ref={confirmPasswordRef} />
                             </Form.Group>
                         </Col>
                     </Row>
 
                     <Button variant="primary" type="submit">
-                        Update
+                        {t('update')}
                     </Button>
                 </Form>
             </div>

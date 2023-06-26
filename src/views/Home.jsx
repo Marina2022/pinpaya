@@ -12,6 +12,7 @@ import {
 import {useEffect, useState} from "react";
 import axiosClient from "../axios-client";
 import {Link, useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export default function Home(){
     const [subjects, setSubjects] = useState([]);
@@ -20,7 +21,7 @@ export default function Home(){
         subject: '',
         price: ''
     });
-
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         axiosClient.get('/get-subjects').then(({data}) => {
             setSubjects(data.data);
@@ -38,8 +39,8 @@ export default function Home(){
                 <Container>
                     <div className="info pb-4">
                         <div >
-                            <h3 className="text-white fw-bold mb-1">Learn online anytime, anywhere!</h3>
-                            <h6 className="text-white fw-bold">Online education platform that connects students and private tutors for 1-on-1 online lessons!</h6>
+                            <h3 className="text-white fw-bold mb-1">{t('home1')}</h3>
+                            <h6 className="text-white fw-bold">{t('home2')}</h6>
                         </div>
                     </div>
                     <div className="bg-white p-4">
@@ -47,11 +48,11 @@ export default function Home(){
                             <Row className="d-flex align-items-end">
                                 <Col sm="4">
                                     <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold">I want to learn</Form.Label>
+                                        <Form.Label className="fw-bold">{t('i_want_learn')}</Form.Label>
                                         <Form.Select
                                             value={data?.subject} onChange={ev => setData({...data, subject : ev.target.value})}
                                         >
-                                            <option value="">All</option>
+                                            <option value="">{t('all')}</option>
                                             {   subjects &&
                                                 subjects.map(({ id, name }) => (
                                                     <option key={id} value={id}>{name}</option>
@@ -61,11 +62,11 @@ export default function Home(){
                                 </Col>
                                 <Col sm="4">
                                     <Form.Group className="mb-3">
-                                        <Form.Label className="fw-bold">Price per hour</Form.Label>
+                                        <Form.Label className="fw-bold">{t('price_per_hour')}</Form.Label>
                                         <Form.Select
                                             value={data?.price} onChange={ev => setData({...data, price : ev.target.value})}
                                         >
-                                            <option value="">All</option>
+                                            <option value="">{t('all')}</option>
                                             <option value="1-10">1-10 €</option>
                                             <option value="10-20">10-20 €</option>
                                             <option value="20+">20+ €</option>
@@ -74,7 +75,7 @@ export default function Home(){
                                 </Col>
                                 <Col className="pb-3" sm="4">
                                     <Button className="w-100 py-2 fw-bold" variant="danger" type="submit" style={{borderRadius: '3px'}}>
-                                        Search
+                                        {t('search')}
                                     </Button>
                                 </Col>
                             </Row>
@@ -88,13 +89,13 @@ export default function Home(){
                         <Col md="6">
                             <div>
                                 <div className="student-block">
-                                    <h2 className="mb-5 mt-3 fw-bold">For a student</h2>
-                                    <div className="m-4"> <Laptop size="20" color="red" /> Learn online anytime, anywhere </div>
-                                    <div className="m-4"> <Calendar2 size="20" color="red" className="pr-4" />  Smart calendar </div>
-                                    <div className="m-4"> <PlayBtn size="20" color="red" className="pr-4"/> Video classroom </div>
-                                    <div className="m-4"> <CardChecklist size="20" color="red" className="pr-4" /> Convenient payment method </div>
-                                    <div className="m-4"> <MortarboardFill size="20" color="red" className="pr-4" /> Large selection of tutors and prices </div>
-                                    <Link to='find-tutor'><Button variant="outline-danger" className="mt-4 mb-3 fw-bold">START LEARNING</Button></Link>
+                                    <h2 className="mb-5 mt-3 fw-bold">{t('for_student')}</h2>
+                                    <div className="m-4"> <Laptop size="20" color="red" /> {t('home3')} </div>
+                                    <div className="m-4"> <Calendar2 size="20" color="red" className="pr-4" />  {t('home4')}  </div>
+                                    <div className="m-4"> <PlayBtn size="20" color="red" className="pr-4"/> {t('home5')}  </div>
+                                    <div className="m-4"> <CardChecklist size="20" color="red" className="pr-4" /> {t('home6')}  </div>
+                                    <div className="m-4"> <MortarboardFill size="20" color="red" className="pr-4" /> {t('home7')}  </div>
+                                    <Link to='find-tutor'><Button variant="outline-danger" className="mt-4 mb-3 fw-bold">{t('find_private_tutor')}</Button></Link>
                                 </div>
                             </div>
                         </Col>
@@ -117,14 +118,14 @@ export default function Home(){
                         <Col md="6">
                             <div>
                                 <div className="tutor-block">
-                                    <h2 className="mb-5 mt-3 fw-bold">For a tutor</h2>
-                                    <div className="m-4"> <Headset size="20" color="red" className="mr-4"  /> Teach online anytime, anywhere </div>
-                                    <div className="m-4"> <Calendar2 size="20" color="red" className="mr-4" />  Make your own schedule/calendar </div>
-                                    <div className="m-4"> <CurrencyDollar size="20" color="red" className="mr-4"/> Set your own rate and earn money </div>
-                                    <div className="m-4"> <MortarboardFill size="20" color="red" className="mr-4" /> Grow professionally </div>
-                                    <div className="m-4"> <Percent size="20" color="red" className="mr-4" /> Low commission </div>
-                                    <div className="m-4"> <ShieldFill size="20" color="red" className="mr-4" /> Get paid securely </div>
-                                    <Link to='become-tutor'><Button variant="outline-danger" className="mt-4 fw-bold">BECOME A PRIVATE TUTOR</Button></Link>
+                                    <h2 className="mb-5 mt-3 fw-bold">{t('for_tutor')}</h2>
+                                    <div className="m-4"> <Headset size="20" color="red" className="mr-4"  /> {t('home8')}  </div>
+                                    <div className="m-4"> <Calendar2 size="20" color="red" className="mr-4" />  {t('home9')}  </div>
+                                    <div className="m-4"> <CurrencyDollar size="20" color="red" className="mr-4"/> {t('home10')}  </div>
+                                    <div className="m-4"> <MortarboardFill size="20" color="red" className="mr-4" /> {t('home11')}  </div>
+                                    <div className="m-4"> <Percent size="20" color="red" className="mr-4" /> {t('home12')}  </div>
+                                    <div className="m-4"> <ShieldFill size="20" color="red" className="mr-4" /> {t('home13')}  </div>
+                                    <Link to='become-tutor'><Button variant="outline-danger" className="mt-4 fw-bold">{t('become_private_tutor')}</Button></Link>
                                 </div>
                             </div>
                         </Col>
@@ -133,33 +134,33 @@ export default function Home(){
             </Container>
             <Container>
                 <div className="how mb-4">
-                    <h3 className="mb-3">How its work?</h3>
+                    <h3 className="mb-3">{t('how_it_works')}</h3>
                     <Row>
                         <Col md="4">
                             <div className="mb-3 text-center mt-3"><img width="300" height="200" src="/how1.svg" alt=""/></div>
                             <div className="text-center">
-                                <div><b>Find a suitable tutor</b></div>
-                                <div>Use the search option, set the criteria that suits you and choose from the list of available teachers</div>
+                                <div><b>{t('home14')}</b></div>
+                                <div>{t('home15')}</div>
                             </div>
                         </Col>
                         <Col md="4">
                             <div className="mb-3 text-center mt-3 "><img width="300" height="200" src="/how2.svg" alt=""/></div>
                             <div className="text-center">
-                                <div><b>Book a lesson directly in the calendar</b></div>
-                                <div>Check available times in the tutor's schedule for excellent results and regular lessons</div>
+                                <div><b>{t('home16')}</b></div>
+                                <div>{t('home17')}</div>
                             </div>
                         </Col>
                         <Col md="4">
                             <div className="mb-3 text-center mt-3"><img width="300" height="200" src="/how3.webp" alt=""/></div>
                             <div className="text-center">
-                                <div><b>Enter the Pinpaya virtual classroom</b></div>
-                                <div>When it’s lesson time, connect with your tutor through our comprehensive video platform</div>
+                                <div><b>{t('home18')}</b></div>
+                                <div>{t('home19')}</div>
                             </div>
                         </Col>
                     </Row>
                     <Row>
                         <Col className="text-center">
-                            <Link to='find-tutor'> <Button variant="danger" size="lg" className="px-5 mt-5 mb-5 fw-bold">LETS START</Button> </Link>
+                            <Link to='find-tutor'> <Button variant="danger" size="lg" className="px-5 mt-5 mb-5 fw-bold">{t('find_private_tutor')}</Button> </Link>
                         </Col>
                     </Row>
                 </div>
@@ -170,22 +171,22 @@ export default function Home(){
                         <Col md="4">
                             <div className="text-center mb-3">
                                 <div><b>
-                                    What do you mean by online tutoring?</b></div>
+                                    {t('home20')}</b></div>
                                 <div>
-                                    Online tutoring is the process of teaching students in an online, networked or virtual environment. Here, teachers and students participate from separate or the same physical locations.
+                                    {t('home21')}
                                 </div>
                             </div>
                         </Col>
                         <Col md="4">
                             <div className="text-center mb-3">
-                                <div><b>Why is online tutoring the best?</b></div>
-                                <div>A global online platform like Pinpaya.com helps people grow their learning in the comfort of their homes and learns, and talented people find jobs as tutors. Our online tutoring services offer more convenience and flexibility to students compared to traditional tutoring. We offer one-on-one online lessons for the students, but they can virtually take them from any location if they have access to the internet. So even if the child travels with the family, they don't need to skip important tutoring sessions.</div>
+                                <div><b>{t('home22')}</b></div>
+                                <div>{t('home23')}</div>
                             </div>
                         </Col>
                         <Col md="4">
                             <div className="text-center mb-3">
-                                <div><b>Is online tutoring a good side job?</b></div>
-                                <div>If you are experienced and have a passion for teaching, then you can enrol at Pinpaya.com as an online tutor to earn extra monthly money without disturbing the rest of the day's schedule. You can explore our website; here, you will find detailed information about the registration process.</div>
+                                <div><b>{t('home24')}</b></div>
+                                <div>{t('home25')}</div>
                             </div>
                         </Col>
                     </Row>

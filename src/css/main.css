@@ -611,3 +611,9 @@ input[type="color"]:focus,
 .top-navbar a{
     font-weight: bold !important;
 }
+.btn-lang{
+    background:#f6f6f6 !important;
+}
+.btn-lang.dropdown-toggle::after{
+    color:black !important;
+}

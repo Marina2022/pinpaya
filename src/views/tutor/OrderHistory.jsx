@@ -2,10 +2,11 @@ import {Table} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import axiosClient from "../../axios-client";
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
 export default function OrderHistory(){
     const [orders, setOrders] = useState([]);
-
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         axiosClient.get('tutor/order-history').then(({data}) => {
             setOrders(data.orders);
@@ -15,15 +16,15 @@ export default function OrderHistory(){
     return(
         <>
             <div className="bg-white p-4">
-                <h2>Order History</h2>
+                <h2>{t('order_history')}</h2>
                 <Table responsive striped hover className="mt-3 bg-white ">
                     <thead>
                     <tr>
-                        <td><b>#Order</b></td>
-                        <td><b>Date</b></td>
-                        <td><b>Status</b></td>
-                        <td><b>Tutor</b></td>
-                        <td><b>Lessons</b></td>
+                        <td><b>#{t('order')}</b></td>
+                        <td><b>{t('date')}</b></td>
+                        <td><b>{t('status')}</b></td>
+                        <td><b>{t('tutor')}</b></td>
+                        <td><b>{t('lessons')}</b></td>
                     </tr>
                     </thead>
                     <tbody>

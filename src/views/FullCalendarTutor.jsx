@@ -4,9 +4,10 @@ import {useEffect, useState} from "react";
 import AxiosClient from "../axios-client";
 import interactionPlugin from "@fullcalendar/interaction";
 import moment from "moment/moment";
+import {useTranslation} from "react-i18next";
 export default function FullCalendarTutor({ onSetHoliday}){
     const [holidays, setHolidays] = useState([]);
-
+    const {t, i18n} = useTranslation();
     useEffect(() => {
         AxiosClient.post('/tutor/get-holidays', ).then(({data}) => {
             setHolidays(data.holidays)
@@ -74,7 +75,10 @@ export default function FullCalendarTutor({ onSetHoliday}){
                     end: moment().add(6,'months').format('Y-MM-DD'),
                 }}
                 ignoreTimezone={true}
-                locale='en'
+                locale={localStorage.getItem('i18next') || 'en'}
+                buttonText={{
+                    today: t('today')
+                }}
             />
         </>
     )

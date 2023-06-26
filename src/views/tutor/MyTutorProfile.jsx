@@ -8,6 +8,7 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import './tutor.css'
 import {FloatingLabel} from "react-bootstrap";
+import {useTranslation} from "react-i18next";
 
 export default function MyTutorProfile(){
     const [file, setFile] = useState()
@@ -20,6 +21,7 @@ export default function MyTutorProfile(){
     const [success, setSuccess] = useState(null);
     const [checkedTeach, setCheckedTeach] = useState(false);
     const [checkTrial, setCheckTrial] = useState(false);
+    const {t, i18n} = useTranslation();
     const [data, setData] = useState({
         status: '1',
         education: '',
@@ -98,7 +100,7 @@ export default function MyTutorProfile(){
 
     return(
         <div className="bg-white p-3">
-            <h2 >My Tutor Profile</h2>
+            <h2 >{t('my_tutor_profile')}</h2>
             {errors &&
                 <div className='alert mt-3'>
                     {Object.keys(errors).map(key => (
@@ -108,7 +110,7 @@ export default function MyTutorProfile(){
             }
             {success &&
                 <div className='success-block mt-3'>
-                    <p>Update is done</p>
+                    <p>{t('update_done')}</p>
                 </div>
             }
             <div className="mt-5 ">
@@ -116,16 +118,16 @@ export default function MyTutorProfile(){
                 <Row>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicStatus">
-                            <Form.Label >Status</Form.Label>
+                            <Form.Label >{t('status')}</Form.Label>
                             <Form.Select style={{height:'55px'}} required value={data?.status} onChange={ev => setData({...data, status : ev.target.value})}>
-                                <option  value="1">Accepting lessons</option>
-                                <option  value="0">Not accepting lessons</option>
+                                <option  value="1">{t('accept_lessons')}</option>
+                                <option  value="0">{t('no_accept_lessons')}</option>
                             </Form.Select>
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicLastName">
-                            <Form.Label className="fw-bold">My education</Form.Label>
+                            <Form.Label className="fw-bold">{t('my_education')}</Form.Label>
                             <Form.Control required value={data?.education} onChange={ev => setData({...data, education : ev.target.value})} type="text" />
                         </Form.Group>
                     </Col>
@@ -133,32 +135,32 @@ export default function MyTutorProfile(){
                 <Row className="my-3">
                     <Col md="6">
                         <>
-                            <div className="fw-bold mb-2">I learn</div>
+                            <div className="fw-bold mb-2">{t('i_learn')}</div>
                             <MultiSelect  maxSelectedLabels={10} display="chip" value={mySubjects} onChange={(e) => setMySubjects(e.value)} options={subjects} optionLabel="name" optionValue="id"
                                          placeholder="Select Subject" className="w-full md:w-20rem" />
-                            <small className="text-secondary">If you did not find the category you need, write to us and we will definitely add:</small>
+                            <small className="text-secondary">{t('tutor_profile_notice')}</small>
                         </>
                     </Col>
                     <Col md="6">
                             <>
-                                <div className="fw-bold mb-2">I speak</div>
+                                <div className="fw-bold mb-2">{t('i_speak')}</div>
                                 <MultiSelect display="chip" value={myLanguages} onChange={(e) => setMyLanguages(e.value)} options={languages} optionLabel="name" optionValue="id"
                                              placeholder="Select Language" className="w-full md:w-20rem" />
-                                <small className="text-secondary">If you did not find the category you need, write to us and we will definitely add:</small>
+                                <small className="text-secondary">{t('tutor_profile_notice')}</small>
                             </>
                     </Col>
                 </Row>
                 <Row className="my-3">
                     <Col>
                         <Form.Group className="mb-3" controlId="formBasicExperience">
-                            <Form.Label className="fw-bold">Experience in years </Form.Label>
+                            <Form.Label className="fw-bold">{t('experience_in_years')} </Form.Label>
                             <Form.Control required type="number" value={data?.experience} onChange={ev => setData({...data, experience : ev.target.value})}/>
                         </Form.Group>
                     </Col>
                 </Row>
                 <Row className="my-3">
                     <Col>
-                        <div className="fw-bold mb-2">About me (min 150 characters) </div>
+                        <div className="fw-bold mb-2">{t('about_me')} (min 150 characters) </div>
                         <FloatingLabel controlId="floatingTextarea2" >
                             <Form.Control required
                                 as="textarea"
@@ -171,7 +173,7 @@ export default function MyTutorProfile(){
                 </Row>
                 <Row className="my-3">
                     <Col>
-                        <div className="fw-bold mb-2">My lessons & teaching style </div>
+                        <div className="fw-bold mb-2">{t('teach_style')} </div>
                         <FloatingLabel controlId="floatingTextarea3" >
                             <Form.Control required
                                 as="textarea"
@@ -185,9 +187,9 @@ export default function MyTutorProfile(){
                 <Row className="my-3">
                     <Col>
                         <Form.Group  controlId="formBasicPrice">
-                            <Form.Label className="fw-bold">Lesson price </Form.Label>
+                            <Form.Label className="fw-bold">{t('lesson_price')} </Form.Label>
                             <Form.Control required value={data?.price} onChange={ev => setData({...data, price : ev.target.value})} style={{marginBottom: '0'}}  type="number" />
-                            <small className="text-secondary">Set price in EUR for 1 hour lesson</small>
+                            <small className="text-secondary">{t('lesson_price_notice')}</small>
                         </Form.Group>
 
                     </Col>
@@ -195,20 +197,20 @@ export default function MyTutorProfile(){
                 <Row className="my-3">
                     <Col >
                         <Form.Group  controlId="formBasicVideo">
-                            <Form.Label className="fw-bold">Introduction video </Form.Label>
+                            <Form.Label className="fw-bold">{t('introduction_video')}</Form.Label>
                             <Form.Control value={data?.video_url} onChange={ev => setData({...data, video_url : ev.target.value})} style={{marginBottom: '0'}} type="url" />
-                            <small className="text-secondary">A short video about yourself. Upload it to YouTube and insert the link above. Profile with video is always ranked in the top in comparison with others.</small>
+                            <small className="text-secondary">{t('introduction_video_notice')}</small>
                         </Form.Group>
                     </Col>
                 </Row>
                 <Row className="mb-3 mt-5">
                     <Col >
                         <Form.Group  controlId="formBasicVideo">
-                            <Form.Label className="fw-bold">I provide first trial lesson with 50% discount </Form.Label>
+                            <Form.Label className="fw-bold">{t('i_provide')} </Form.Label>
                             <div>
                                 <InputSwitch checked={checkTrial} onChange={(e) => setCheckTrial(e.value)} />
                             </div>
-                            <small className="text-secondary">Every new student will be able to have 1 lesson with 50% discount, to check if my teaching meets students needs.
+                            <small className="text-secondary">{t('i_provide_notice')}
                             </small>
                         </Form.Group>
                     </Col>
@@ -216,21 +218,21 @@ export default function MyTutorProfile(){
                 <Row className="my-3">
                     <Col >
                         <Form.Group  controlId="formBasicVideo">
-                            <Form.Label className="fw-bold">I teach kids only</Form.Label>
+                            <Form.Label className="fw-bold">{t('i_teach')}</Form.Label>
                                 <div>
                                     <InputSwitch checked={checkedTeach} onChange={(e) => setCheckedTeach(e.value)} />
                                 </div>
-                            <small className="text-secondary">Your profile will be available in the relevant filter in addition to all other categories you have selected.
+                            <small className="text-secondary">{t('i_teach_notice')}
                             </small>
                         </Form.Group>
                     </Col>
                 </Row>
-                <Button className="mt-4 btn-sm" type="submit">Update</Button>
+                <Button className="mt-4 btn-sm" type="submit">{t('update')}</Button>
                 </Form>
             </div>
             <div className="mt-5">
                 <form onSubmit={handleSubmit}>
-                    <h4 className="mb-3">Certificates</h4>
+                    <h4 className="mb-3">{t('certificates')}</h4>
                     <div className="my-3 ">
                         {
                             certificates?.length > 0 &&
@@ -240,7 +242,7 @@ export default function MyTutorProfile(){
 
                     </div>
                     <input type="file" onChange={handleChange}/>
-                    <button className="btn btn-secondary" type="submit">Upload</button>
+                    <button className="btn btn-secondary" type="submit">{t('upload')}</button>
                 </form>
             </div>
         </div>

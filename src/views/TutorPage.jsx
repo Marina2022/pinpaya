@@ -19,6 +19,7 @@ import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
 import chatNotif from "../hooks/chatNotif";
 import {ChatContext} from "../contexts/ChatContext";
+import {useTranslation} from "react-i18next";
 export default function TutorPage(){
     let { id } = useParams();
     const [tutor, setTutor] = useState([]);
@@ -41,6 +42,7 @@ export default function TutorPage(){
         exp:'',
         cvc:''
     });
+    const {t, i18n} = useTranslation();
     const navigate = useNavigate();
     const [newEvents, setNewEvents] = useState([]);
 
@@ -199,7 +201,7 @@ export default function TutorPage(){
                 handleClose();
                 MySwal.fire({
                     icon: 'success',
-                    text: 'Done',
+                    text: t('done'),
                 })
 
 
@@ -253,44 +255,44 @@ export default function TutorPage(){
                                             </div>
 
                                             <div className="mt-4" style={{display:'flex'}}>
-                                                <span style={{width:'250px',flexShrink:'0'}} className="fw-bold tutor-page-desc">Teaches: </span>
+                                                <span style={{width:'250px',flexShrink:'0'}} className="fw-bold tutor-page-desc">{t('teaches')}: </span>
                                                 <div>
                                                     {tutor.subject && tutor.subject.map((item, index) => <span>{index != 0 ? ', ' : ''}{item.name }</span>)}
                                                 </div>
                                             </div>
                                             <div style={{display:'flex'}}>
-                                                <div style={{width:'250px',flexShrink:'0'}}  className="fw-bold tutor-page-desc">Experience: </div>
+                                                <div style={{width:'250px',flexShrink:'0'}}  className="fw-bold tutor-page-desc">{t('experience')}: </div>
                                                 <div>{tutor.experience}</div>
                                             </div>
                                             <div className="mb-2" style={{display:'flex'}}>
-                                                    <div style={{width:'250px',flexShrink:'0'}}  className="fw-bold mb-2 tutor-page-desc">Speaks: </div>
+                                                    <div style={{width:'250px',flexShrink:'0'}}  className="fw-bold mb-2 tutor-page-desc">{t('speaks')}: </div>
                                                     <div>
                                                         { tutor.language && tutor.language.map((item, index) => <span>{index != 0 ? ', ' : ''}{item.name}</span>)}
                                                     </div>
                                             </div>
                                             <div className="mb-1">
                                                 <div className="pt-1">
-                                                    <span className="fw-bold mb-1">About me</span>
+                                                    <span className="fw-bold mb-1">{t('about_me')}</span>
                                                     <p>{tutor.about}</p>
                                                 </div>
                                             </div>
                                             <div className="mb-1">
                                                 <div className="pt-1">
-                                                    <span className="fw-bold mb-1">My lessons & teaching style</span>
+                                                    <span className="fw-bold mb-1">{t('teach_style')}</span>
                                                     <p>{tutor.description}</p>
                                                 </div>
                                             </div>
                                             {
                                                 tutor.check_trial == 1 &&
                                                 <div>
-                                                    <span className="fw-bold ">Trial lesson: </span>
-                                                    First lesson -50%
+                                                    <span className="fw-bold ">{t('trial_lesson')}: </span>
+                                                    {t('first_lesson_50')}
                                                 </div>
                                             }
                                             {
                                                 tutor.check_teach == 1 &&
                                                 <div>
-                                                    <span className="fw-bold ">Teach only kids </span>
+                                                    <span className="fw-bold ">{t('teach_only_kids')} </span>
                                                 </div>
                                             }
 
@@ -302,7 +304,7 @@ export default function TutorPage(){
                                     <Row className="mt-5">
                                         <Col lg={3}></Col>
                                         <Col lg={7}>
-                                            <h4 className="mb-3"><b>Certificates</b></h4>
+                                            <h4 className="mb-3"><b>{t('certificates')}</b></h4>
                                             <div className="my-3 d-flex certificates-block">
                                                 {
                                                     certificates?.length > 0 &&
@@ -323,16 +325,16 @@ export default function TutorPage(){
                                 <Row>
                                     <Col md={12}>
                                             <div className="p-4">
-                                                <h4 className="fw-bold mb-2">Schedule lessons</h4>
-                                                <h6>1 trial lesson with -50% discount for each new student, select a time below and let's get started</h6>
-                                                <small>The timings are displayed in your local timezone.</small>
+                                                <h4 className="fw-bold mb-2">{t('schedule_lessons')}</h4>
+                                                <h6>{t('tutor_page_1')}</h6>
+                                                <small>{t('tutor_page_2')}</small>
                                                 <div className="d-flex m-2">
                                                     <div style={{background:'blue',height:'20px',width:'40px',marginRight:'10px'}}></div>
-                                                    <div className="fw-bold ml-2">Booked Lessons</div>
+                                                    <div className="fw-bold ml-2">{t('booked_lessons')}</div>
                                                 </div>
                                                 <div className="d-flex m-2">
                                                     <div style={{background:'green',height:'20px',width:'40px',marginRight:'10px'}}></div>
-                                                    <div className="fw-bold ml-2">Available Hours (Click and select time)</div>
+                                                    <div className="fw-bold ml-2">{t('available_hours')}</div>
                                                 </div>
                                                 <div className="mt-4">
                                                     <FullCalendar
@@ -369,12 +371,15 @@ export default function TutorPage(){
                                                             right: 'timeGridWeek,timeGridDay',
                                                         }}
                                                         slotDuration='01:00:00'
-                                                        locale='en-GB'
+                                                        buttonText={{
+                                                            today: t('today')
+                                                        }}
+                                                        locale={localStorage.getItem('i18next') || 'en'}
                                                         // timeZone='UTC'
                                                         allDaySlot={false}
                                                         // slotLabelInterval={30}
                                                     />
-                                                    <div><button disabled={selected.length > 0 && tutor.status == 1 ? false : true} className="btn btn-lg border my-3" onClick={bookLessons}>{tutor.status == 0 ? 'Not accepting lesons' : 'Book lessons'}</button></div>
+                                                    <div><button disabled={selected.length > 0 && tutor.status == 1 ? false : true} className="btn btn-lg border my-3" onClick={bookLessons}>{tutor.status == 0 ? '-' : t('schedule_lessons')}</button></div>
                                                 </div>
                                             </div>
                                     </Col>
@@ -383,32 +388,32 @@ export default function TutorPage(){
                         </Col>
                         <Col lg={4}>
                             <div className="p-5 border bg-white">
-                                <h4 className="text-center"><span className="pr-4">Average rating</span> <img src="/star12gold.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> - </h4>
+                                <h4 className="text-center"><span className="pr-4">{t('average_rating')}</span> <img src="/star12gold.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> - </h4>
                                 <div className="mt-3 justify-content-center align-items-center d-flex pr-2"><h2>{tutor.price} € </h2>
                                     {
                                         tutor.check_trial == 1 ?
-                                        <span className="text-secondary" style={{marginLeft:'10px'}}>/first trial lesson</span>
-                                            : <span style={{fontSize:'12px', color:'silver', fontWeight:'bold', marginLeft:'10px'}}>/per hour</span>
+                                        <span className="text-secondary" style={{marginLeft:'10px'}}>/{t('first_trial')}</span>
+                                            : <span style={{fontSize:'12px', color:'silver', fontWeight:'bold', marginLeft:'10px'}}>/{t('per_hour')}</span>
                                     }
 
                                 </div>
                                 <button className="btn6 mt-3" onClick={scrollTo}>
-                                    BOOK LESSONS
+                                    {t('schedule_lessons')}
                                 </button>
                                 <div className="d-flex mt-4 align-items-center">
                                     <div><img src="/learlogo.svg" style={{width:'40px',marginRight:'5px'}}/></div>
                                     <div>
-                                        <div className="fw-bold mb-1">Learn with 100% refund guarantee</div>
-                                        <div>If your lesson does not take place, or you are not satisfied with the tutor, we will provide you a full refund.</div>
+                                        <div className="fw-bold mb-1">{t('tutor_page_3')}</div>
+                                        <div>{t('tutor_page_4')}</div>
                                     </div>
                                 </div>
                                 { user &&
                                 <button onClick={message} className="btn4 mt-4">
-                                    <img src="/nchat.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> MESSAGE
+                                    <img src="/nchat.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> {t('leave_first_review')}
                                 </button>
                                  }
                                 <button className="btn4 mb-4 mt-3">
-                                    <img src="/star12.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> READ REVIEWS (0)
+                                    <img src="/star12.svg" style={{width:'24px', marginRight: '10px'}} alt=""/> {t('read_reviews')} (0)
                                 </button>
 
                             </div>
@@ -416,7 +421,7 @@ export default function TutorPage(){
                                 { user &&
                                     <div className="p-5 border mt-3 bg-white">
                                         <button className="btn5">
-                                            LEAVE FIRST REVIEW
+                                            {t('leave_first_review')}
                                         </button>
                                     </div>
                                 }
@@ -428,7 +433,7 @@ export default function TutorPage(){
             <Modal show={show} onHide={handleClose}>
                 <Form onSubmit={onSubmitCheckout}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Secure Checkout</Modal.Title>
+                    <Modal.Title>{t('secure_checkout')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div>
@@ -443,13 +448,13 @@ export default function TutorPage(){
                         <div className="my-4">
                             <div className="d-flex justify-content-between">
                                 <div className="fz-15">
-                                    <div className="fw-bold mb-2">Service details</div>
-                                    <div>Trial lesson price</div>
-                                    <div>Processing fee</div>
-                                    <div className="mt-2 fz-18 fw-bold">Total</div>
+                                    <div className="fw-bold mb-2">{t('service_detail')}</div>
+                                    <div>{t('trial_lesson_price')}</div>
+                                    <div>{t('processing_fee')}</div>
+                                    <div className="mt-2 fz-18 fw-bold">{t('total')}</div>
                                 </div>
                                 <div className="fz-15">
-                                    <div className="fw-bold m-2">Price</div>
+                                    <div className="fw-bold m-2">{t('price')}</div>
                                     <div>{tutor.price} €</div>
                                     <div>1.00 €</div>
                                     <div className="mt-2 fz-18 fw-bold">{selected.length > 0 ? tutor.price * selected.length + 1 : tutor.price + 1} €</div>
@@ -461,21 +466,21 @@ export default function TutorPage(){
                         <Row>
                             <Col md={10}>
                                 <Form.Group className="mb-3" controlId="13">
-                                    <Form.Label className="fw-bold">You have <Badge style={{color:'black'}} bg="warning">{user?.wallet} €</Badge> in your wallet</Form.Label>
+                                    <Form.Label className="fw-bold">{t('you_have')} <Badge style={{color:'black'}} bg="warning">{user?.wallet} €</Badge> {t('in_your_wallet')}</Form.Label>
                                     <Form.Control type="number"
                                                   value={data?.useWallet}
                                                   onChange={ev => setData({...data, useWallet : ev.target.value})}
                                     />
                                 </Form.Group>
                             </Col>
-                            <Col md={2} className="align-items-center d-flex"><Button className="btn btn-sm">USE</Button></Col>
+                            <Col md={2} className="align-items-center d-flex"><Button className="btn btn-sm">{t('use')}</Button></Col>
                         </Row>
                     </div>
                     <div className="p-2 mb-4 mt-1" style={{background:'#dfdcde'}}>
-                        <div className="mb-4 text-dark"><CreditCardFill size={26}/>Pay with your credit card via Stripe. </div>
+                        <div className="mb-4 text-dark"><CreditCardFill size={26}/>{t('paypal_info')} </div>
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <label htmlFor="cc-number" className="text-dark">Card Number *</label>
+                                <label htmlFor="cc-number" className="text-dark">{t('card_number')} *</label>
                                 <InputMask
                                     mask='9999 9999 9999 9999'
                                     placeholder='XXXX XXXX XXXX XXXX'
@@ -489,7 +494,7 @@ export default function TutorPage(){
 
                             </div>
                                 <div class="col-md-6 mb-3">
-                                    <label htmlFor="cc-expiration" className="text-dark">Expiry Date *</label>
+                                    <label htmlFor="cc-expiration" className="text-dark">{t('expiry_date')} *</label>
                                     <InputMask
                                         mask='99/99'
                                         onChange={ev => setData({...data, exp : ev.target.value})}
@@ -501,7 +506,7 @@ export default function TutorPage(){
                                         </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label htmlFor="cc-expiration" className="text-dark">Card Code (CVC) *</label>
+                                    <label htmlFor="cc-expiration" className="text-dark">{t('card_code')} *</label>
                                     <InputMask
                                         mask='999'
                                         onChange={ev => setData({...data, cvc : ev.target.value})}
@@ -515,20 +520,20 @@ export default function TutorPage(){
                         </div>
                         <div class="custom-control custom-checkbox d-flex justify-content-around">
                             <input type="checkbox" className="custom-control-input" style={{marginRight: '10px'}} id="same-address1" />
-                            <label className="custom-control-label text-dark" htmlFor="same-address1"><b>Save payment information to my account for future purchases.</b></label>
+                            <label className="custom-control-label text-dark" htmlFor="same-address1"><b>{t('card_info_1')}</b></label>
                         </div>
                     </div>
                     <div class="custom-control custom-checkbox d-flex justify-content-around">
                         <input type="checkbox" className="custom-control-input" style={{marginRight: '10px'}} id="same-address2" />
-                        <label className="custom-control-label" htmlFor="same-address2"><b>By checking this box you agree to Pinpaya Terms of use & General conditions *</b></label>
+                        <label className="custom-control-label" htmlFor="same-address2"><b>{t('card_info_2')} *</b></label>
                     </div>
                     <Form.Group className="mb-3 mt-3" controlId="12">
-                        <Form.Label className="fw-bold">What do you want to study?</Form.Label>
+                        <Form.Label className="fw-bold">{t('what_study')}</Form.Label>
                         <Form.Select required
                                      value={data?.subject}
                                      onChange={ev => setData({...data, subject : ev.target.value})}
                         >
-                            <option value="">Select subject</option>
+                            <option value="">{t('select_subject')}</option>
                             {   tutor.subject &&
                                 tutor.subject.map(({ id, name }) => (
                                     <option value={id}>{name}</option>
@@ -536,11 +541,11 @@ export default function TutorPage(){
                         </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="13">
-                        <Form.Label className="fw-bold">Note to private teacher (optional)</Form.Label>
+                        <Form.Label className="fw-bold">{t('note_private_teacher')}</Form.Label>
                         <Form.Control as="textarea" rows={3}
                                       value={data?.note}
                                       onChange={ev => setData({...data, note : ev.target.value})}
-                                      placeholder="Tell the tutor about your goals and what exactly you want to learn"
+                                      placeholder={t('note_private_teacher_placeholder')}
                         />
                     </Form.Group>
                     {error &&
@@ -551,9 +556,9 @@ export default function TutorPage(){
                     <Button variant="primary" type="submit" disabled={loading}>
                         {loading ? (
                             <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
+                                <span className="visually-hidden">{t('loading')}...</span>
                             </Spinner>
-                            ) : 'Confirm'
+                            ) : t('confirm')
                         }
 
                     </Button>
