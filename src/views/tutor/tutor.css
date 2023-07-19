@@ -1,0 +1,13 @@
+.p-multiselect{
+    width: 100%;
+    min-height: 160px;
+}
+.p-multiselect-label{
+    white-space: normal !important;
+}
+.p-multiselect-token{
+    margin-top:10px;
+}
+svg{
+    margin-right: 5px;
+}
