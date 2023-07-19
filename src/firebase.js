@@ -11,7 +11,7 @@ const firebaseConfig = {
     projectId: "pinpaya-v2",
     storageBucket: "pinpaya-v2.appspot.com",
     messagingSenderId: "48489615476",
-    appId: "1:48489615476:web:267b83d74059c5dbe10121"
+    appId: "1:48489615476:web:6b738deaccf4c847e10121"
 };
 
 
