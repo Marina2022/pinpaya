@@ -1,0 +1,13 @@
+.wrapper {
+  margin-bottom: 15px;
+  font-weight: 400;
+
+  & > div  > div:focus {
+    outline: 1px solid red;
+  }
+}
+
+.select:focus {
+  border: red 2px solid;
+}
+
