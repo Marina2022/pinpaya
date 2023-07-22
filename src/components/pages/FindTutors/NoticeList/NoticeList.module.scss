@@ -1,0 +1,33 @@
+.notice {
+  font-size: 14px;
+  line-height: 17px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+::-webkit-scrollbar {
+  visibility: hidden;
+  width: 0px;
+}
+
+.noticeList {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.noticeItem {
+  display: flex;
+  align-items: center;
+  margin-right: 29px;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.noticeImage {
+  margin-right: 13px;
+  width: 46px;
+  height: 40px;
+}

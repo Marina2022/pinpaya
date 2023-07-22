@@ -17,6 +17,7 @@ import Home from "../chat/Home";
 import AxiosClient from "../../axios-client";
 import {useTranslation} from "react-i18next";
 import cookies from "js-cookie";
+import Footer from "./Footer/Footer";
 
 export default function MainLayout(){
     const {user, type, setUser} = useStateContext()
@@ -203,40 +204,10 @@ export default function MainLayout(){
             <main>
                 <Outlet/>
             </main>
-            <div className="bg-dark">
-                <Container>
-                    <footer className="bg-dark pt-3">
-                        <Row>
-                            <Col md="4 p-4">
-                                <div className="text-white">
-                                    <div><Link className="text-white" to="/about">{t('about_pinpaya')}</Link></div>
-                                    <div><Link className="text-white" to="/become-tutor">{t('become_private_tutor')}</Link></div>
-                                    <div><Link className="text-white" to="/find-tutor">{t('find_private_tutor')}</Link></div>
-                                    <div><Link className="text-white" to="/faq">FAQ</Link> </div>
-                                    <div><Link className="text-white" to="/support">{t('support')}</Link></div>
-                                    <div><Link className="text-white" to="/blog">{t('blog')}</Link></div>
-                                </div>
-                            </Col>
-                            <Col md="4 p-4">
-                                <div>
-                                    <div className="mb-3">{t('footer_1')}</div>
-                                    <div className="mb-3">{t('footer_2')}</div>
-                                    <div>support@pinpaya.com</div>
-                                </div>
-                            </Col>
-                            <Col md="4 p-4">
-                                {/*<div>English</div>*/}
-                                <div>{t('secure_checkout')}</div>
-                            </Col>
-                        </Row>
-                        <Row className="mt-5 pb-4">
-                            <Col md="4">{t('footer_3')}</Col>
-                            <Col md="4"><Link className="text-white" to="/terms">{t('footer_4')}</Link></Col>
-                            <Col md="4"></Col>
-                        </Row>
-                    </footer>
-                </Container>
-            </div>
+
+            <Footer/>
+
+
             {showChat && user &&
               <div>
                   <Home handleChatClose={handleChatClose}/>

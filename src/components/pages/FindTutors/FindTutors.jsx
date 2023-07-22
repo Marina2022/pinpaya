@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import s from './FindTutors.module.scss'
 import TutorCard from "./TutorCard/TutorCard";
 import FindTutorFilters from "./FindTutorFilters/FindTutorFilters";
+import NoticeList from "./NoticeList/NoticeList";
 
 export default function FindTutors() {
   const [tutors, setTutors] = useState([]);
@@ -30,17 +31,9 @@ export default function FindTutors() {
   return (
 
     <div className='container'>
-      <h3 className="fw-bold my-5">{t('find_private_tutor')}</h3>
-      <Row className="mb-5">
-        <Col md={3}><img src="/public/find1.svg" style={{width: '40px', marginRight: '10px'}}/>{t('find_tutor_text1')}
-        </Col>
-        <Col md={3}><img src="/public/find2.svg" style={{width: '40px', marginRight: '10px'}}/> {t('find_tutor_text2')}
-        </Col>
-        <Col md={3}><img src="/public/find3.svg" style={{width: '40px', marginRight: '10px'}}/> {t('find_tutor_text3')}
-        </Col>
-        <Col md={3}><img src="/public/find4.svg" style={{width: '40px', marginRight: '10px'}}/> {t('find_tutor_text4')}
-        </Col>
-      </Row>
+      <h2 className={s.mainTitle}>{t('find_private_tutor')}</h2>
+
+      <NoticeList/>
 
       <div className={s.globalWrapper}>
         <div className={s.filters}>
@@ -48,7 +41,7 @@ export default function FindTutors() {
                             loading={loading}/>
         </div>
 
-        <div className={s.cards}>
+        <section className={s.cards}>
           {
             tutors.length > 0 &&
             loading ?
@@ -67,7 +60,7 @@ export default function FindTutors() {
               <h3>{t('no_results')}</h3>
             </div>
           }
-        </div>
+        </section>
       </div>
     </div>
   )
