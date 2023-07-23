@@ -9,6 +9,14 @@
   @media (max-width: 576px) {
     padding: 35px 0px;
   }
+
+  a {
+    color: #fff;
+
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
 .topFooter {
@@ -48,7 +56,6 @@
   @media (max-width: 768px) {
     margin-top: 50px;
   }
-
 
   &:before {
     content: '';
@@ -105,3 +112,4 @@
     }
   }
 }
+

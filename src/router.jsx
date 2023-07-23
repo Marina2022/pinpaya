@@ -6,7 +6,7 @@ import {
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
 import GuestLayout from "./components/layouts/GuestLayout.jsx";
-import MainLayout from "./components/layouts/MainLayout";
+import MainLayout from "./components/layouts/MainLayout/MainLayout";
 import Home from "./components/Home";
 import Menu from "./components/student/Menu";
 import TutorMenu from "./components/tutor/Menu";

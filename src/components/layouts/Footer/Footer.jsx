@@ -1,10 +1,8 @@
 import s from './Footer.module.scss';
-import {Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-import secure from '../../../assets/footer/secure.svg'
 import paypal from '../../../assets/footer/paypal.svg'
 import visa from '../../../assets/footer/visa.svg'
 import mastercard from '../../../assets/footer/mastercard.svg'
@@ -43,7 +41,7 @@ const Footer = () => {
 
         <div className={s.bottomFooter}>
           <div>{t('footer_3')}</div>
-          <div>{t('footer_4')}</div>
+          <a href="https://www.pinpaya.com/terms-of-use-general-conditions/">{t('footer_4')}</a>
           <div></div>
         </div>
 

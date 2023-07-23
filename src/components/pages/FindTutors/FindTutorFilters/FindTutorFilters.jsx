@@ -10,6 +10,7 @@ import TextInput from "../../../CommonComponents/TextInput/TextInput";
 import Checkbox from "../../../CommonComponents/Checkbox/Checkbox";
 
 import searchIcon from "../../../../assets/search.svg"
+import filterIcon from "../../../../assets/findTutor/filter-icon.svg"
 
 
 const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading}) => {
@@ -147,61 +148,66 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading})
 
 
     return (
-      <form className={s.filterForm} onSubmit={send}>
 
-        <TextInput
-          placeholder={t('search_placeholder')}
-          type="text"
-          value={data?.search}
-          onChange={ev => setData({...data, search: ev.target.value})}
-          icon={searchIcon}
-        />
+      <>
+        <button className={s.filtersBtn}> Filters <img src={filterIcon} alt="filter icon"/></button>
+        <form className={s.filterForm} onSubmit={send} >
 
-        <label className={s.formLabel}>{t('i_want_learn')}
-          <Select options={subjectOptions}
-                  value={data?.subject}
-                  onChange={selectValue => setData({...data, subject: selectValue})}
+          <TextInput
+            placeholder={t('search_placeholder')}
+            type="text"
+            value={data?.search}
+            onChange={ev => setData({...data, search: ev.target.value})}
+            icon={searchIcon}
           />
-        </label>
 
-        <label className={s.formLabel}>{t('tutor_from')}
-          <Select options={countryOptions}
-                  value={data?.location}
-                  onChange={selectValue => setData({...data, location: selectValue})}
-          />
-        </label>
+          <label className={s.formLabel}>{t('i_want_learn')}
+            <Select options={subjectOptions}
+                    value={data?.subject}
+                    onChange={selectValue => setData({...data, subject: selectValue})}
+            />
+          </label>
 
-        <label className={s.formLabel}>{t('tutor_speaks')}
-          <Select options={langOptions}
-                  value={data?.language}
-                  onChange={selectValue => setData({...data, language: selectValue})}
-          />
-        </label>
+          <label className={s.formLabel}>{t('tutor_from')}
+            <Select options={countryOptions}
+                    value={data?.location}
+                    onChange={selectValue => setData({...data, location: selectValue})}
+            />
+          </label>
 
-        <label className={s.formLabel}>{t('price_per_hour')}
-          <Select options={priceOptions}
-                  value={data?.price}
-                  onChange={selectValue => setData({...data, price: selectValue})}
-          />
-        </label>
+          <label className={s.formLabel}>{t('tutor_speaks')}
+            <Select options={langOptions}
+                    value={data?.language}
+                    onChange={selectValue => setData({...data, language: selectValue})}
+            />
+          </label>
 
-        <div className={s.checkBoxGroup}>
+          <label className={s.formLabel}>{t('price_per_hour')}
+            <Select options={priceOptions}
+                    value={data?.price}
+                    onChange={selectValue => setData({...data, price: selectValue})}
+            />
+          </label>
 
-        <Checkbox value={checkTeach} onChange={(e) => setCheckTeach(!checkTeach)} label={t('search_1')} id='check1'/>
-        <Checkbox value={checkTrial} onChange={(e) => setCheckTrial(!checkTrial)} label={t('search_2')} id='check2'/>
-        <Checkbox value={checkVideo} onChange={(e) => setCheckVideo(!checkVideo)} label={t('search_3')} id='check3'/>
-      </div>
+          <div className={s.checkBoxGroup}>
+
+            <Checkbox value={checkTeach} onChange={(e) => setCheckTeach(!checkTeach)} label={t('search_1')} id='check1'/>
+            <Checkbox value={checkTrial} onChange={(e) => setCheckTrial(!checkTrial)} label={t('search_2')} id='check2'/>
+            <Checkbox value={checkVideo} onChange={(e) => setCheckVideo(!checkVideo)} label={t('search_3')} id='check3'/>
+          </div>
 
 
-    <button className={s.searchBtn} type="submit" >
-      {
-        loading ?
-          <Spinner animation="border" role="status" style={{width: '20px', height: '20px'}}>
-            <span className="visually-hidden">Loading...</span>
-          </Spinner> : t('search')
-      }
-    </button>
-  </form>
+          <button className={s.searchBtn} type="submit" >
+            {
+              loading ?
+                <Spinner animation="border" role="status" style={{width: '20px', height: '20px'}}>
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner> : t('search')
+            }
+          </button>
+        </form>
+      </>
+
   )
     ;
   }
