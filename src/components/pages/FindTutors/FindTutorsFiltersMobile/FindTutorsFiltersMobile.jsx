@@ -32,7 +32,7 @@ const FindTutorsFiltersMobile = (props) => {
             key={1}
             className={s.filtersWrapper}
             initial={{width: 0}}
-            animate={{maxWidth: 340, width: '95%'}}
+            animate={{maxWidth: 330, width: '95%'}}
             exit={{width: 0}}
 
             transition={{
@@ -42,7 +42,6 @@ const FindTutorsFiltersMobile = (props) => {
             <button className={s.closeBtn} onClick={onClose}>&times;</button>
             <div className={s.filterContent}>
               <FindTutorFilters classname={s.mobileFilters}  {...props}  />
-
             </div>
           </motion.div>
         }

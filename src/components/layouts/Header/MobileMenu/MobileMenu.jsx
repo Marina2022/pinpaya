@@ -26,6 +26,8 @@ const MobileMenu = () => {
     body.style.overflow = 'unset'
   }
 
+
+
   return (
     <div>
       <div className={s.hamburger} onClick={onMenuBtnClick}>
@@ -54,21 +56,21 @@ const MobileMenu = () => {
                     {type === 'tutor' &&
                       <ul className={s.mobileNav}>
                         <li className="menu-item">
-                          <Link to="tutor/my-lessons" onClick={() => setMobileIsOpen(false)}>{t('my_lessons')}</Link>
+                          <Link to="tutor/my-lessons" onClick={onClose}>{t('my_lessons')}</Link>
                         </li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)
+                          <Link onClick={onClose
                           } to="tutor/my-tutor-profile">  {t('my_tutor_profile')}</Link>
                         </li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)}
+                          <Link onClick={onClose}
                                 to="tutor/my-schedule">  {t('my_schedule')}</Link>
                         </li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)} to="tutor/my-earnings">{t('my_earnings')}</Link>
+                          <Link onClick={onClose} to="tutor/my-earnings">{t('my_earnings')}</Link>
                         </li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)}
+                          <Link onClick={onClose}
                                 to="tutor/account-settings">{t('account_settings')}</Link>
                         </li>
                         <li className="menu-item">
@@ -84,20 +86,20 @@ const MobileMenu = () => {
                       type === "student" &&
                       <ul className={s.mobileNav}>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)} to="student/my-lessons">{t('my_lessons')}</Link>
+                          <Link onClick={onClose} to="student/my-lessons">{t('my_lessons')}</Link>
                         </li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)}
+                          <Link onClick={onClose}
                                 to="student/order-history">{t('order_history')}</Link></li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)} to="student/my-wallet">{t('my_wallet')}</Link>
+                          <Link onClick={onClose} to="student/my-wallet">{t('my_wallet')}</Link>
                         </li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)}
+                          <Link onClick={onClose}
                                 to="student/payment-methods">{t('payment_methods')}</Link>
                         </li>
                         <li className="menu-item">
-                          <Link onClick={() => setMobileIsOpen(false)}
+                          <Link onClick={onClose}
                                 to="student/account-settings">{t('account_settings')}</Link>
                         </li>
                         <li className="menu-item">
@@ -115,24 +117,24 @@ const MobileMenu = () => {
                   <li id="menu-item-5548"
                       className="menu-item mt-2 menu-item-type-post_type menu-item-object-page menu-item-5548"
                   >
-                    <Link onClick={() => setMobileIsOpen(false)} to="about">{t('about_pinpaya')}</Link>
+                    <Link onClick={onClose} to="about">{t('about_pinpaya')}</Link>
                   </li>
                   <li id="menu-item-6339"
                       className="menu-item menu-item-type-post_type menu-item-object-page menu-item-6339">
-                    <Link onClick={() => setMobileIsOpen(false)} to="become-tutor">{t('become_private_tutor')}</Link>
+                    <Link onClick={onClose} to="become-tutor">{t('become_private_tutor')}</Link>
                   </li>
                   <li id="menu-item-3757"
                       className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3757">
-                    <Link onClick={() => setMobileIsOpen(false)} to="find-tutor">{t('find_private_tutor')}</Link></li>
+                    <Link onClick={onClose} to="find-tutor">{t('find_private_tutor')}</Link></li>
                   <li id="menu-item-3755"
                       className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3755">
-                    <Link onClick={() => setMobileIsOpen(false)} to="faq">FAQ</Link></li>
+                    <Link onClick={onClose} to="faq">FAQ</Link></li>
                   <li id="menu-item-5581"
                       className="menu-item menu-item-type-post_type menu-item-object-page menu-item-5581">
-                    <Link onClick={() => setMobileIsOpen(false)} to="support">{t('support')}</Link></li>
+                    <Link onClick={onClose} to="support">{t('support')}</Link></li>
                   <li id="menu-item-14537"
                       className="menu-item menu-item-type-custom menu-item-object-custom menu-item-14537">
-                    <Link onClick={() => setMobileIsOpen(false)} to="blog">{t('blog')}</Link></li>
+                    <Link onClick={onClose} to="blog">{t('blog')}</Link></li>
                 </ul>
 
             </div>

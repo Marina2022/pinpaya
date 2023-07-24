@@ -5,6 +5,11 @@
   border: 1px solid #e0e0e0;
   padding: 25px;
 
+  @media (max-width: 768px) {
+    padding: 0px;
+    padding-bottom: 30px;
+  }
+
 }
 
 .formLabel {
@@ -34,6 +39,7 @@
   align-items: center;
   border: 1px solid #F0500B;
   border-radius: 3px;
+  margin-bottom: 60px;
 
   &:hover {
     background: #F9F9F9;

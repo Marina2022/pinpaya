@@ -26,7 +26,6 @@ const Header = ({triggerMessage, showLoader}) => {
   }, [])
 
 
-
   const [isMobileOpen, setMobileIsOpen] = useState(false)
 
   return (
@@ -48,13 +47,13 @@ const Header = ({triggerMessage, showLoader}) => {
         </nav>
 
         <div className={s.userNav}>
-            {showLoader ? (
-                <Spinner animation="border" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </Spinner>
-              ) : (
+          {showLoader ? (
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          ) : (
 
-                user ?
+            user ?
               <>
                 <Link className={s.walletLink} to={type === 'tutor' ? '/tutor/my-earnings' : '/student/my-wallet'}>
 
@@ -88,21 +87,22 @@ const Header = ({triggerMessage, showLoader}) => {
               </>
               :
               <>
-                <LangSelect classname={s.langSelect}/>
+                <div className={s.langSelect}>
+                  <LangSelect/>
+                </div>
                 <BigOrangeBtn to="/login" classname={s.loginBtn}>
                   <img className={s.orangeBtnIcon} src={userIcon} alt="user icon"/>
                   <span className={s.btnText}>{t('login')}</span>
                 </BigOrangeBtn>
               </>
-            )
+          )
           }
-          <MobileMenu />
+          <MobileMenu/>
         </div>
       </header>
     </>
   );
 };
-
 
 
 export default Header;

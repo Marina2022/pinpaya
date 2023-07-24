@@ -34,7 +34,7 @@ const LangSelect = ({classname}) => {
   }
 
   return (
-    <div className={cn(s.wrapper, classname)} >
+    <div className={cn(classname, s.wrapper)} >
       <div className={s.langWrapper} onClick={onLangClick}>
         <GlobeIcon/>
         <span className={s.langName}> {languages.find((l) => l.code === currentCode).name}  </span>
