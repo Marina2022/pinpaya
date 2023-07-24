@@ -1,12 +1,12 @@
 import s from './TextInput.module.scss'
 
-const TextInput = ({placeholder, value, onChange, icon}) => {
+const TextInput = ({placeholder, value, onChange, icon, ...rest}) => {
   return (
     <div className={s.inputWrapper}>
       {
         icon ? <img className={s.icon} src={icon} alt="icon"/> : null
       }
-      <input className={s.input} value={value} onChange={onChange} placeholder={placeholder}/>
+      <input {...rest} className={s.input} value={value} onChange={onChange} placeholder={placeholder}/>
     </div>
   );
 };

@@ -5,41 +5,6 @@
   border: 1px solid #e0e0e0;
   padding: 25px;
 
-  @media (max-width: 992px) {
-    position: absolute;
-    top: 0;
-    left: 100px;
-    transform: translateX(1000px);
-  }
-}
-
-.filtersBtn {
-  font-weight: 400!important;
-  display: none;
-  cursor: pointer;
-  text-align: right;
-  font-size: 12px;
-  line-height: 24px;
-  color: #666666;
-  background-color: white;
-  align-items: center;
-  border: 1px solid #E0E0E0;
-  border-radius: 3px;
-  padding: 0 12px 0 11px;
-  height: 31px;
-  margin-bottom: 15px;
-
-  &:focus,  &:hover {
-    color: #666666!important;
-  }
-
-  img {
-    margin-left: 15px;
-  }
-
-  @media (max-width: 992px) {
-    display: flex;
-  }
 }
 
 .formLabel {
@@ -76,3 +41,17 @@
     color: #DB480A!important;
   }
 }
+
+
+.closeBtn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+

@@ -6,14 +6,13 @@ import {useTranslation} from "react-i18next";
 import axiosClient from "../../../../axios-client";
 import {useLocation} from "react-router-dom";
 import Select from "../../../CommonComponents/Select/Select";
-import TextInput from "../../../CommonComponents/TextInput/TextInput";
 import Checkbox from "../../../CommonComponents/Checkbox/Checkbox";
 
-import searchIcon from "../../../../assets/search.svg"
-import filterIcon from "../../../../assets/findTutor/filter-icon.svg"
+import SearchField from "../../../CommonComponents/SearchField/SearchField";
+import cn from "classnames";
 
 
-const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading}) => {
+const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, classname}) => {
     const {t, i18n} = useTranslation();
 
     const [checkTeach, setCheckTeach] = useState(false);
@@ -144,21 +143,14 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading})
         }))
       ]
 
-    console.log('priceOptions', priceOptions)
-
-
     return (
-
       <>
-        <button className={s.filtersBtn}> Filters <img src={filterIcon} alt="filter icon"/></button>
-        <form className={s.filterForm} onSubmit={send} >
+        <form className= { cn(s.filterForm, classname)} onSubmit={send} >
 
-          <TextInput
+          <SearchField
             placeholder={t('search_placeholder')}
-            type="text"
             value={data?.search}
             onChange={ev => setData({...data, search: ev.target.value})}
-            icon={searchIcon}
           />
 
           <label className={s.formLabel}>{t('i_want_learn')}

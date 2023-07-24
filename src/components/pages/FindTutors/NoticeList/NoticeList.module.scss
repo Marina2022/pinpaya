@@ -6,6 +6,12 @@
   overflow-x: scroll;
   overflow-y: hidden;
 
+  @media (max-width: 992px) {
+    margin-bottom: 20px;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
 }
 
@@ -13,6 +19,7 @@
   visibility: hidden;
   width: 0px;
 }
+
 
 .noticeList {
   display: flex;

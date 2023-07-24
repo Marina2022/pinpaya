@@ -1,7 +1,8 @@
 import s from './LangSelect.module.scss'
 import cookies from "js-cookie";
-import React, {useRef, useState} from "react";
+import React, { useState} from "react";
 import {useTranslation} from "react-i18next";
+import cn from "classnames";
 
 const languages = [
   {
@@ -21,10 +22,11 @@ const languages = [
   },
 ]
 
-const currentLanguageCode = cookies.get('i18nextLng') || 'en'
-const currentLanguage = languages.find((l) => l.code === currentLanguageCode)
+const LangSelect = ({classname}) => {
 
-const LangSelect = () => {
+  const currentLanguageCode = cookies.get('i18nextLng') || 'en'
+
+  const [currentCode, setCurrentCode] = useState(currentLanguageCode)
   const [isOpen, setIsOpen] = useState(false)
 
   const onLangClick = (e) => {
@@ -32,13 +34,13 @@ const LangSelect = () => {
   }
 
   return (
-    <div className={s.wrapper} >
+    <div className={cn(s.wrapper, classname)} >
       <div className={s.langWrapper} onClick={onLangClick}>
         <GlobeIcon/>
-        <span className={s.langName}> {currentLanguage.name} </span>
+        <span className={s.langName}> {languages.find((l) => l.code === currentCode).name}  </span>
       </div>
       {
-        isOpen && <Dropdown setIsOpen={setIsOpen}/>
+        isOpen && <Dropdown setIsOpen={setIsOpen} setCurrentCode={setCurrentCode} />
       }
     </div>
   );
@@ -47,7 +49,7 @@ const LangSelect = () => {
 export default LangSelect;
 
 
-const Dropdown = ({setIsOpen}) => {
+const Dropdown = ({setIsOpen, setCurrentCode}) => {
 
   const {t, i18n} = useTranslation();
 
@@ -63,10 +65,11 @@ const Dropdown = ({setIsOpen}) => {
                   localStorage.setItem('i18next', country_code);
                   i18n.changeLanguage(code);
                   setIsOpen(false)
+                  setCurrentCode(code)
                 }}
             >
               <span
-                className={`flag-icon flag-icon-${country_code === 'en' ? 'us' : country_code} mx-2`}
+                className={`flag-icon flag-icon-${country_code === 'en' ? 'us' : country_code === 'et' ?  'ee' : country_code} mx-2`}
               ></span>
               {name}
             </li>

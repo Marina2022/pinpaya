@@ -1,7 +1,7 @@
 import s from './Header.module.scss'
 
-import {Link, NavLink} from "react-router-dom";
-import React, {useEffect} from "react";
+import {Link, NavLink, useLocation} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {useTranslation} from "react-i18next";
 import {Spinner} from "react-bootstrap";
@@ -14,7 +14,7 @@ import chat from '../../../assets/header/chat.svg'
 import LangSelect from "./LangSelect/LangSelect";
 import BigOrangeBtn from "../../CommonComponents/BigOrangeBtn/BigOrangeBtn";
 import cn from "classnames";
-
+import MobileMenu from "./MobileMenu/MobileMenu";
 
 const Header = ({triggerMessage, showLoader}) => {
 
@@ -25,23 +25,9 @@ const Header = ({triggerMessage, showLoader}) => {
     i18n.changeLanguage(localStorage.getItem('i18next') || 'en')
   }, [])
 
-  const languages = [
-    {
-      code: 'en',
-      name: 'English',
-      country_code: 'en',
-    },
-    {
-      code: 'ru',
-      name: 'Russian',
-      country_code: 'ru',
-    },
-    {
-      code: 'et',
-      name: 'Estonian',
-      country_code: 'et',
-    },
-  ]
+
+
+  const [isMobileOpen, setMobileIsOpen] = useState(false)
 
   return (
     <>
@@ -102,22 +88,21 @@ const Header = ({triggerMessage, showLoader}) => {
               </>
               :
               <>
-                <LangSelect/>
+                <LangSelect classname={s.langSelect}/>
                 <BigOrangeBtn to="/login" classname={s.loginBtn}>
-                  <img src={userIcon} alt="user icon"/>
+                  <img className={s.orangeBtnIcon} src={userIcon} alt="user icon"/>
                   <span className={s.btnText}>{t('login')}</span>
                 </BigOrangeBtn>
               </>
             )
           }
-
-          <div className={s.hamburger}><span></span></div>
+          <MobileMenu />
         </div>
-
       </header>
-
     </>
   );
 };
+
+
 
 export default Header;

@@ -7,6 +7,7 @@ import s from './FindTutors.module.scss'
 import TutorCard from "./TutorCard/TutorCard";
 import FindTutorFilters from "./FindTutorFilters/FindTutorFilters";
 import NoticeList from "./NoticeList/NoticeList";
+import FindTutorsFiltersMobile from "./FindTutorsFiltersMobile/FindTutorsFiltersMobile";
 
 export default function FindTutors() {
   const [tutors, setTutors] = useState([]);
@@ -31,14 +32,15 @@ export default function FindTutors() {
   return (
 
     <div className='container'>
+
       <h2 className={s.mainTitle}>{t('find_private_tutor')}</h2>
-
       <NoticeList/>
-
+      <FindTutorsFiltersMobile setLoading={setLoading} setTutors={setTutors} subjects={subjects} languages={languages}
+                               loading={loading}/>
       <div className={s.globalWrapper}>
         <div className={s.filters}>
           <FindTutorFilters setLoading={setLoading} setTutors={setTutors} subjects={subjects} languages={languages}
-                            loading={loading}/>
+                            loading={loading} classname={s.filtersInner} />
         </div>
 
         <section className={s.cards}>
