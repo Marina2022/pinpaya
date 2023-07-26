@@ -1,0 +1,35 @@
+.checkInput {
+  display: none;
+}
+
+.checkInput:checked + .checkLabel {
+  &:before {
+    background: url(../../../assets/checkmark.svg) no-repeat center;
+  }
+}
+
+.checkLabel {
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 16px;
+
+
+  &:hover::before {
+    border: 1px solid hsl(0, 0%, 70%);
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 27px;
+    height: 27px;
+    left: -0px;
+    top: -4px;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+
+
+
+
+  }
+}

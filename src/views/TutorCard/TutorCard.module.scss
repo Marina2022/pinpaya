@@ -1,0 +1,206 @@
+.tutorCard {
+  position: relative;
+  background: #fff;
+  border: 1px solid #E0E0E0;
+  padding: 17px;
+  min-height: 100px;
+  border-radius: 3px;
+  transition: border 0.2s ease;
+  display: flex;
+  margin-bottom: 17px;
+
+  &:hover {
+    border-color: #adadad;
+  }
+
+  @media (max-width: 992px) {
+    margin-inline: auto;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+}
+
+.avatar {
+  width: 127px;
+  height: 127px;
+  object-fit: cover;
+  margin-right: 17px;
+  flex-shrink: 0;
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+
+}
+
+.descriptionWrapper {
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+
+}
+
+.title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  a:hover {
+    color: #242424;
+  }
+
+}
+
+.childIcon {
+  margin-left: 16px;
+  height: 18px;
+  width: auto;
+  position: relative;
+  bottom: 2px;
+}
+
+.location {
+  font-size: 10px;
+  line-height: 22px;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.desc{
+  font-size: 12px;
+  line-height: 16px;
+  color: #666;
+}
+
+.descRowWrapper {
+  display: flex;
+}
+
+.descLabel {
+  min-width: 85px;
+  display: inline-block;
+
+}
+.descValue {
+
+}
+
+.priceBlock {
+  position: absolute;
+  right: 17px;
+  top: 17px;
+}
+
+.price {
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: bold;
+  color: #242424;
+  margin-bottom: 5px;
+  text-align: right;
+}
+
+.perHourText {
+  font-size: 12px;
+  line-height: 16px;
+  color: #666;
+  text-align: right;
+}
+
+.star {
+  margin-right: 15px;
+  position: relative;
+  bottom: 3px;
+}
+
+.buttonsBlock {
+  position: absolute;
+  right: 17px;
+  bottom: 17px;
+}
+
+.messageBtn {
+  cursor: pointer;
+  margin-right: 16px;
+  background-color: transparent;
+  color: #666666;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: bold !important;
+  font-family: Manrope, sans-serif;
+
+  &:hover {
+    color: black!important;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+}
+
+.scheduleBtnOrange {
+  border: 1px solid #C9C9C9;
+  border-radius: 3px;
+  cursor: pointer;
+  border-color: #F0500B;
+  background: #F0500B;
+  color: white;
+  font-size: 12px;
+  height: 26px;
+  line-height: 16px;
+  padding: 0 10px;
+  display: inline-flex;
+  text-transform: uppercase;
+  outline: none!important;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700!important;
+
+  &:hover {
+    border-color: #DB480A;
+    background: #DB480A;
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+}
+
+.scheduleBtnGreen {
+  border: 1px solid #C9C9C9;
+  border-color: #6DEFA8;
+  background: #6DEFA8;
+  color: #242424;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  height: 26px;
+  line-height: 16px;
+  padding: 0 10px;
+  display: inline-flex;
+  text-transform: uppercase;
+  outline: none!important;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700!important;
+
+  &:hover {
+    border-color: #28e77f;
+    background: #28e77f;
+    color: #242424;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+  }
+}
