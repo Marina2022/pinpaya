@@ -9,7 +9,7 @@ import SearchField from "../../../CommonComponents/SearchField/SearchField";
 import LangSelect from "../LangSelect/LangSelect";
 
 
-const MobileMenu = () => {
+const MobileMenu = ({currentCode, setCurrentCode}) => {
   const [isMobileOpen, setMobileIsOpen] = useState(false)
   const {user, type} = useStateContext()
   const {t, i18n} = useTranslation();
@@ -26,10 +26,8 @@ const MobileMenu = () => {
     body.style.overflow = 'unset'
   }
 
-
-
   return (
-    <div>
+    <div style={{minHeight:'100%'}}>
       <div className={s.hamburger} onClick={onMenuBtnClick}>
         <span></span>
       </div>
@@ -46,13 +44,14 @@ const MobileMenu = () => {
               duration: .2
             }}
           >
-            <button className={s.closeBtn} onClick={onClose}>&times;</button>
-            <div className={s.menuContent}>
-              <LangSelect classname={s.langSelect}/>
-              <SearchField setMobileIsOpen={setMobileIsOpen} autoComplete="off" placeholder={t('search')}/>
 
-              {user &&
-                <>
+            <button className={s.closeBtn} onClick={onClose}>&times;</button>
+              <div className={s.menuContent}>
+                <LangSelect classname={s.langSelect} currentCode={currentCode} setCurrentCode={setCurrentCode}/>
+                <SearchField setMobileIsOpen={setMobileIsOpen} autoComplete="off" placeholder={t('search')}/>
+
+                {user &&
+                  <>
                     {type === 'tutor' &&
                       <ul className={s.mobileNav}>
                         <li className="menu-item">
@@ -109,8 +108,8 @@ const MobileMenu = () => {
                         </li>
                       </ul>
                     }
-                </>
-              }
+                  </>
+                }
 
 
                 <ul className={s.mobileNav}>
@@ -136,8 +135,7 @@ const MobileMenu = () => {
                       className="menu-item menu-item-type-custom menu-item-object-custom menu-item-14537">
                     <Link onClick={onClose} to="blog">{t('blog')}</Link></li>
                 </ul>
-
-            </div>
+              </div>
           </motion.div>
         }
 

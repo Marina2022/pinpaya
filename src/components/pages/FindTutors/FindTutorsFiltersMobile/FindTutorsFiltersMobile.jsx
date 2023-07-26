@@ -1,9 +1,8 @@
 import s from './FindTutorsFiltersMobile.module.scss';
 import filterIcon from "../../../../assets/findTutor/filter-icon.svg"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import FindTutorFilters from "../FindTutorFilters/FindTutorFilters";
-
 
 
 const FindTutorsFiltersMobile = (props) => {
@@ -11,6 +10,7 @@ const FindTutorsFiltersMobile = (props) => {
   const [isFiltersOpen, setFiltersIsOpen] = useState(false)
 
   const body = document.querySelector('body')
+
 
   const onFilterBtnClick = () => {
     setFiltersIsOpen(true)
@@ -39,10 +39,13 @@ const FindTutorsFiltersMobile = (props) => {
               duration: .2
             }}
           >
-            <button className={s.closeBtn} onClick={onClose}>&times;</button>
-            <div className={s.filterContent}>
-              <FindTutorFilters classname={s.mobileFilters}  {...props}  />
-            </div>
+
+              <button className={s.closeBtn} onClick={onClose}>&times;</button>
+
+              <div className={s.filterContent}>
+                <FindTutorFilters classname={s.mobileFilters} setIsOpen={setFiltersIsOpen}  {...props}  />
+              </div>
+
           </motion.div>
         }
         {

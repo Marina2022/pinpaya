@@ -22,11 +22,9 @@ const languages = [
   },
 ]
 
-const LangSelect = ({classname}) => {
+const LangSelect = ({classname, currentCode, setCurrentCode}) => {
 
-  const currentLanguageCode = cookies.get('i18nextLng') || 'en'
 
-  const [currentCode, setCurrentCode] = useState(currentLanguageCode)
   const [isOpen, setIsOpen] = useState(false)
 
   const onLangClick = (e) => {
@@ -34,7 +32,7 @@ const LangSelect = ({classname}) => {
   }
 
   return (
-    <div className={cn(classname, s.wrapper)} >
+    <div className={cn(s.wrapper, classname)} >
       <div className={s.langWrapper} onClick={onLangClick}>
         <GlobeIcon/>
         <span className={s.langName}> {languages.find((l) => l.code === currentCode).name}  </span>

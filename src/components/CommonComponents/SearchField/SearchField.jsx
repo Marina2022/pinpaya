@@ -24,12 +24,10 @@ const SearchField = ({setMobileIsOpen, onChange,  ...rest}) => {
   }
 
   return (
-    <form>
       <div className={s.searchWrapper}>
         <TextInput value={data?.search} onChange={ev => onInputChange(ev)} {...rest}  />
         <button type="button" className={s.searchBtn} onClick={search}><img src={searchBtn} alt="search button"/> </button>
       </div>
-    </form>
   );
 };
 

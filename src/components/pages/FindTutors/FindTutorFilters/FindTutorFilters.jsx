@@ -12,7 +12,7 @@ import SearchField from "../../../CommonComponents/SearchField/SearchField";
 import cn from "classnames";
 
 
-const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, classname}) => {
+const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, classname, setIsOpen}) => {
     const {t, i18n} = useTranslation();
 
     const [checkTeach, setCheckTeach] = useState(false);
@@ -91,6 +91,7 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
     const send = (e) => {
       e.preventDefault();
       searchAction();
+      setIsOpen && setIsOpen(false);
     }
 
     const subjectOptions =

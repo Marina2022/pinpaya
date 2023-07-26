@@ -15,14 +15,34 @@ import LangSelect from "./LangSelect/LangSelect";
 import BigOrangeBtn from "../../CommonComponents/BigOrangeBtn/BigOrangeBtn";
 import cn from "classnames";
 import MobileMenu from "./MobileMenu/MobileMenu";
+import cookies from "js-cookie";
 
 const Header = ({triggerMessage, showLoader}) => {
 
+  const [currentCode, setCurrentCode] = useState(localStorage.getItem('i18next') || 'en')
   const {user, type, setUser} = useStateContext()
   const {t, i18n} = useTranslation();
 
+
+  useEffect(()=>{
+    // const currentLanguageCode = cookies.get('i18nextLng') || 'en'
+    const currentLanguageCode = localStorage.getItem('i18next') || 'en';
+    setCurrentCode(currentLanguageCode)
+  },[])
+
+
   useEffect(() => {
     i18n.changeLanguage(localStorage.getItem('i18next') || 'en')
+  }, [])
+
+  useEffect(()=>{
+    const root = document.querySelector(':root');
+    function calcHeight() {
+      const heightWindow = window.innerHeight;
+      root.style.setProperty('--myVh', heightWindow/100 + 'px');
+    }
+
+    calcHeight();
   }, [])
 
 
@@ -88,7 +108,7 @@ const Header = ({triggerMessage, showLoader}) => {
               :
               <>
                 <div className={s.langSelect}>
-                  <LangSelect/>
+                  <LangSelect currentCode={currentCode} setCurrentCode={setCurrentCode} />
                 </div>
                 <BigOrangeBtn to="/login" classname={s.loginBtn}>
                   <img className={s.orangeBtnIcon} src={userIcon} alt="user icon"/>
@@ -97,7 +117,7 @@ const Header = ({triggerMessage, showLoader}) => {
               </>
           )
           }
-          <MobileMenu/>
+          <MobileMenu currentCode={currentCode} setCurrentCode={setCurrentCode}/>
         </div>
       </header>
     </>
