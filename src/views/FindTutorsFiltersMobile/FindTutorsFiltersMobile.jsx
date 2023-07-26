@@ -11,6 +11,13 @@ const FindTutorsFiltersMobile = (props) => {
 
   const body = document.querySelector('body')
 
+  const [mobileHeight, setMobileHeight] = useState(window.innerHeight/100 + 'px')
+
+  useEffect(()=>{
+    const mobileHeight =  window.innerHeight/100 + 'px'
+  },[])
+
+
 
   const onFilterBtnClick = () => {
     setFiltersIsOpen(true)
@@ -65,11 +72,8 @@ const FindTutorsFiltersMobile = (props) => {
           </motion.div>
         }
       </AnimatePresence>
-
     </div>
-
   )
 }
-
 
 export default FindTutorsFiltersMobile;
