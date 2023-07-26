@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');*/
 
 * {
   box-sizing: border-box;
 }
+
 html, body, #root, #defaultLayout, #guestLayout {
   min-height: 100vh;
 }
@@ -12,11 +13,11 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Manrope', sans-serif;
   margin: 0;
   padding: 0;
   font-size: 14px;
-  color: #212121;
+  color: #242424;
   background-color: #f6f6f6;
 }
 
@@ -59,14 +60,16 @@ input:focus {
 
 .btn-add,
 .btn-edit,
-.btn-delete{
+.btn-delete {
   padding: 0.5rem 0.75rem;
   font-size: 14px;
   border-radius: 4px;
 }
+
 .btn-add {
   background-color: #00a762;
 }
+
 .btn-delete {
   background-color: #b72424;
 }
@@ -78,6 +81,7 @@ input:focus {
   transition: all 0.3s;
   border-radius: 6px;
 }
+
 .btn-logout:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
@@ -126,6 +130,7 @@ table > tbody > tr > td {
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
+
 .success-block {
   padding: 1rem;
   background-color: #31b24b;
@@ -133,6 +138,7 @@ table > tbody > tr > td {
   border-radius: 0.5rem;
   margin-bottom: 1rem;
 }
+
 .notification {
   position: fixed;
   right: 1rem;
@@ -246,4 +252,52 @@ table > tbody > tr > td {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1100px;
+  width: 100%;
+  padding-inline: 15px;
+
+
+  @media (max-width: 1000px) {
+    //max-width: 768px;
+  }
+
+  @media (max-width: 768px) {
+    //max-width: 576px;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+}
+
+.transparentOverlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+.normalBtn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666666;
+}
+
+.overlay {
+  z-index: 1;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0,.5);
 }

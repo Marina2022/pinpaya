@@ -1,14 +1,14 @@
 import s from './FindTutorFilers.module.scss';
 import {Spinner} from "react-bootstrap";
-import {countries} from "../../../../data";
+import {countries} from "../../data";
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import axiosClient from "../../../../axios-client";
+import axiosClient from "../../axios-client";
 import {useLocation} from "react-router-dom";
-import Select from "../../../CommonComponents/Select/Select";
-import Checkbox from "../../../CommonComponents/Checkbox/Checkbox";
+import Select from "../../components/CommonComponents/Select/Select";
+import Checkbox from "../../components/CommonComponents/Checkbox/Checkbox";
 
-import SearchField from "../../../CommonComponents/SearchField/SearchField";
+import SearchField from "../../components/CommonComponents/SearchField/SearchField";
 import cn from "classnames";
 
 
@@ -40,6 +40,7 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
 
     let check_price = params.get('price');
     let check_subject = params.get('subject');
+    let search_input = params.get('search');
 
     useEffect(() => {
       if (check_price || check_subject) {
@@ -50,6 +51,10 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
         if (check_subject) {
           setDataShort({...dataShort, subject: check_subject})
         }
+        if (search_input) {
+          setDataShort({...dataShort, search: search_input})
+        }
+
         searchActionShort();
       }
 
@@ -146,7 +151,7 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
 
     return (
       <>
-        <form className= { cn(s.filterForm, classname)} onSubmit={send} >
+        <form className={cn(s.filterForm, classname)} onSubmit={send}>
 
           <SearchField
             placeholder={t('search_placeholder')}
@@ -190,7 +195,7 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
           </div>
 
 
-          <button className={s.searchBtn} type="submit" >
+          <button className={s.searchBtn} type="submit">
             {
               loading ?
                 <Spinner animation="border" role="status" style={{width: '20px', height: '20px'}}>
@@ -201,8 +206,8 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
         </form>
       </>
 
-  )
-    ;
+    )
+      ;
   }
 ;
 

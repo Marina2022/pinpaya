@@ -1,6 +1,6 @@
 import {Col, Row, Spinner} from "react-bootstrap";
 import React, { useEffect, useState} from "react";
-import axiosClient from "../../../axios-client";
+import axiosClient from "../axios-client";
 import {useTranslation} from "react-i18next";
 
 import s from './FindTutors.module.scss'

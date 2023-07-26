@@ -1,5 +1,5 @@
 import s from './FindTutorsFiltersMobile.module.scss';
-import filterIcon from "../../../../assets/findTutor/filter-icon.svg"
+import filterIcon from "../../assets/findTutor/filter-icon.svg"
 import React, {useEffect, useState} from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import FindTutorFilters from "../FindTutorFilters/FindTutorFilters";

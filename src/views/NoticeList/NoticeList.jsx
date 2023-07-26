@@ -1,10 +1,10 @@
 import React from 'react';
 import s from "./NoticeList.module.scss";
 import {useTranslation} from "react-i18next";
-import find1 from '../../../../assets/findTutor/find1.svg'
-import find2 from '../../../../assets/findTutor/find2.svg'
-import find3 from '../../../../assets/findTutor/find3.svg'
-import find4 from '../../../../assets/findTutor/find4.svg'
+import find1 from '../../assets/findTutor/find1.svg'
+import find2 from '../../assets/findTutor/find2.svg'
+import find3 from '../../assets/findTutor/find3.svg'
+import find4 from '../../assets/findTutor/find4.svg'
 
 const NoticeList = () => {
   const {t, i18n} = useTranslation();

@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js'
 import 'flag-icon-css/css/flag-icon.min.css'
 
-import './index.css';
+import './index.scss';
 import {ContextProvider} from "./contexts/ContextProvider";
 import {RouterProvider} from "react-router-dom";
 import router from "./router";

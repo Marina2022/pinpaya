@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import React, {useRef, useState} from "react";
 import AxiosClient from "../axios-client.js";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
-import '../index.css';
+import '../index.scss';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import firebaseChat from "../hooks/firebaseChat";

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import StudentSignup from "./StudentSignup.jsx";
 import TutorSignup from "./TutorSignup.jsx";
-import '../index.css';
+import '../index.scss';
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 export default function Signup(){
