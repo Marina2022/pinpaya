@@ -25,7 +25,7 @@ import MyEarnings from "./components/tutor/MyEarnings";
 import FindTutors from "./components/pages/FindTutors/FindTutors";
 import Faq from "./components/Faq";
 import TutorPage from "./components/TutorPage";
-import BecomeTutor from "./components/BecomeTutor";
+import BecomeTutor from "./components/pages/BecomeTutor/BecomeTutor";
 import About from "./components/About";
 import Support from "./components/Support";
 import Blog from "./components/Blog";

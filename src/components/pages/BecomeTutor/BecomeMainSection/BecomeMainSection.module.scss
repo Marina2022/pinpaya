@@ -1,0 +1,65 @@
+.becomeTutorMain {
+  display: flex;
+  padding: 78px 70px 98px;
+  background: linear-gradient(90deg, rgba(40, 40, 40, 0.89) 47.52%, rgba(40, 40, 40, 0) 100.76%), url(../../../../assets/becomeTutor/become1.webp) no-repeat top center;
+  background-size: cover;
+  min-height: 200px;
+
+  @media (max-width: 1440px) {
+    padding: 78px 30px 98px;
+  }
+
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    padding: 0;
+    background: none;
+  }
+}
+
+.advantages {
+  max-width: 456px;
+  padding-left: 80px;
+  padding-top: 136px;
+
+  @media (max-width: 992px) {
+    width: 100%;
+    max-width: unset;
+
+    background: linear-gradient(90deg, rgba(40, 40, 40, 0.89) 47.52%, rgba(40, 40, 40, 0) 100.76%), url(../../../../assets/becomeTutor/become1.webp) no-repeat top center;
+    background-size: cover;
+    margin-bottom: 0px;
+    padding: 50px 30px 25px;
+  }
+}
+
+.advantagesItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 35px;
+}
+
+.iconWrapper {
+  width: 54px;
+  height: 54px;
+}
+
+.itemDesc {
+  padding-left: 15px;
+}
+
+.itemTitle {
+  margin: 0 0 6px 0;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
+  color: white;
+}
+
+.itemText {
+  margin: 0;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: white;
+}

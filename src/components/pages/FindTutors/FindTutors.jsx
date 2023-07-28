@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import s from './FindTutors.module.scss'
 import TutorCard from "./TutorCard/TutorCard";
 import FindTutorFilters from "./FindTutorFilters/FindTutorFilters";
-import NoticeList from "../../NoticeList/NoticeList";
+import NoticeList from "./NoticeList/NoticeList";
 import FindTutorsFiltersMobile from "./FindTutorsFiltersMobile/FindTutorsFiltersMobile";
 
 export default function FindTutors() {

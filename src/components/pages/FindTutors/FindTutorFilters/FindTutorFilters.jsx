@@ -168,8 +168,8 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
 
           <label className={s.formLabel}>{t('tutor_from')}
             <Select options={countryOptions}
-                    value={data?.location}
-                    onChange={selectValue => setData({...data, location: selectValue})}
+                    // value={data?.location}
+                    // onChange={selectValue => setData({...data, location: selectValue})}
             />
           </label>
 

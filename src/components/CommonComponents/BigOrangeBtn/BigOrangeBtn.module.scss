@@ -29,5 +29,8 @@
     background: #DB480A;
     color: #fff;
   }
+  &:disabled {
+    background: #BC8F8F;
+  }
 }
 
