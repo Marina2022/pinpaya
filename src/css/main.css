@@ -710,10 +710,11 @@ input[type="color"]:focus,
     width: 100%;
 }
 #videoSection{
+    /*border: 1px red solid;*/
     bottom: 0;
     width: 100vw;
     height: 95vh;
-    position: fixed;
+    /*position: fixed;*/
 }
 .hide-footer{
     display:none;

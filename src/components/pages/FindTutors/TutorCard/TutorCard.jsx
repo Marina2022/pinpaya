@@ -1,7 +1,7 @@
 import s from './TutorCard.module.scss';
 import {Link} from "react-router-dom";
 import childIcon from '../../../../assets/findTutor/child.svg'
-import startGold from '../../../../assets/findTutor/star12gold.svg'
+import startGold from '../../../../assets/star12gold.svg'
 
 import {useTranslation} from "react-i18next";
 import firebaseCreateChat from "../../../../hooks/firebaseCreateChat";

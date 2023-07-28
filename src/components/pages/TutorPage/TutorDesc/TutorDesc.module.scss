@@ -1,0 +1,109 @@
+.tutorDesc {
+  display: flex;
+  padding: 40px 34px;
+  background: #fff;
+  border-radius: 3px;
+  margin-bottom: 15px;
+
+  @media (max-width: 992px) {
+    padding: 25px 15px;
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+}
+
+.ava {
+  width: 142px;
+  height: 142px;
+  object-fit: cover;
+  margin-right: 50px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 10px;
+  }
+}
+
+.textBlock {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666666;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+}
+
+.name {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #242424;
+
+}
+
+.attrsBlock {
+  margin-top: 25px;
+  margin-bottom: 30px;
+}
+
+.attrs {
+  display: flex;
+
+}
+
+.attrLabel {
+  font-weight: 700;
+  width: 50%;
+  color: #242424;
+}
+
+.attrValue {
+  width: 50%;
+}
+
+
+.subtitle {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: bold;
+  margin: 0 0 5px;
+  color: #242424;
+}
+
+
+.text {
+  margin-bottom: 30px;
+}
+
+.certTitle {
+  margin-top: 40px;
+  font-weight: bold;
+  color: #242424;
+  margin-bottom: 20px;
+}
+
+
+.certsList {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.certItem {
+  border: #efefef 1px solid;
+  padding: 0;
+  margin-right: 16px;
+  margin-bottom: 16px;
+
+  img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    max-width: 100%;
+  }
+}

@@ -15,7 +15,7 @@ import {auth} from "../../../firebase";
 
 import s from './MainLayout.module.scss'
 
-export default function MainLayout(){
+export default function MainLayout() {
   const [showChat, setShowChat] = useState(false);
 
   const {user, type, setUser} = useStateContext()
@@ -27,7 +27,9 @@ export default function MainLayout(){
     axiosClient.get('/user').then(({data}) => {
       setUser(data);
       setShowLoader(false);
-    }).catch(err => { setShowLoader(false)})
+    }).catch(err => {
+      setShowLoader(false)
+    })
   }, []);
 
   // useEffect(() => {
@@ -50,7 +52,7 @@ export default function MainLayout(){
   const triggerMessage = () => {
     setShowChat(true);
     document.body.style.overflow = 'hidden';
-    AxiosClient.post('/set-notif',{type: type ?? null, id: user ? user.id : null, notif: 0}).then((data) => {
+    AxiosClient.post('/set-notif', {type: type ?? null, id: user ? user.id : null, notif: 0}).then((data) => {
       //setUser(data)   // закоментировано в мастер2
     })
     axiosClient.get('/user').then(({data}) => {
@@ -58,19 +60,19 @@ export default function MainLayout(){
     })
   }
 
-    return(
-        <>
-           <Header triggerMessage={triggerMessage} showLoader={showLoader}/>
-            <main className={s.main}>
-                <Outlet/>
-            </main>
-            <Footer/>
+  return (
+    <>
+      <Header triggerMessage={triggerMessage} showLoader={showLoader}/>
+      <main className={s.main}>
+        <Outlet/>
+      </main>
+      <Footer/>
 
-            {showChat && user &&
-              <div>
-                  <Home handleChatClose={handleChatClose}/>
-              </div>
-            }
-        </>
-    )
+      {showChat && user &&
+        <div>
+          <Home handleChatClose={handleChatClose}/>
+        </div>
+      }
+    </>
+  )
 }

@@ -28,6 +28,7 @@ export default function FindTutors() {
 
   }, [])
 
+  console.log('tutors',tutors)
 
   return (
 

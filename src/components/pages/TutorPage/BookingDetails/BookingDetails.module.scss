@@ -1,0 +1,143 @@
+.details {
+  padding: 40px 34px;
+  background: #fff;
+  border-radius: 3px;
+  margin-bottom: 15px;
+
+  @media (max-width: 992px) {
+    padding: 25px 15px;
+  }
+}
+
+.rating {
+  text-align: center;
+  margin-bottom: 35px;
+  font-size: 18px;
+}
+
+
+.starIcon {
+  width: 28px;
+  height: 28px;
+  margin-inline: 10px;
+  position: relative;
+  bottom: 5px;
+}
+
+.dash {
+  position: relative;
+  font-size: 24px;
+  line-height: 22px;
+}
+
+.priceWrapper {
+  text-align: center;
+}
+
+.price {
+  font-size: 32px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #242424;
+}
+
+.trialLesson {
+  font-size: 14px;
+  font-weight: 700;
+  color: #C9C9C9;
+  margin-left: 5px;
+}
+
+.scheduleBtn {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 15px;
+
+  @media (max-width: 992px) {
+    padding: 12px 30px 12px 25px;
+    font-size: 16px;
+  }
+  @media (max-width: 768px) {
+    padding: 12px 30px 12px 25px;
+    font-size: 16px;
+  }
+}
+
+.garantWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.garantIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.btnIcon {
+  width: 24px;
+  margin-right: 10px
+}
+
+.garantTitle {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.garantText {
+  font-size: 11px;
+  line-height: 14px;
+  color: #242424;
+}
+
+.greyBtn {
+  font-size: 16px;
+  line-height: 30px;
+  margin-top: 16px;
+  width: 100%;
+  padding: 10px 15px;
+  min-height: 53px;
+  font-weight: 700!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 3px;
+  color: #666666;
+  box-sizing: border-box;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #F9F9F9;
+    border-color: #C9C9C9;
+    color: #666666!important;
+  }
+}
+
+.firstReview {
+  padding: 40px 34px;
+  background: #fff;
+  border-radius: 3px;
+  margin-bottom: 15px;
+
+  @media (max-width: 992px) {
+    padding: 25px 15px;
+  }
+}
+
+.orangeBtn {
+  border-color: #F0500B;
+  color: #F0500B;
+  margin-top: 0;
+
+  &:hover {
+    background: #F9F9F9;
+    border-color: #F0500B;
+    color: #F0500B!important;
+  }
+}

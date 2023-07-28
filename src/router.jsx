@@ -24,7 +24,7 @@ import MyCertificates from "./components/tutor/MyCertificates";
 import MyEarnings from "./components/tutor/MyEarnings";
 import FindTutors from "./components/pages/FindTutors/FindTutors";
 import Faq from "./components/Faq";
-import TutorPage from "./components/TutorPage";
+import TutorPage from "./components/pages/TutorPage/TutorPage";
 import BecomeTutor from "./components/pages/BecomeTutor/BecomeTutor";
 import About from "./components/About";
 import Support from "./components/Support";

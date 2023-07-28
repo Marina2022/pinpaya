@@ -1,0 +1,29 @@
+.tutorPage {
+  padding-top: 40px;
+  display: flex;
+  padding-bottom: 40px;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+}
+
+.leftWrapper {
+  width: 66.67%;
+  padding-inline: 8px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-inline: 0;
+  }
+}
+
+.rightWrapper {
+  width: 33.33%;
+  padding-inline: 8px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-inline: 0;
+  }
+}
