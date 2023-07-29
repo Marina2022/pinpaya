@@ -45,7 +45,8 @@ const BookingDetails = ({tutor}) => {
             : `/${t('per_hour')}`}</span>
         </div>
 
-        <BigOrangeBtn onClick={scrollTo} classname={s.scheduleBtn}>
+        {/*<BigOrangeBtn onClick={scrollTo} classname={s.scheduleBtn}>*/}
+        <BigOrangeBtn classname={s.scheduleBtn}>
           {t('schedule_lessons')}
         </BigOrangeBtn>
 

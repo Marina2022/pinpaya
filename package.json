@@ -52,6 +52,7 @@
     "react-select": "^5.7.4",
     "react-time-picker": "^5.2.0",
     "react-widgets": "^5.8.4",
+    "react-youtube": "^10.1.0",
     "sweetalert2": "^11.7.3",
     "sweetalert2-react-content": "^5.0.7",
     "swr": "^2.1.5",
@@ -87,5 +88,5 @@
     "@types/jquery": "^3.5.16",
     "sass": "^1.59.3"
   },
-  "buildDate": 1690564054151
+  "buildDate": 1690619703606
 }
