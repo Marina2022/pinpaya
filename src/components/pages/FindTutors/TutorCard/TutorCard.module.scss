@@ -9,6 +9,10 @@
   display: flex;
   margin-bottom: 17px;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
+
   &:hover {
     border-color: #adadad;
   }
@@ -73,7 +77,7 @@
   color: #666;
 }
 
-.desc{
+.desc {
   font-size: 12px;
   line-height: 16px;
   color: #666;
@@ -88,6 +92,7 @@
   display: inline-block;
 
 }
+
 .descValue {
 
 }
@@ -139,7 +144,7 @@
   font-family: Manrope, sans-serif;
 
   &:hover {
-    color: black!important;
+    color: black !important;
   }
 
   @media (max-width: 768px) {
@@ -160,10 +165,10 @@
   padding: 0 10px;
   display: inline-flex;
   text-transform: uppercase;
-  outline: none!important;
+  outline: none !important;
   justify-content: center;
   align-items: center;
-  font-weight: 700!important;
+  font-weight: 700 !important;
 
   &:hover {
     border-color: #DB480A;
@@ -189,10 +194,10 @@
   padding: 0 10px;
   display: inline-flex;
   text-transform: uppercase;
-  outline: none!important;
+  outline: none !important;
   justify-content: center;
   align-items: center;
-  font-weight: 700!important;
+  font-weight: 700 !important;
 
   &:hover {
     border-color: #28e77f;

@@ -3,7 +3,7 @@ import {
     createBrowserRouter
 } from "react-router-dom";
 
-import Login from "./components/Login.jsx";
+import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup.jsx";
 import GuestLayout from "./components/layouts/GuestLayout.jsx";
 import MainLayout from "./components/layouts/MainLayout/MainLayout";

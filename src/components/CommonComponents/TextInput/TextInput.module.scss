@@ -12,7 +12,7 @@ input:not([type='checkbox']).input {
 }
 
 .input:not([type='checkbox']).input:focus {
-  outline: #777 solid 2px;
+  outline: #777 solid 2px!important;
   border: none;
 }
 
