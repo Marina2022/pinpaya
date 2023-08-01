@@ -1,16 +1,21 @@
 import {Col, Row} from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
-import './student.css'
+import '../student.css'
 import {isMobile, isTablet} from 'react-device-detect';
-import AxiosClient from "../../axios-client";
-import {useStateContext} from "../../contexts/ContextProvider";
+import AxiosClient from "../../../axios-client";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import {useEffect, useState} from "react";
-import axiosClient from "../../axios-client";
-import MyLessons from "./MyLessons";
+import axiosClient from "../../../axios-client";
+import MyLessons from "../MyLessons";
 import {signOut} from "firebase/auth";
-import { auth } from '../../firebase'
+import { auth } from '../../../firebase'
 import {useTranslation} from "react-i18next";
+import UserMenu from "../../CommonComponents/UserMenu/UserMenu";
+
+import s from './Menu.module.scss'
+
+
 export default function Menu(){
     const {setUser, setToken, token, type,user} = useStateContext()
     const location = useLocation();
@@ -44,17 +49,9 @@ export default function Menu(){
         <Container>
             <Row className="my-5">
                 { !isMobile && !isTablet &&
-                    <Col lg="3">
-                        <div className="border p-4 bg-white user-left-menu">
-                            <div className="m-2"><Link to="my-lessons"> <img src="/public/smenu1.svg" />{t('my_lessons')}</Link></div>
-                            <div className="m-2"><Link to="order-history"><img src="/public/smenu2.svg" />{t('order_history')}</Link></div>
-                            <div className="m-2"><Link to="my-wallet"><img src="/public/smenu3.svg" />{t('my_wallet')}</Link></div>
-                            <div className="m-2"><Link to="payment-methods"><img src="/public/smenu4.svg" />{t('payment_methods')}</Link> </div>
-                            <div className="m-2"><Link to="account-settings"><img src="/public/smenu5.svg" />{t('account_settings')}</Link> </div>
-                            <div className="m-2 logout-menu" style={{color:'#dc3545'}} onClick={onLogout}><img src="/public/menulogout.svg" />  {t('logout')} </div>
-                        </div>
-                    </Col>
+                  <UserMenu classname={s.menu} />
                 }
+
                 <Col lg="9">
                     {user && user.email_verified_at == null &&
                         <div className="p-4 border mb-4" role="alert" style={{background:'white'}}>

@@ -122,9 +122,11 @@ export default function AccountSettings(){
                                 onCrop={onCrop}
                                 onClose={onClose}
                                 src={src}
+                                cropRadius={0}
                             />
                         </Col>
                         <Col md="6" className="my-2">
+
                             {preview &&
                                 <img src={preview} alt="Preview" />
                             }

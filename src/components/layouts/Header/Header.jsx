@@ -10,6 +10,7 @@ import logo from '../../../assets/header/pinpaya-logo.svg'
 import userIcon from '../../../assets/header/user.svg'
 import coinsIcon from '../../../assets/header/coins.svg'
 import chat from '../../../assets/header/chat.svg'
+import arrowDown from '../../../assets/arrow-down.svg'
 
 import LangSelect from "./LangSelect/LangSelect";
 import BigOrangeBtn from "../../CommonComponents/BigOrangeBtn/BigOrangeBtn";
@@ -19,6 +20,7 @@ import cookies from "js-cookie";
 import {signOut} from "firebase/auth";
 import {auth} from "../../../firebase";
 import AxiosClient from "../../../axios-client";
+import UserMenuHeader from "../../CommonComponents/UserMenuHeader/UserMenuHeader";
 
 
 const Header = ({triggerMessage, showLoader}) => {
@@ -27,6 +29,8 @@ const Header = ({triggerMessage, showLoader}) => {
   const {user, type, setUser, setToken} = useStateContext()
 
   const {t, i18n} = useTranslation();
+
+  const [isUserMenuShown, setUserMenuIsShown] = useState(false)
 
 
   useEffect(()=>{
@@ -119,14 +123,24 @@ const Header = ({triggerMessage, showLoader}) => {
                   }
                 </button>
 
-                <Link to={`/${type}`}>
-                  <div className="p-2 fw-bold">
+                <Link to={`/${type}`}
+                      className={s.userLink}
+                      onMouseEnter={()=>setUserMenuIsShown(true)}
+                      onMouseLeave={()=>setUserMenuIsShown(false)} >
+                  <div className="p-2">
                     {user?.avatar ?
                       <img className={s.userAvatar} src={'https://web.pinpaya.com/storage/' + user.avatar}
                            alt="avatar"/> :
                       <img className={s.userAvatar} src='https://app.pinpaya.com/no-image.png' alt="avatar"/>
                     }
+                    <span className={s.userName}>{user.name} <img src={arrowDown} alt="icon"/></span>
+
                   </div>
+                  {
+                  isUserMenuShown && <div className={s.userMenuPopup}>
+                    <UserMenuHeader isShown={isUserMenuShown} setIsShown={setUserMenuIsShown} />
+                  </div>
+                  }
                 </Link>
 
               </>

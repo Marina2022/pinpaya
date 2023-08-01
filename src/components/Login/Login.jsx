@@ -7,11 +7,8 @@ import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from "../../firebase";
 import firebaseChat from "../../hooks/firebaseChat";
 import {useTranslation} from "react-i18next";
-import TextInput from "../CommonComponents/TextInput/TextInput";
 import BigOrangeBtn from "../CommonComponents/BigOrangeBtn/BigOrangeBtn";
-import cn from "classnames";
-//import s from "../pages/BecomeTutor/BecomeMainSection/BecomeTutorForm/BecomeTutorForm.module.scss";
-import {Field, Form, Formik} from "formik";
+import {Form, Formik} from "formik";
 import * as Yup from "yup";
 import s from './Login.module.scss'
 
@@ -67,12 +64,10 @@ export default function Login() {
     })
   }
 
-
   const initialValues = {
     email: '',
     password: ''
   }
-
 
   return (
     <div className="login-signup-form animated fadeInDown">
@@ -102,7 +97,7 @@ export default function Login() {
                 <TextField name='email' placeholder={t('email')} type="email" />
                 <TextField name='password' placeholder={t('password')} type="password" />
 
-                <BigOrangeBtn >{t('login')}</BigOrangeBtn>
+                <BigOrangeBtn disabled={isSubmitting} >{t('login')}</BigOrangeBtn>
                 <p className="message">
                   {t('not_registered')} <Link to="/signup">{t('create_account')}</Link>
                 </p>
