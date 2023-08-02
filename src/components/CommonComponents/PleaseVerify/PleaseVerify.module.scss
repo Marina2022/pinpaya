@@ -1,5 +1,6 @@
 
 .verify {
+  text-align: center;
   border-radius: 3px;
   background-color: rgb(255,0,0,.1);
   padding: 25px;
@@ -9,4 +10,9 @@
 .verifyBtn {
   width: unset;
   margin-top: 30px;
+  margin-inline: auto;
+
+  @media (max-width: 768px) {
+    margin-top: 20px;
+  }
 }

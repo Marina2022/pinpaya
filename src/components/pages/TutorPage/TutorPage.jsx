@@ -41,6 +41,9 @@ export default function TutorPage() {
 
   useEffect(() => {
     getData();
+
+    window.scroll(0,0)
+
   }, [])
 
 

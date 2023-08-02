@@ -31,7 +31,7 @@ export default function Login() {
   }
 
   const validationSchema = Yup.object({
-    email: Yup.string().required('Required').email('wrong email format'),
+    email: Yup.string().required('Required').email('Wrong email format'),
     password: Yup.string().required("Password required").min(8, 'Minimum 8 characters'),
   })
 

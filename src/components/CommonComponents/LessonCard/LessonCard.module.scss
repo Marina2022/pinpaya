@@ -1,0 +1,127 @@
+.lessonCard {
+  padding: 17px;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-bottom: 17px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.globalWrapper {
+  display: flex;
+  justify-content: space-between;
+  color: #242424;
+
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+  }
+}
+
+.mainInfo {
+  display: flex;
+  flex-wrap: wrap;
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
+}
+
+.lessonButtons {
+  margin-left: 20px;
+  width: 330px;
+
+  @media (max-width: 992px) {
+    margin-left: 0;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 576px) {
+
+    width: 100%;
+  }
+}
+
+.orangeButton {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.yellowBtn {
+  font-size: 14px;
+  background: #FFE33C;
+  color: black;
+}
+
+.videocamIcon {
+  width: 24px;
+  margin-right: 8px;
+}
+
+
+.avatar {
+  margin-right: 16px;
+  margin-bottom: 20px;
+}
+
+.name {
+  margin-top: -5px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.order {
+  font-size: 12px;
+  line-height: 12px;
+  color: #666666;
+  margin-top: 5px;
+  margin-bottom: 19px;
+}
+
+.lessonDescRow {
+  display: flex;
+  font-size: 14px;
+  margin-bottom: 5px;
+
+  @media (max-width: 576px) {
+
+  }
+}
+
+.lessonLabel {
+  margin-right: 10px;
+  display: inline-block;
+  min-width: 145px;
+  @media (max-width: 576px) {
+    min-width: 125px;
+  }
+}
+
+.dropdownWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  a {
+    font-size: 14px;
+    color: #666;
+  }
+
+  span {
+    margin-right: 5px;
+  }
+
+  button {
+    font-weight: 700!important;
+    padding: 2px 10px;
+  }
+}
+
+
+.bookBtn {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+
