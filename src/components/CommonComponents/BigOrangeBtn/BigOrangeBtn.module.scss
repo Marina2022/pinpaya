@@ -12,7 +12,7 @@
   align-items: center;
   border: none;
   outline: none;
-  font-weight: 700!important;
+  font-weight: 700 !important;
   width: 100%;
 
 
@@ -20,8 +20,9 @@
     background: #DB480A;
     color: #fff;
   }
+
   &:disabled {
-    background: #BC8F8F;
+    background: rgb(184, 142, 129);
   }
 }
 

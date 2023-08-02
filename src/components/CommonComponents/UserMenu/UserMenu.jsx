@@ -15,6 +15,7 @@ import menu5 from '../../../assets/userMenu/menu5.svg'
 import menu6 from '../../../assets/userMenu/menulogout.svg'
 import menu7 from '../../../assets/userMenu/tprofile.svg'
 import menu8 from '../../../assets/userMenu/tschedule.svg'
+import cn from "classnames";
 
 
 const UserMenu = ({classname}) => {
@@ -45,11 +46,12 @@ const UserMenu = ({classname}) => {
   return (
     <>
       {
-        user && <div>
+        user && <div className={s.outerWrapper}>
 
           {type === 'tutor' &&
-            <Col lg="3" className={s.userMenu}>
-              <div className="p-4 bg-white user-left-menu">
+            <div className={s.userMenu}>
+
+              <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
                 <div className="m-2"><NavLink style={navLinkFunction} to="my-lessons"> <img src={menu1}
                                                                                             alt='icon'/>{t('my_lessons')}
                 </NavLink>
@@ -84,28 +86,29 @@ const UserMenu = ({classname}) => {
                                                                                                         alt='icon'/>{t('logout')}
                 </div>
               </div>
-            </Col>
+            </div>
           }
 
           {
             type === "student" &&
-            <Col lg="3" className={s.userMenu}>
-              <div className="border p-4 bg-white user-left-menu">
-                <div className="m-2"><Link style={navLinkFunction} to="my-lessons"> <img src={menu1} alt='icon'/>{t('my_lessons')}</Link>
+
+            <div className={s.userMenu}>
+              <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
+                <div className="m-2"><NavLink style={navLinkFunction} to="my-lessons"> <img src={menu1} alt='icon'/>{t('my_lessons')}</NavLink>
                 </div>
 
-                <div className="m-2"><Link style={navLinkFunction} to="order-history"><img src={menu2} alt='icon'/>{t('order_history')}</Link>
+                <div className="m-2"><NavLink style={navLinkFunction} to="order-history"><img src={menu2} alt='icon'/>{t('order_history')}</NavLink>
                 </div>
 
-                <div className="m-2"><Link style={navLinkFunction} to="my-wallet"><img src={menu3} alt='icon'/>{t('my_wallet')}</Link></div>
+                <div className="m-2"><NavLink style={navLinkFunction} to="my-wallet"><img src={menu3} alt='icon'/>{t('my_wallet')}</NavLink></div>
 
-                <div className="m-2"><Link style={navLinkFunction} to="account-settings"><img src={menu5} alt='icon'/>{t('account_settings')}
-                </Link></div>
+                <div className="m-2"><NavLink style={navLinkFunction} to="account-settings"><img src={menu5} alt='icon'/>{t('account_settings')}
+                </NavLink></div>
                 <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}><img src={menu6}
                                                                                                     alt='icon'/>{t('logout')}
                 </div>
               </div>
-            </Col>
+            </div>
           }
         </div>
       }

@@ -13,7 +13,7 @@ const TextField = ({name, ...rest}) => {
           const {field, meta} = fieldData
           return (
             <>
-              <TextInput {...rest} {...field} />
+              <TextInput {...rest} {...field} classname={meta.error ? s.errorInput : '' } />
               <div className={s.error}>{meta.error}</div>
             </>
           )

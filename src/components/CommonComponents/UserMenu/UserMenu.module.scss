@@ -1,9 +1,12 @@
 .userMenu {
   color: #242424;
+  height: 100%;
+
   a {
     display: flex;
     align-items: center;
     font-size: 16px;
+    margin-bottom: 15px;
 
     &:hover {
       color: #666666;
@@ -11,4 +14,11 @@
   }
 }
 
+.menuWrapper {
+  padding: 20px 20px;
+  height: 100%;
+}
 
+.outerWrapper {
+  height: 100%;
+}

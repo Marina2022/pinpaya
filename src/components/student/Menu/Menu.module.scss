@@ -1,5 +1,29 @@
+.globalWrapper {
+  display: flex;
+  gap: 25px;
+  padding-top: 60px;
+  padding-bottom: 50px;
+}
+
+
 .menu {
   a {
     margin-bottom: 15px;
+  }
+}
+
+
+.menuPart {
+  width: 22%;
+
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+
+.contentPart {
+  width: 75%;
+  @media (max-width: 992px) {
+    width: 100%;
   }
 }

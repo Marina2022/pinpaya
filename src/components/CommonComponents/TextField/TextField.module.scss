@@ -4,3 +4,10 @@
   margin-bottom: 15px;
   color: red;
 }
+
+.errorInput {
+  input {
+    outline: red solid 1px !important;
+    border: none!important;
+  }
+}

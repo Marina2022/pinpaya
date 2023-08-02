@@ -3,18 +3,18 @@ import {Col} from "react-bootstrap";
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {signOut} from "firebase/auth";
-import {auth} from "../../../firebase";
-import AxiosClient from "../../../axios-client";
-import {useStateContext} from "../../../contexts/ContextProvider";
+import {auth} from "../../../../firebase";
+import AxiosClient from "../../../../axios-client";
+import {useStateContext} from "../../../../contexts/ContextProvider";
 import React from "react";
 
-import menu1 from '../../../assets/userMenu/menu1.svg'
-import menu2 from '../../../assets/userMenu/menu2.svg'
-import menu3 from '../../../assets/userMenu/menu3.svg'
-import menu5 from '../../../assets/userMenu/menu5.svg'
-import menu6 from '../../../assets/userMenu/menulogout.svg'
-import menu7 from '../../../assets/userMenu/tprofile.svg'
-import menu8 from '../../../assets/userMenu/tschedule.svg'
+import menu1 from '../../../../assets/userMenu/menu1.svg'
+import menu2 from '../../../../assets/userMenu/menu2.svg'
+import menu3 from '../../../../assets/userMenu/menu3.svg'
+import menu5 from '../../../../assets/userMenu/menu5.svg'
+import menu6 from '../../../../assets/userMenu/menulogout.svg'
+import menu7 from '../../../../assets/userMenu/tprofile.svg'
+import menu8 from '../../../../assets/userMenu/tschedule.svg'
 import cn from "classnames";
 
 
@@ -53,39 +53,42 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
               <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
                 <div className="m-2">
                   <NavLink style={navLinkFunction} to="tutor/my-lessons" onClick={() => setIsShown(false)}>
-                    <img src={menu1} alt='icon'/>{t('my_lessons')}
+                    <img width='24' height='24' src={menu1} alt='icon'/>{t('my_lessons')}
                   </NavLink>
                 </div>
 
                 <div className="m-2">
                   <NavLink style={navLinkFunction} to="tutor/my-tutor-profile" onClick={() => setIsShown(false)}>
-                    <img src={menu7} alt='icon'/> {t('my_tutor_profile')}
+                    <img width='24' height='24' src={menu7} alt='icon'/> {t('my_tutor_profile')}
                   </NavLink></div>
 
                 <div className="m-2">
                   <NavLink style={navLinkFunction} to="tutor/my-schedule" onClick={() => setIsShown(false)}>
-                    <img src={menu8} alt='icon'/>{t('my_schedule')}
+                    <img width='24' height='24' src={menu8} alt='icon'/>{t('my_schedule')}
                   </NavLink>
                 </div>
 
                 <div className="m-2">
                   <NavLink style={navLinkFunction} to="tutor/order-history" onClick={() => setIsShown(false)}>
-                    <img src={menu2} alt='icon'/>{t('order_history')}
+                    <img width='24' height='24' src={menu2} alt='icon'/>{t('order_history')}
                   </NavLink>
                 </div>
 
                 <div className="m-2">
                   <NavLink style={navLinkFunction} to="tutor/my-earnings" onClick={() => setIsShown(false)}>
-                    <img src={menu3} alt='icon'/>{t('my_earnings')}
+                    <img width='24' height='24' src={menu3} alt='icon'/>{t('my_earnings')}
                   </NavLink>
                 </div>
                 <div className="m-2">
                   <NavLink style={navLinkFunction} to="tutor/account-settings" onClick={() => setIsShown(false)}>
-                    <img src={menu5}
+                    <img width='24' height='24' src={menu5}
                          alt='icon'/>{t('account_settings')}
                   </NavLink></div>
-                <a className="m-2 " style={{color: '#dc3545'}} onClick={onLogout}><img src={menu6}
-                                                                                       alt='icon'/>{t('logout')}
+
+                <a className="m-2 "
+                   style={{color: '#dc3545'}}
+                   onClick={onLogout}>
+                  <img width='24' height='24' src={menu6} alt='icon'/>{t('logout')}
                 </a>
               </div>
             </div>
@@ -93,30 +96,30 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
 
           {
             type === "student" &&
-            <Col lg="3" className={s.userMenu}>
-              <div className="border p-4 bg-white user-left-menu">
-                <div className="m-2"><Link style={navLinkFunction} to="student/my-lessons"> <img src={menu1}
+            <div className={s.userMenu} >
+              <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
+                <div className="m-2"><NavLink style={navLinkFunction} to="student/my-lessons"> <img src={menu1}
                                                                                                  alt='icon'/>{t('my_lessons')}
-                </Link>
+                </NavLink>
                 </div>
 
-                <div className="m-2"><Link style={navLinkFunction} to="student/order-history"><img src={menu2}
+                <div className="m-2"><NavLink style={navLinkFunction} to="student/order-history"><img src={menu2}
                                                                                                    alt='icon'/>{t('order_history')}
-                </Link>
+                </NavLink>
                 </div>
 
-                <div className="m-2"><Link style={navLinkFunction} to="student/my-wallet"><img src={menu3}
+                <div className="m-2"><NavLink style={navLinkFunction} to="student/my-wallet"><img src={menu3}
                                                                                                alt='icon'/>{t('my_wallet')}
-                </Link></div>
+                </NavLink></div>
 
-                <div className="m-2"><Link style={navLinkFunction} to="student/account-settings"><img src={menu5}
+                <div className="m-2"><NavLink style={navLinkFunction} to="student/account-settings"><img src={menu5}
                                                                                                       alt='icon'/>{t('account_settings')}
-                </Link></div>
+                </NavLink></div>
                 <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}><img src={menu6}
                                                                                                     alt='icon'/>{t('logout')}
                 </div>
               </div>
-            </Col>
+            </div>
           }
         </div>
       }

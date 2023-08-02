@@ -12,6 +12,9 @@ import axiosClient from "../../../axios-client";
 import UserMenu from "../../CommonComponents/UserMenu/UserMenu";
 
 import s from './Menu.module.scss'
+import cn from "classnames";
+import BigOrangeBtn from "../../CommonComponents/BigOrangeBtn/BigOrangeBtn";
+import PleaseVerify from "../../CommonComponents/PleaseVerify/PleaseVerify";
 
 export default function Menu() {
   const {token, type, user} = useStateContext()
@@ -34,24 +37,16 @@ export default function Menu() {
   }
 
   return (
-    <Container>
 
-      <Row className="my-5">
-
-        <>
+      <div className={cn("container-1312", s.globalWrapper)}>
+        <div className={s.menuPart}>
           <UserMenu classname={s.menu}/>
-        </>
+        </div>
 
 
-        <Col lg="9">
+        <div className={s.contentPart} >
           {user && user.email_verified_at === null &&
-            <div className="p-4 border mb-4" role="alert" style={{background: 'white'}}>
-              <h4 className="text-dark">{t('verif_account')}</h4>
-              <h6>
-                <button style={{background: 'black'}} onClick={resendLink}
-                        className="btn mt-4">{t('resend_link')}</button>
-              </h6>
-            </div>
+           <PleaseVerify resendLink={resendLink} />
           }
 
           {msg &&
@@ -61,8 +56,8 @@ export default function Menu() {
           }
           {location.pathname == '/tutor' ? <MyLessons/> : ''}
           <Outlet/>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+
   )
 }

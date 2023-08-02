@@ -20,7 +20,7 @@ import cookies from "js-cookie";
 import {signOut} from "firebase/auth";
 import {auth} from "../../../firebase";
 import AxiosClient from "../../../axios-client";
-import UserMenuHeader from "../../CommonComponents/UserMenuHeader/UserMenuHeader";
+import UserMenuHeader from "./UserMenuHeader/UserMenuHeader";
 
 
 const Header = ({triggerMessage, showLoader}) => {
