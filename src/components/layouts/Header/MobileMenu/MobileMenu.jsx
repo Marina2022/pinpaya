@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useStateContext} from "../../../../contexts/ContextProvider";
-import SearchField from "../../../CommonComponents/SearchField/SearchField";
+import SearchField from "../../../CommonComponents/form/SearchField/SearchField";
 import LangSelect from "../LangSelect/LangSelect";
 import {signOut} from "firebase/auth";
 import {auth} from "../../../../firebase";
@@ -58,7 +58,7 @@ const MobileMenu = ({currentCode, setCurrentCode, onLogout}) => {
             <button className={s.closeBtn} onClick={onClose}>&times;</button>
               <div className={s.menuContent}>
                 <LangSelect classname={s.langSelect} currentCode={currentCode} setCurrentCode={setCurrentCode}/>
-                <SearchField setMobileIsOpen={setMobileIsOpen} autoComplete="off" placeholder={t('search')}/>
+                <SearchField setMobileIsOpen={setMobileIsOpen} autoComplete="off" placeholder={t('search')} classname={s.searchField} />
 
                 {user &&
                   <>
@@ -75,6 +75,11 @@ const MobileMenu = ({currentCode, setCurrentCode, onLogout}) => {
                           <Link onClick={onClose}
                                 to="tutor/my-schedule">  {t('my_schedule')}</Link>
                         </li>
+
+                        <li className="menu-item">
+                          <Link onClick={onClose} to="tutor/order-history">{t('order_history')}</Link>
+                        </li>
+
                         <li className="menu-item">
                           <Link onClick={onClose} to="tutor/my-earnings">{t('my_earnings')}</Link>
                         </li>

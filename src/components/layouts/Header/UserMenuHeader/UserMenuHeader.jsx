@@ -38,8 +38,7 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
 
   const navLinkFunction = ({isActive}) => {
     return {
-      fontWeight: isActive ? "bold" : "",
-      color: '#242424',
+      color: isActive ? '#DB480A'  : '#242424',
     };
   }
 

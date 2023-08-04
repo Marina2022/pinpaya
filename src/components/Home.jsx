@@ -15,6 +15,11 @@ import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 export default function Home(){
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
     const [subjects, setSubjects] = useState([]);
     const navigate = useNavigate();
     const [data, setData] = useState({

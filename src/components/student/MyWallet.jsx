@@ -13,12 +13,18 @@ export default function MyWallet(){
     const ibanRef = useRef();
     const [withdraw, setWithdraw] = useState(false);
     const {t, i18n} = useTranslation();
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
     useEffect(() => {
         axiosClient.get('student/wallet').then(({data}) => {
             setWallet(data.wallet);
             setWithdraw(data.withdraw)
         }).catch(err => {})
     }, [])
+
 
     const onSubmit = (e) => {
         e.preventDefault();

@@ -1,4 +1,9 @@
 {
+    "add_cert": "Add new certificate",
+    "fill_fields": "Fill in all fields correctly",
+
+
+
     "find_private_tutor": "Find a private Tutor",
     "become_private_tutor": "Become a private Tutor",
     "my_lessons" : "My lessons",
@@ -67,7 +72,7 @@
     "last_name": "Last name",
     "age": "Age",
     "location": "Location",
-    "update": "Update",
+    "update": "Update account information",
     "change_password": "Change password",
     "new_password": "New password",
     "repeat_password": "Repeat password",
@@ -77,9 +82,9 @@
     "my_education": "My education",
     "accept_lessons": "Accepting lessons",
     "no_accept_lessons": "Not accepting lessons",
-    "i_learn": "I learn",
+    "i_learn": "I teach",
     "i_speak": "I speak",
-    "tutor_profile_notice": "If you did not find the category you need, write to us and we will definitely add:",
+    "tutor_profile_notice": "If you did not find the category you need, write to us and we will definitely add",
     "experience_in_years": "Experience in years",
     "lesson_price": "Lesson price",
     "lesson_price_notice": "Set price in EUR for 1 hour lesson",
@@ -89,7 +94,7 @@
     "i_provide_notice": "Every new student will be able to have 1 lesson with 50% discount, to check if my teaching meets students needs.",
     "i_teach": "I teach kids only",
     "i_teach_notice": "Your profile will be available in the relevant filter in addition to all other categories you have selected.",
-    "upload": "Upload",
+    "upload": "Upload certificate",
 
     "accumulated_funds": "Accumulated funds",
     "minimum_withdrawal": "Minimum withdrawal amount 25,00 €",

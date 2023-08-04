@@ -1,19 +1,21 @@
 import React, {useContext, useEffect, useState} from "react";
-import axiosClient from "../../axios-client";
+import axiosClient from "../../../axios-client";
 import {Col, Row} from "react-bootstrap";
 import {CalendarDate, ChatSquare, Check2, CircleFill, InfoCircle, Trash} from "react-bootstrap-icons";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import {Link, useNavigate} from "react-router-dom";
-import firebaseCreateChat from "../../hooks/firebaseCreateChat";
-import {AuthContext} from "../../contexts/AuthContext";
-import {useStateContext} from "../../contexts/ContextProvider";
+import firebaseCreateChat from "../../../hooks/firebaseCreateChat";
+import {AuthContext} from "../../../contexts/AuthContext";
+import {useStateContext} from "../../../contexts/ContextProvider";
 import moment from "moment";
-import chatNotif from "../../hooks/chatNotif";
+import chatNotif from "../../../hooks/chatNotif";
 import {useTranslation} from "react-i18next";
-import LessonsEmpty from "../CommonComponents/LessonsEmpty/LessonsEmpty";
-import LessonCard from "../CommonComponents/LessonCard/LessonCard";
+import LessonsEmpty from "../../CommonComponents/LessonsEmpty/LessonsEmpty";
+import LessonCard from "../../CommonComponents/LessonCard/LessonCard";
+
+import s from './MyLessons.module.scss'
 
 export default function MyLessons() {
   const [lessons, setLessons] = useState([]);
@@ -34,6 +36,11 @@ export default function MyLessons() {
     }).catch(err => {
     })
   }
+
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  }, [])
+
 
   useEffect(() => {
     getLessons();
@@ -89,19 +96,17 @@ export default function MyLessons() {
     })
   }
 
-
-  console.log('lessons', lessons)
   return (
     <div>
-      <h2 className="mb-4"><b>{t('my_lessons')}</b></h2>
+      <h2 className="profilePageTitle"><b>{t('my_lessons')}</b></h2>
       <div>
         {
           lessons?.length > 0 &&
-          lessons.map(item =>
-            <LessonCard item={item} message={message} quit={quit} confirmLesson={confirmLesson} />
+          lessons.map((item, index) =>
+            <LessonCard item={item} message={message} quit={quit} confirmLesson={confirmLesson} key={index}/>
           )}
         {lessons?.length === 0 &&
-          <LessonsEmpty />
+          <LessonsEmpty/>
         }
       </div>
 

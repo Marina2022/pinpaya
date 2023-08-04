@@ -2,6 +2,7 @@
   padding-top: 40px;
   display: flex;
   padding-bottom: 40px;
+scroll-behavior: unset!important;
 
   @media (max-width: 768px) {
     flex-wrap: wrap;

@@ -32,7 +32,7 @@
   overflow-y: scroll;
   //height: 100vh;
   height: calc( var(--myVh) * 100 );
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 85%;
@@ -74,7 +74,7 @@
 }
 
 .mobileFilters {
-  border: none;
+  //border: none!important;
   padding: 0;
 }
 

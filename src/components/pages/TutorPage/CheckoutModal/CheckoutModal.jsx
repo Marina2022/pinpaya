@@ -1,19 +1,30 @@
-import AxiosClient from "../../../../../axios-client";
-import chatNotif from "../../../../../hooks/chatNotif";
+import AxiosClient from "../../../../axios-client";
+import chatNotif from "../../../../hooks/chatNotif";
 import {Badge, Button, Col, Form, Modal, Row, Spinner} from "react-bootstrap";
 import {CreditCardFill} from "react-bootstrap-icons";
 import InputMask from "react-input-mask";
-import React, {useState} from "react";
-const {type, user} = useStateContext();
-
-import React from 'react';
+import React, {useContext, useState} from "react";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import {useStateContext} from "../../../../../contexts/ContextProvider";
+import {useStateContext} from "../../../../contexts/ContextProvider";
+import {useTranslation} from "react-i18next";
+import {useParams} from "react-router-dom";
+import {AuthContext} from "../../../../contexts/AuthContext";
+import $ from "jquery";
 const MySwal = withReactContent(Swal);
 
-const CheckoutModal = () => {
+const CheckoutModal = ({show, setShow, tutor, getData, selected, setSelected}) => {
 
+  function setZindex() {
+    setTimeout(function () {
+      $('.holiday').parent().css("z-index", 20);
+      $('.holiday').parent().css("width", '100%');
+    });
+  }
+
+  const {type, user} = useStateContext();
+  const {currentUser} = useContext(AuthContext);
+  let {id} = useParams();
   const [data, setData] = useState({
     useWallet: 0,
     subject: '',
@@ -26,8 +37,7 @@ const CheckoutModal = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const [show, setShow] = useState(false);
-  const [info, setInfo] = useState([]);
+  // const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
   const bookLessons = () => {
@@ -71,6 +81,8 @@ const CheckoutModal = () => {
       })
     }
   }
+
+  const {t, i18n} = useTranslation();
 
   return (
     <div>

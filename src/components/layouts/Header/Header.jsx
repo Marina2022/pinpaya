@@ -48,15 +48,18 @@ const Header = ({triggerMessage, showLoader}) => {
 
   // Расчет высоты hv (и перерасчет при ресайзе):
   useEffect(()=>{
-    window.addEventListener('resize', ()=>setResizeHeight(prev=>!prev))
+    window.visualViewport.addEventListener('resize', ()=>setResizeHeight(prev=>!prev))
   }, [])
 
   useEffect(()=>{
     const root = document.querySelector(':root');
 
     function calcHeight() {
-      const heightWindow = window.innerHeight;
+      // const heightWindow = window.innerHeight;
+      const heightWindow = window.visualViewport.height;
       root.style.setProperty('--myVh', heightWindow/100 + 'px');
+      // window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
     }
     calcHeight();
   }, [resizeHeight])

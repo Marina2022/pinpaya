@@ -20,6 +20,12 @@ export default function Reschedule(){
         getItems();
     }, [])
 
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
+
     const getItems = () => {
         axiosClient.get('tutor/get-reschedule/'+id).then(({data}) => {
             setLessons(data.lessons);

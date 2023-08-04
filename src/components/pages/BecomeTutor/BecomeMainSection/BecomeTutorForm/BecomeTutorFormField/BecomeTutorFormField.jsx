@@ -1,8 +1,7 @@
 import React from 'react';
 import {Field} from "formik";
-import cn from "classnames";
 import s from "../BecomeTutorForm.module.scss";
-import TextInput from "../../../../../CommonComponents/TextInput/TextInput";
+import TextInput from "../../../../../CommonComponents/form/TextInput/TextInput";
 
 
 const BecomeTutorFormField = ({name, label, id, ...rest}) => {
@@ -12,8 +11,9 @@ const BecomeTutorFormField = ({name, label, id, ...rest}) => {
         const {field, meta} = fieldData
         return (
           <>
-            <label className={cn(s.formLabel, {[s.error]: meta.error})} htmlFor={id}>{label}</label>
-            <TextInput id={id} {...field} {...rest}   />
+            <label className={s.formLabel} htmlFor={id}>{label}</label>
+            <TextInput id={id} {...field} {...rest}  classname={meta.error ? s.error : ''}  />
+            <div className={s.errorMessage}>{meta.error}</div>
           </>
         )
       }

@@ -20,6 +20,7 @@ import {useTranslation} from "react-i18next";
 
 
 export default function Reschedule(){
+
     const MySwal = withReactContent(Swal);
     const [lessons, setLessons] = useState([]);
     let { id } = useParams();
@@ -33,6 +34,10 @@ export default function Reschedule(){
     const { currentUser } = useContext(AuthContext);
     const {t, i18n} = useTranslation();
     const handleClose = () => setShow(false);
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
 
     const getReschedule = () => {
         axiosClient.get('student/get-reschedule/'+id).then(({data}) => {

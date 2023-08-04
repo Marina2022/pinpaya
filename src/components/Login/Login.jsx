@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import AxiosClient from "../../axios-client.js";
 import {useStateContext} from "../../contexts/ContextProvider.jsx";
 import '../../index.scss';
@@ -14,7 +14,7 @@ import s from './Login.module.scss'
 
 
 import logo from '../../assets/pinpaya-logo.svg'
-import TextField from "../CommonComponents/TextField/TextField";
+import TextField from "../CommonComponents/form/TextField/TextField";
 
 export default function Login() {
   const {setUser, setToken, setType} = useStateContext();
@@ -32,7 +32,7 @@ export default function Login() {
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Required').email('Wrong email format'),
-    password: Yup.string().required("Password required").min(8, 'Minimum 8 characters'),
+    password: Yup.string().required("Required").min(8, 'Minimum 8 characters'),
   })
 
 
@@ -69,6 +69,10 @@ export default function Login() {
     password: ''
   }
 
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="login-signup-form animated fadeInDown">
       <div className="form">
@@ -81,7 +85,7 @@ export default function Login() {
                 validateOnChange={false} validateOnBlur={false}>
           {
             ({isSubmitting}) => {
-              return <Form noValidate={true} >
+              return <Form noValidate={true}>
 
                 <h1 className="title">
                   {t('login_text')}
@@ -94,10 +98,15 @@ export default function Login() {
                   </div>
                 }
 
-                <TextField name='email' placeholder={t('email')} type="email" />
-                <TextField name='password' placeholder={t('password')} type="password" />
+                <div className={s.wrapper}>
+                  <TextField name='email' placeholder={t('email')} type="email"/>
+                </div>
 
-                <BigOrangeBtn disabled={isSubmitting} >{t('login')}</BigOrangeBtn>
+                <div className={s.wrapper}>
+                  <TextField name='password' placeholder={t('password')} type="password"/>
+                </div>
+
+                <BigOrangeBtn disabled={isSubmitting}>{t('login')}</BigOrangeBtn>
                 <p className="message">
                   {t('not_registered')} <Link to="/signup">{t('create_account')}</Link>
                 </p>

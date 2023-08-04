@@ -1,5 +1,11 @@
+import {useEffect} from "react";
 
 const Cache = () => {
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
+
     const clearCacheData = () => {
         caches.keys().then((names) => {
             names.forEach((name) => {

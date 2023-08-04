@@ -590,7 +590,8 @@ input[type=checkbox]{accent-color:#F0500B !important}
 /*    color: black !important;*/
 /*}*/
 .p-multiselect:not(.p-disabled):hover{
-    border-color: #F0500B !important;
+    /*border-color: #F0500B !important;*/
+    border-color: #666 !important;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight{
     color:#F0500B !important;

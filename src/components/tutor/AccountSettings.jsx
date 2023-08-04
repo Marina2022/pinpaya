@@ -5,6 +5,8 @@ import {countries} from '../../data'
 import {useStateContext} from "../../contexts/ContextProvider";
 import Avatar from "react-avatar-edit";
 import {useTranslation} from "react-i18next";
+import * as Yup from "yup";
+import firebaseChat from "../../hooks/firebaseChat";
 export default function AccountSettings(){
     const passwordRef = useRef();
     const confirmPasswordRef = useRef();
@@ -21,6 +23,11 @@ export default function AccountSettings(){
         preview:''
     });
     const {user, setUser} = useStateContext()
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
 
     useEffect(() => {
         AxiosClient.get('/user').then(({data}) => {
@@ -50,6 +57,7 @@ export default function AccountSettings(){
             }
         })
     }
+
 
     const onSubmitPassword = (e) => {
         e.preventDefault()
@@ -91,15 +99,46 @@ export default function AccountSettings(){
         setPreview(preview);
     }
 
+    const phoneRegExp = /^[0-9+\- ]{8,18}$/
+
+    const validationSchema = Yup.object({
+        name: Yup.string().required('Required'),
+        lastname: Yup.string().required('Required'),
+        phone: Yup.string().required('Required').matches(phoneRegExp, {message: "Phone number is invalid"}),
+        location: Yup.object().required('Required'),
+        email: Yup.string().required('Required').email('Wrong email format'),
+        age: Yup.number().typeError('Age must be a number').required('Required').min(16, 'min 16').max(100, 'max 100'),
+        password: Yup.string().required("Required").min(8, 'min 8 symbols'),
+        password_confirmation: Yup.string().required("Required").oneOf([Yup.ref("password"), null], "Passwords don't match")
+    })
+
+    const initialValues = {
+        name: '',
+        lastname: '',
+        phone: '',
+        location: null,
+        email: '',
+        age: '',
+        password: '',
+        password_confirmation: '',
+        type: 'tutor'
+    }
+
+
+    const onFormikSubmit = (values, {setSubmitting}) => {
+       const payload = {...values, location: values.location.value}
+        console.log(payload)
+    }
+
 
     return(
         <div className="bg-white p-4">
-            <h3 className="my-3">
+            <h1 className="profilePageTitle">
                 { user?.avatar &&
                     <img style={{marginRight:'20px'}} className="float-right mb-2" width="80px" src={'https://web.pinpaya.com/storage/'+user.avatar} />
                 }
                 <span >{t('account_settings')}</span>
-            </h3>
+            </h1>
             {errors &&
                 <div className='alert mt-3'>
                     {Object.keys(errors).map(key => (

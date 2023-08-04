@@ -5,10 +5,10 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import axiosClient from "../../../../axios-client";
 import {useLocation} from "react-router-dom";
-import Select from "../../../CommonComponents/Select/Select";
-import Checkbox from "../../../CommonComponents/Checkbox/Checkbox";
+import Select from "../../../CommonComponents/form/Select/Select";
+import Checkbox from "../../../CommonComponents/form/Checkbox/Checkbox";
 
-import SearchField from "../../../CommonComponents/SearchField/SearchField";
+import SearchField from "../../../CommonComponents/form/SearchField/SearchField";
 import cn from "classnames";
 
 
@@ -157,6 +157,7 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
             placeholder={t('search_placeholder')}
             value={data?.search}
             onChange={ev => setData({...data, search: ev.target.value})}
+            classname={s.searchField}
           />
 
           <label className={s.formLabel}>{t('i_want_learn')}

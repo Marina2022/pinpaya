@@ -1,12 +1,8 @@
-import {Col, Row} from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import {Link, Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import '../student.css'
-import {isMobile, isTablet} from 'react-device-detect';
 import AxiosClient from "../../../axios-client";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {useEffect, useState} from "react";
-import axiosClient from "../../../axios-client";
 import MyLessons from "../MyLessons";
 import {signOut} from "firebase/auth";
 import { auth } from '../../../firebase'
@@ -25,6 +21,9 @@ export default function Menu(){
     const [msg, setMsg] = useState(false);
     const {t, i18n} = useTranslation();
 
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
 
     if(!token || type !== "student"){
         return <Navigate to={'/login'}/>

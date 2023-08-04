@@ -1,4 +1,9 @@
 {
+
+    "add_cert": "Lisa uus sertifikaat",
+    "fill_fields": "Täitke kõik väljad õigesti",
+
+
     "find_private_tutor": "Leia eraõpetaja",
     "become_private_tutor": "Tule eraõpetajaks",
     "my_lessons" : "Minu õppetunnid",
@@ -77,9 +82,9 @@
     "my_education": "Minu haridus",
     "accept_lessons": "Õppetundide vastuvõtmine",
     "no_accept_lessons": "Ei võta tunde vastu",
-    "i_learn": "Ma õpin",
+    "i_learn": "Ma õpetan",
     "i_speak": "Ma räägin",
-    "tutor_profile_notice": "\nKui te ei leidnud endale vajalikku kategooriat, siis kirjutage meile ja lisame kindlasti:",
+    "tutor_profile_notice": "\nKui te ei leidnud endale vajalikku kategooriat, siis kirjutage meile ja lisame kindlasti",
     "experience_in_years": "Kogemus aastates",
     "lesson_price": "Tunni hind",
     "lesson_price_notice": "Määra hind EUR 1 tunni eest",

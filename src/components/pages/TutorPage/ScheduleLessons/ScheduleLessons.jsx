@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Col, Row} from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -6,61 +6,73 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import moment from "moment/moment";
 import $ from "jquery";
+import {useTranslation} from "react-i18next";
+import {useStateContext} from "../../../../contexts/ContextProvider";
+import {AuthContext} from "../../../../contexts/AuthContext";
+import {useParams} from "react-router-dom";
 
-const remove = (element) => {
-  if (user && type == 'student') {
-    if (element.event.classNames[0] !== 'holiday') {
-      let el = events.filter(item => item.id == element.event.id);
-      if (el[0].studentId == user.id) {
-      } else {
-        if (element.event.classNames[0] != 'selectedEvents') {
-          if (user && type == 'student') {
 
-            const {startStr, endStr} = element.event;
-            const newState = events.map(obj => {
-              if (obj.id === element.event.id) {
-                const temp = {
-                  id: element.event.id,
-                  start: moment(startStr).format('Y-MM-DD HH:mm:ss'),
-                  end: moment(startStr).add(1, 'hours').format('Y-MM-DD HH:mm:ss'),
-                  tutor_id: id
-                };
-                if (obj.backgroundColor == '#36ab36') {
-                  setSelected([
-                    ...selected,
-                    temp
-                  ]);
-                  return {...obj, backgroundColor: 'silver'};
 
-                } else {
-                  setSelected(oldValues => {
-                    return oldValues.filter(item => item.id !== element.event.id)
-                  })
-                  return {...obj, backgroundColor: '#36ab36'};
+const ScheduleLessons = ({events, setEvents, tutor, selected, setSelected, setShow}) => {
 
+
+  const {type, user} = useStateContext();
+  const {currentUser} = useContext(AuthContext);
+
+  const bookLessons = () => {
+    setShow(true);
+  }
+
+  const remove = (element) => {
+    if (user && type == 'student') {
+      if (element.event.classNames[0] !== 'holiday') {
+        let el = events.filter(item => item.id == element.event.id);
+        if (el[0].studentId == user.id) {
+        } else {
+          if (element.event.classNames[0] != 'selectedEvents') {
+            if (user && type == 'student') {
+
+              const {startStr, endStr} = element.event;
+              const newState = events.map(obj => {
+                if (obj.id === element.event.id) {
+                  const temp = {
+                    id: element.event.id,
+                    start: moment(startStr).format('Y-MM-DD HH:mm:ss'),
+                    end: moment(startStr).add(1, 'hours').format('Y-MM-DD HH:mm:ss'),
+                    tutor_id: id
+                  };
+                  if (obj.backgroundColor == '#36ab36') {
+                    setSelected([
+                      ...selected,
+                      temp
+                    ]);
+                    return {...obj, backgroundColor: 'silver'};
+
+                  } else {
+                    setSelected(oldValues => {
+                      return oldValues.filter(item => item.id !== element.event.id)
+                    })
+                    return {...obj, backgroundColor: '#36ab36'};
+
+                  }
                 }
-              }
-              // 👇️ otherwise return the object as is
-              return obj;
-            });
+                // 👇️ otherwise return the object as is
+                return obj;
+              });
 
-            setEvents(newState);
+              setEvents(newState);
 
-          } else {
-            window.alert('Please Log in as student')
+            } else {
+              window.alert('Please Log in as student')
+            }
           }
         }
       }
+    } else {
+      window.alert('Please Log in as student')
     }
-  } else {
-    window.alert('Please Log in as student')
+
   }
-
-}
-
-const ScheduleLessons = () => {
-
-
 
   const handleSelect = (info) => {
 
@@ -92,8 +104,13 @@ const ScheduleLessons = () => {
     });
   }
 
-  setZindex();
+    const [info, setInfo] = useState([]);
 
+  setZindex();
+  const {t, i18n} = useTranslation();
+
+
+  let {id} = useParams();
 
   return (
     <div className="part-bottom mt-3 bg-white border">

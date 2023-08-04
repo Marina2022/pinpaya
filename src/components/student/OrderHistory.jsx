@@ -14,6 +14,10 @@ export default function OrderHistory(){
         }).catch(err => {})
     }, [])
 
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
     return(
         <>
             <div className="bg-white p-4">

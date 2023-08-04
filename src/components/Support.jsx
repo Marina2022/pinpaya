@@ -1,8 +1,13 @@
 import Container from "react-bootstrap/Container";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export default function Support(){
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
     const [data, setData] = useState({
         name:'',
         email: '',

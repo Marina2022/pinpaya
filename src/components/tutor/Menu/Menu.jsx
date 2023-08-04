@@ -2,9 +2,9 @@ import {Navigate, Outlet, useLocation} from "react-router-dom";
 
 import {useStateContext} from "../../../contexts/ContextProvider";
 import AxiosClient from "../../../axios-client";
-import MyLessons from "../MyLessons";
+import MyLessons from "../MyLessons/MyLessons";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import UserMenu from "../../CommonComponents/UserMenu/UserMenu";
 
@@ -14,11 +14,13 @@ import PleaseVerify from "../../CommonComponents/PleaseVerify/PleaseVerify";
 
 export default function Menu() {
   const {token, type, user} = useStateContext()
-
-
   const location = useLocation();
   const [msg, setMsg] = useState(false);
   const {t, i18n} = useTranslation();
+
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  }, [])
 
   if (!token || type !== "tutor") {
     return <Navigate to={'/login'}/>

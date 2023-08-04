@@ -1,6 +1,13 @@
 import Container from "react-bootstrap/Container";
 import {Col, Row} from "react-bootstrap";
+import {useEffect} from "react";
 export default function About(){
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
+
     return(
         <>
             <Container>

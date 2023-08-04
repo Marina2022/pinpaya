@@ -2,6 +2,7 @@ import React from 'react';
 import {useTranslation} from "react-i18next";
 
 import s from './TutorDesc.module.scss'
+import Cert from "../../../CommonComponents/Cert/Cert";
 
 const TutorDesc = ({tutor, certificates}) => {
   const {t, i18n} = useTranslation();
@@ -74,11 +75,8 @@ const TutorDesc = ({tutor, certificates}) => {
 
               <ul className={s.certsList}>
                 {
-                  certificates.map(item =>
-                    <li className={s.certItem} key={item.id}>
-                      <a target="_blank" href={`https://web.pinpaya.com/storage/${item.images}`}><img
-                         src={'https://web.pinpaya.com/storage/' + item.images} width="150" alt="certificate"/></a>
-                    </li>
+                  certificates.map(item => <Cert item={item}/>
+
                   )
                 }
               </ul>

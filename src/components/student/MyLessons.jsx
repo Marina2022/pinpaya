@@ -26,6 +26,11 @@ import LessonsEmpty from "../CommonComponents/LessonsEmpty/LessonsEmpty";
 import LessonCard from "../CommonComponents/LessonCard/LessonCard";
 
 export default function MyLessons() {
+
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  }, [])
+
   const [lessons, setLessons] = useState([]);
   const [reschedule, setReschedule] = useState([]);
   const MySwal = withReactContent(Swal)
@@ -101,7 +106,7 @@ export default function MyLessons() {
   return (
 
     <div>
-      <h2 className="mb-4"><b>{t('my_lessons')}</b></h2>
+      <h2 className="profilePageTitle"><b>{t('my_lessons')}</b></h2>
       <div>
         {
           reschedule?.tutor_id &&
@@ -110,7 +115,6 @@ export default function MyLessons() {
                                                          to={`/student/reschedule/${reschedule.tutor_id}`}> here. </Link>
           </div>
         }
-
 
         {
           lessons?.length > 0 &&

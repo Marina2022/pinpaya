@@ -36,6 +36,7 @@ export default function MySchedule() {
     const [refSaturdayTo, setRefSaturdayTo] = useState(82800);
     const {t, i18n} = useTranslation();
     const getSchedule = () => {
+
         AxiosClient.get('/tutor/get-schedule').then(({data}) => {
             setEvents(data.data);
             setForm(data.form);
@@ -61,6 +62,12 @@ export default function MySchedule() {
     useEffect(() => {
         getSchedule();
     }, [])
+
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
 
     const onSubmit = (e) => {
         e.preventDefault()

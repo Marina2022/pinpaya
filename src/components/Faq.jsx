@@ -4,6 +4,11 @@ import Container from "react-bootstrap/Container";
 import {Col, Row, Toast} from "react-bootstrap";
 
 export default function Faq(){
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
     const [faq, setFaq] = useState([]);
 
     useEffect(() => {

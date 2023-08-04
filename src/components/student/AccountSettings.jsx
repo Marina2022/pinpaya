@@ -23,6 +23,10 @@ export default function AccountSettings(){
     });
     const {user, setUser} = useStateContext()
 
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
     useEffect(() => {
         axiosClient.get('/user').then(({data}) => {
             setUser(data);
@@ -93,9 +97,9 @@ export default function AccountSettings(){
 
     return(
         <div className="bg-white p-4">
-            <h3 className="my-3">
+            <h1 className="profilePageTitle">
                 <span >{t('account_settings')}</span>
-            </h3>
+            </h1>
             {errors &&
                 <div className='alert mt-3'>
                     {Object.keys(errors).map(key => (

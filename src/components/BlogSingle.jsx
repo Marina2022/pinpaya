@@ -8,6 +8,12 @@ import parse from 'html-react-parser'
 
 
 export default function BlogSingle(){
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
+
     let { id } = useParams();
     const [blog, setBlog] = useState({
         content: ''

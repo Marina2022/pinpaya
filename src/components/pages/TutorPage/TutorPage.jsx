@@ -1,4 +1,3 @@
-import {Badge, Button, Col, Form, Modal, Row, Spinner} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import React, {useContext, useEffect, useState} from "react";
 import AxiosClient from "../../../axios-client";
@@ -13,6 +12,7 @@ import TutorDesc from "./TutorDesc/TutorDesc";
 import cn from "classnames";
 
 import s from './TutorPage.module.scss'
+import ScheduleLessons from "./ScheduleLessons/ScheduleLessons";
 
 export default function TutorPage() {
   let {id} = useParams();
@@ -22,7 +22,7 @@ export default function TutorPage() {
   const [events, setEvents] = useState([]);
 
   const {type, user} = useStateContext();
-  const {currentUser} = useContext(AuthContext);
+
   const {t, i18n} = useTranslation();
 
 
@@ -39,13 +39,17 @@ export default function TutorPage() {
     })
   }
 
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  }, [])
+
   useEffect(() => {
     getData();
 
-    window.scroll(0,0)
-
   }, [])
 
+  const [selected, setSelected] = useState([]);
+  const [show, setShow] = useState(false);
 
   return (
     <div className={cn('container-1312', s.tutorPage)}>
@@ -55,10 +59,12 @@ export default function TutorPage() {
           tutor.video_url && <TutorVideo tutor={tutor}/>
         }
         <TutorDesc tutor={tutor} certificates={certificates}/>
+
+        <ScheduleLessons events={events} setEvents={setEvents} tutor={tutor}  selected={selected} setSelected={setSelected} setShow={setShow}/>
       </div>
 
       <div className={s.rightWrapper}>
-        <BookingDetails tutor={tutor}/>
+        <BookingDetails tutor={tutor} getData={getData} selected={selected} setSelected={setSelected} show={show} setShow={setShow}/>
       </div>
     </div>
   )

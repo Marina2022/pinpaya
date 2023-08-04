@@ -1,0 +1,42 @@
+.error {
+  color: red;
+  font-size: 12px;
+}
+.errorTextarea {
+  textarea {
+    border: red solid 1px !important;
+  }
+}
+
+.textarea {
+  padding: 15px;
+  min-height: 150px;
+  resize: none;
+  width: 100%;
+  font-size: 16px;
+  height: 47px;
+  border-color: #E0E0E0;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  margin-bottom: 0;
+
+  @media (max-width: 768px) {
+    min-height: 150px;
+    font-size: 14px;
+  }
+
+  &::placeholder {
+    font-size: 13px;
+  }
+}
+
+.textarea:focus {
+  outline: #777 solid 2px!important;
+  border: none;
+}
+
+.textarea:hover {
+  border-color: #777;
+}
+

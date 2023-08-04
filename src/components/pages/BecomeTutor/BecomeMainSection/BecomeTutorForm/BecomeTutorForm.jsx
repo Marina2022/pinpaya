@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import cn from "classnames";
 
 import {countries} from "../../../../../data";
-import Select from "../../../../CommonComponents/Select/Select";
+import Select from "../../../../CommonComponents/form/Select/Select";
 import React, {useState} from "react";
 import BigOrangeBtn from "../../../../CommonComponents/BigOrangeBtn/BigOrangeBtn";
 import BecomeTutorFormField from "./BecomeTutorFormField/BecomeTutorFormField";
@@ -41,7 +41,7 @@ const BecomeTutorForm = () => {
     age: '',
     password: '',
     password_confirmation: '',
-    type: 'tutor'  // проверить, отправится ли в пейлоад
+    type: 'tutor'
   }
 
   const phoneRegExp = /^[0-9+\- ]{8,18}$/
@@ -69,14 +69,14 @@ const BecomeTutorForm = () => {
   }
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('required'),
-    lastname: Yup.string().required('required'),
-    phone: Yup.string().required('required').matches(phoneRegExp, {message: "Phone number not valid"}),
-    location: Yup.object().required('required'),
-    email: Yup.string().required('required').email('wrong email format'),
-    age: Yup.number().required('required').min(16, 'min 16').max(100, 'max 100'),
-    password: Yup.string().required("Password required").min(8, 'min 8 symbols'),
-    password_confirmation: Yup.string().required("Password required").oneOf([Yup.ref("password"), null], "Passwords don't match")
+    name: Yup.string().required('Required'),
+    lastname: Yup.string().required('Required'),
+    phone: Yup.string().required('Required').matches(phoneRegExp, {message: "Phone number is invalid"}),
+    location: Yup.object().required('Required'),
+    email: Yup.string().required('Required').email('Wrong email format'),
+    age: Yup.number().typeError('Age must be a number').required('Required').min(16, 'min 16').max(100, 'max 100'),
+    password: Yup.string().required("Required").min(8, 'min 8 symbols'),
+    password_confirmation: Yup.string().required("Required").oneOf([Yup.ref("password"), null], "Passwords don't match")
   })
 
   return (
@@ -123,11 +123,14 @@ const BecomeTutorForm = () => {
                       ({field, form, meta}) => {
                         const onChange = (value) => form.setFieldValue('location', value)
                         return <>
-                          <label className={cn(s.formLabel, {[s.error]: meta.error})}>{`${t('location')} *`}
+                          <label className={s.formLabel}>{`${t('location')} *`}
                             <Select options={countryOptions}
                                     {...field}
                                     onChange={onChange}
+                                    error={meta.error}
+                                    classname={s.select}
                             />
+                            <div className={s.errorMessage}>{meta.error}</div>
                           </label>
                         </>
                       }

@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import AxiosClient from "../axios-client.js";
 import {useStateContext} from "../contexts/ContextProvider.jsx";
 import {countries} from '../data'
@@ -18,6 +18,12 @@ export default function StudentSignup(){
     const {setUser, setToken, setType} = useStateContext();
     const [errors, setErrors] = useState(null);
     const {t, i18n} = useTranslation();
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
+
     const onSubmit = async (e) => {
         e.preventDefault()
 

@@ -15,11 +15,11 @@ import {auth} from "../../../firebase";
 
 import s from './MainLayout.module.scss'
 
+
 export default function MainLayout() {
+
   const [showChat, setShowChat] = useState(false);
-
   const {user, type, setUser} = useStateContext()
-
   const [showLoader, setShowLoader] = useState(null);
 
   useEffect(() => {

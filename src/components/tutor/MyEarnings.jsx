@@ -8,11 +8,17 @@ import AxiosClient from "../../axios-client";
 import {useTranslation} from "react-i18next";
 
 export default function MyEarnings(){
+
     const {user} = useStateContext();
     const [wallet, setWallet] = useState([]);
     const [withdraw, setWithdraw] = useState(false);
     const ibanRef = useRef();
     const {t, i18n} = useTranslation();
+
+    useEffect(()=>{
+        window.scrollTo(0, 0)
+    }, [])
+
     useEffect(() => {
         axiosClient.get('tutor/wallet').then(({data}) => {
             setWallet(data.wallet);

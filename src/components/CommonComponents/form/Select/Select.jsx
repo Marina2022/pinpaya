@@ -3,7 +3,7 @@ import cn from 'classnames'
 
 import s from './Select.module.scss'
 
-const Select = ({options, classname, onChange, value}) => {
+const Select = ({options, classname, onChange, value, error}) => {
 
   return (
     <div className={cn(s.wrapper, classname)}>
@@ -20,17 +20,20 @@ const Select = ({options, classname, onChange, value}) => {
                      colors: {
                        ...theme.colors,
                        primary25: '#ddd',
-                       primary: '#777',
+                       primary:  '#777',
                      },
                    })}
                    styles={{
-                     control: (baseStyles) => ({
+                     control: (baseStyles, { isFocused, isSelected }) => ({
                        ...baseStyles,
                        height: 47,
                        paddingLeft: '10px',
                        fontSize: 16,
-                       borderColor: '#E0E0E0',
+                       borderColor: error ? 'red' : '#E0E0E0',
                        cursor: 'pointer',
+                       "&:hover": {
+                         border:  error ?  "1px solid red" : "1px solid #777",
+                       }
                      }),
 
                      indicatorSeparator: (baseStyles) => ({
@@ -40,7 +43,7 @@ const Select = ({options, classname, onChange, value}) => {
 
                      dropdownIndicator: (baseStyles) => ({
                        ...baseStyles,
-                       color: '#242424',
+                       color: '#6c757d',
                      }),
 
                      option: (baseStyles) => ({

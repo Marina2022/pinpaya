@@ -5,7 +5,7 @@ import {
   Check,
   CurrencyEuro, Globe2, ShieldFillCheck
 } from "react-bootstrap-icons";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import AxiosClient from "../../../axios-client";
 import {countries} from "../../../data";
@@ -23,6 +23,11 @@ export default function BecomeTutor() {
   const {setUser, setToken, setType} = useStateContext();
   const navigate = useNavigate();
   const {t, i18n} = useTranslation();
+
+  useEffect(()=>{
+    window.scrollTo(0, 0)
+  }, [])
+
 
   return (
     <>
