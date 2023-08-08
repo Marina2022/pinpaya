@@ -14,8 +14,6 @@ import {useParams} from "react-router-dom";
 
 
 const ScheduleLessons = ({events, setEvents, tutor, selected, setSelected, setShow}) => {
-
-
   const {type, user} = useStateContext();
   const {currentUser} = useContext(AuthContext);
 

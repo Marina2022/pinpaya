@@ -58,7 +58,7 @@ export default function MyTutorProfile() {
 
   const previewRef = useRef()
 
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
@@ -85,8 +85,6 @@ export default function MyTutorProfile() {
     reader.onload = function (e) { // Как только картинка загрузится
       previewRef.current.style.backgroundImage = `url(${e.target.result})`;
     }
-
-
   }
 
   function handleSubmit(event) {
@@ -106,7 +104,7 @@ export default function MyTutorProfile() {
       if (responseData && responseData.status === 422) {
         setErrors(responseData.data.errors);
       }
-    }).finally(()=>previewRef.current.style.backgroundImage = 'none')
+    }).finally(() => previewRef.current.style.backgroundImage = 'none')
   }
 
 
@@ -262,7 +260,6 @@ export default function MyTutorProfile() {
                 </div>
               </div>
 
-
               <div>
                 <Label classname={s.label}>{t('experience_in_years')}</Label>
                 <TextField name='experience'/>
@@ -304,7 +301,7 @@ export default function MyTutorProfile() {
 
               <BigOrangeBtn type="submit" classname={s.btn} disabled={isSubmitting}>{t('update')}</BigOrangeBtn>
               {
-                Object.keys(errors).length > 0  && <div className={s.submitError}>*{t('fill_fields')}</div>
+                Object.keys(errors).length > 0 && <div className={s.submitError}>*{t('fill_fields')}</div>
               }
             </Form>
           }
@@ -318,13 +315,13 @@ export default function MyTutorProfile() {
             {
               certificates?.length > 0 &&
               certificates.map(item =>
-                <img className={s.certImg}  key={item.id}
+                <img className={s.certImg} key={item.id}
                      src={'https://web.pinpaya.com/storage/' + item.images} width="150" alt=""/>
               )}
           </div>
 
-          <label htmlFor="file" className={s.fileInputLabel}>{t('add_cert')}
-            <div className={s.preview} ref={previewRef}></div>
+          <label htmlFor="file">
+            <div className={s.preview} ref={previewRef}>Choose a file</div>
             <input id="file" type="file" onChange={handleChange} className={s.fileInput}/>
           </label>
           <BigOrangeBtn type="submit" classname={s.uploadBtn}>{t('upload')}</BigOrangeBtn>

@@ -38,7 +38,7 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
 
   const navLinkFunction = ({isActive}) => {
     return {
-      color: isActive ? '#DB480A'  : '#242424',
+      color: isActive ? '#DB480A' : '#242424',
     };
   }
 
@@ -84,35 +84,36 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
                          alt='icon'/>{t('account_settings')}
                   </NavLink></div>
 
-                <a className="m-2 "
-                   style={{color: '#dc3545'}}
-                   onClick={onLogout}>
+                <div className="m-2 "
+                     style={{color: '#dc3545'}}
+                     onClick={onLogout}>
                   <img width='24' height='24' src={menu6} alt='icon'/>{t('logout')}
-                </a>
+                </div>
               </div>
             </div>
           }
 
           {
             type === "student" &&
-            <div className={s.userMenu} >
+            <div className={s.userMenu}>
               <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
-                <div className="m-2"><NavLink style={navLinkFunction} to="student/my-lessons"> <img src={menu1}
-                                                                                                 alt='icon'/>{t('my_lessons')}
-                </NavLink>
+                <div className="m-2">
+                  <NavLink style={navLinkFunction} to="student/my-lessons">
+                    <img src={menu1} alt='icon'/>{t('my_lessons')}
+                  </NavLink>
                 </div>
 
                 <div className="m-2"><NavLink style={navLinkFunction} to="student/order-history"><img src={menu2}
-                                                                                                   alt='icon'/>{t('order_history')}
+                                                                                                      alt='icon'/>{t('order_history')}
                 </NavLink>
                 </div>
 
                 <div className="m-2"><NavLink style={navLinkFunction} to="student/my-wallet"><img src={menu3}
-                                                                                               alt='icon'/>{t('my_wallet')}
+                                                                                                  alt='icon'/>{t('my_wallet')}
                 </NavLink></div>
 
                 <div className="m-2"><NavLink style={navLinkFunction} to="student/account-settings"><img src={menu5}
-                                                                                                      alt='icon'/>{t('account_settings')}
+                                                                                                         alt='icon'/>{t('account_settings')}
                 </NavLink></div>
                 <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}><img src={menu6}
                                                                                                     alt='icon'/>{t('logout')}

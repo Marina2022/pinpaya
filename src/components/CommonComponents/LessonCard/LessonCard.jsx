@@ -26,8 +26,8 @@ const LessonCard = ({item, message, confirmLesson, quit}) => {
             {
               type === 'tutor' && <div>
                 {item.avatar ?
-                  <img className="avatar-wrap" src={'https://web.pinpaya.com/storage/' + item.avatar} alt="avatar"/>
-                  : <img className="avatar-wrap" src="https://app.pinpaya.com/no-image.png"/>
+                  <img className={s.ava} src={'https://web.pinpaya.com/storage/' + item.avatar} alt="avatar"/>
+                  : <img className="avatar-wrap" src="https://app.pinpaya.com/no-image.png" alt="avatar"/>
                 }
               </div>
             }

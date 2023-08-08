@@ -21,10 +21,6 @@ export default function TutorPage() {
   const [certificates, setCertificates] = useState([]);
   const [events, setEvents] = useState([]);
 
-  const {type, user} = useStateContext();
-
-  const {t, i18n} = useTranslation();
-
 
   const getData = () => {
     AxiosClient.get('/get-tutor/' + id).then(({data}) => {

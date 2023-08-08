@@ -66,7 +66,7 @@ export default function MainLayout() {
       <main className={s.main}>
         <Outlet/>
       </main>
-      <Footer/>
+      {/*<Footer/>*/}
 
       {showChat && user &&
         <div>

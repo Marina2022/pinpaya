@@ -33,11 +33,11 @@ const Header = ({triggerMessage, showLoader}) => {
   const [isUserMenuShown, setUserMenuIsShown] = useState(false)
 
 
-  useEffect(()=>{
+  useEffect(() => {
     // const currentLanguageCode = cookies.get('i18nextLng') || 'en'
     const currentLanguageCode = localStorage.getItem('i18next') || 'en';
     setCurrentCode(currentLanguageCode)
-  },[])
+  }, [])
 
   useEffect(() => {
     i18n.changeLanguage(localStorage.getItem('i18next') || 'en')
@@ -47,20 +47,21 @@ const Header = ({triggerMessage, showLoader}) => {
 
 
   // Расчет высоты hv (и перерасчет при ресайзе):
-  useEffect(()=>{
-    window.visualViewport.addEventListener('resize', ()=>setResizeHeight(prev=>!prev))
+  useEffect(() => {
+    window.visualViewport.addEventListener('resize', () => {
+      setResizeHeight(prev => !prev)
+     })
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     const root = document.querySelector(':root');
 
     function calcHeight() {
       // const heightWindow = window.innerHeight;
       const heightWindow = window.visualViewport.height;
-      root.style.setProperty('--myVh', heightWindow/100 + 'px');
-      // window.scrollTo(0, 0);
-      document.body.scrollTop = 0;
+      root.style.setProperty('--myVh', heightWindow / 100 + 'px');
     }
+
     calcHeight();
   }, [resizeHeight])
 
@@ -108,7 +109,6 @@ const Header = ({triggerMessage, showLoader}) => {
             user ?
               <>
                 <Link className={s.walletLink} to={type === 'tutor' ? '/tutor/my-earnings' : '/student/my-wallet'}>
-
                   <div className={s.wallet}>
                     <img src={coinsIcon} alt='coins icon'/>
                     <div style={{marginLeft: '7px'}}>
@@ -116,7 +116,6 @@ const Header = ({triggerMessage, showLoader}) => {
                       <div className={s.textSuccess}>{user?.cashback ? `+ ${user?.cashback}€ cashback` : ''}</div>
                     </div>
                   </div>
-
                 </Link>
 
                 <button className={cn('normalBtn', s.chatBtn)} onClick={() => triggerMessage()}>
@@ -126,10 +125,14 @@ const Header = ({triggerMessage, showLoader}) => {
                   }
                 </button>
 
+                <div className={s.langSelect}>
+                  <LangSelect currentCode={currentCode} setCurrentCode={setCurrentCode}/>
+                </div>
+
                 <Link to={`/${type}`}
                       className={s.userLink}
-                      onMouseEnter={()=>setUserMenuIsShown(true)}
-                      onMouseLeave={()=>setUserMenuIsShown(false)} >
+                      onMouseEnter={() => setUserMenuIsShown(true)}
+                      onMouseLeave={() => setUserMenuIsShown(false)}>
                   <div className="p-2">
                     {user?.avatar ?
                       <img className={s.userAvatar} src={'https://web.pinpaya.com/storage/' + user.avatar}
@@ -140,9 +143,9 @@ const Header = ({triggerMessage, showLoader}) => {
 
                   </div>
                   {
-                  isUserMenuShown && <div className={s.userMenuPopup}>
-                    <UserMenuHeader isShown={isUserMenuShown} setIsShown={setUserMenuIsShown} />
-                  </div>
+                    isUserMenuShown && <div className={s.userMenuPopup}>
+                      <UserMenuHeader isShown={isUserMenuShown} setIsShown={setUserMenuIsShown}/>
+                    </div>
                   }
                 </Link>
 
@@ -150,7 +153,7 @@ const Header = ({triggerMessage, showLoader}) => {
               :
               <>
                 <div className={s.langSelect}>
-                  <LangSelect currentCode={currentCode} setCurrentCode={setCurrentCode} />
+                  <LangSelect currentCode={currentCode} setCurrentCode={setCurrentCode}/>
                 </div>
                 <BigOrangeBtn to="/login" classname={s.loginBtn}>
                   <img className={s.orangeBtnIcon} src={userIcon} alt="user icon"/>

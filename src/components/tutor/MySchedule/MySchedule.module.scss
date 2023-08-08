@@ -1,0 +1,62 @@
+.buttons {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 576px) {
+    flex-wrap: wrap;
+
+  }
+}
+
+.btn {
+  width: 215px;
+  margin-bottom: 24px;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+}
+
+.confirmBtn {
+  margin-block: 16px;
+  width: 215px;
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+}
+
+.secondaryBtn {
+  align-items: center;
+  background: 0 0;
+  border: 1px solid #f0500b;
+  border-radius: 3px;
+  color: #f0500b;
+  display: flex;
+  font-size: 16px;
+  font-weight: 799 !important;
+  //height: 48px !important;
+  justify-content: center;
+  line-height: 24px;
+  outline: none;
+  padding: 11px 19px;
+  width: 215px;
+  margin-bottom: 24px;
+  margin-right: 20px;
+
+  @media (max-width: 576px) {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  &:hover {
+    background: #f9f9f9;
+    border-color: #db480a;
+    color: #db480a !important;
+
+  }
+}
+
+
+.whatToDoText {
+  margin-bottom: 16px;
+}

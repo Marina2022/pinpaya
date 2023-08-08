@@ -1,0 +1,15 @@
+.input {
+   input:not([type=checkbox]) {
+     font-size: 14px;
+   }
+ }
+
+.formControl {
+  margin-bottom: 15px;
+}
+
+.submitError {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

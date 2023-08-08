@@ -100,6 +100,10 @@
     font-size: 16px;
     line-height: 38px;
     color: #242424;
+
+    &:first-child {
+      margin-top: 5px;
+    }
   }
 
 }
@@ -111,3 +115,42 @@
 .searchField {
   margin-bottom: 20px;
 }
+
+
+
+.wallet {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+
+  img {
+    width: 34px;
+    position: relative;
+    bottom: 4px;
+  }
+
+  &:hover {
+    color: #DB480A;
+  }
+}
+
+.amountBlock {
+  background: #F9F9F9;
+  border-radius: 3px;
+  padding: 7px 17px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.textSuccess {
+  font-size: 11px;
+  line-height: 20px;
+}
+
+.walletLink {
+  @media (max-width: 576px) {
+    //display: none;
+  }
+}
+

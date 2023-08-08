@@ -20,7 +20,7 @@ export default function FindTutors() {
   useEffect(()=>{
     window.scrollTo(0, 0)
   }, [])
-  
+
   useEffect(() => {
     axiosClient.get('/get-tutors').then(({data}) => {
       setTutors(data.data);
@@ -30,8 +30,6 @@ export default function FindTutors() {
       setLanguages(data.languages);
     })
   }, [])
-
-  console.log('tutors', tutors)
 
   return (
 

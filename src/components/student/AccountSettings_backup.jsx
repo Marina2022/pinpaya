@@ -6,7 +6,7 @@ import {useStateContext} from "../../contexts/ContextProvider";
 import axiosClient from "../../axios-client";
 import Avatar from "react-avatar-edit";
 import {useTranslation} from "react-i18next";
-export default function AccountSettings(){
+export default function AccountSettings_backup(){
     const passwordRef = useRef();
     const confirmPasswordRef = useRef();
     const {t, i18n} = useTranslation();
@@ -34,11 +34,17 @@ export default function AccountSettings(){
         })
     }, [])
 
+
+
+
+
+
     const onSubmit = (e) => {
         e.preventDefault()
 
         setErrors(null);
         setSuccess(null);
+        //////********************** и все?
         AxiosClient.post('student/change-info', data).then(({data}) => {
             setSuccess(true);
         }).catch(err => {
@@ -65,6 +71,7 @@ export default function AccountSettings(){
         }
         setErrors(null);
         setSuccess(null);
+        //////////  еще здесь
         AxiosClient.post('student/change-password', payload).then(({data}) => {
             setSuccess(true);
 

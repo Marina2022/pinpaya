@@ -11,8 +11,28 @@ import Checkbox from "../../../CommonComponents/form/Checkbox/Checkbox";
 import SearchField from "../../../CommonComponents/form/SearchField/SearchField";
 import cn from "classnames";
 
+// const onInputFocus = () => {
+//
+//   console.log(window.pageYOffset)
+//
+//   //
+//   // if (window.innerHeight < 992)
+//   //   console.log('focus')
+//   //   window.scrollTo(0, 0);
+//   // document.body.scrollTop = 0;
+// }
 
-const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, classname, setIsOpen}) => {
+const FindTutorFilters = ({
+                            setLoading,
+                            setTutors,
+                            subjects,
+                            languages,
+                            loading,
+                            classname,
+                            setIsOpen,
+                            onInputFocus,
+                            onInputBlur
+                          }) => {
     const {t, i18n} = useTranslation();
 
     const [checkTeach, setCheckTeach] = useState(false);
@@ -97,6 +117,11 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
       e.preventDefault();
       searchAction();
       setIsOpen && setIsOpen(false);
+      // window.location.reload()
+
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+    window.pageYOffset = 0
     }
 
     const subjectOptions =
@@ -150,7 +175,7 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
       ]
 
     return (
-      <>
+      <div>
         <form className={cn(s.filterForm, classname)} onSubmit={send}>
 
           <SearchField
@@ -158,19 +183,25 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
             value={data?.search}
             onChange={ev => setData({...data, search: ev.target.value})}
             classname={s.searchField}
+            onFocus={onInputFocus}
           />
 
           <label className={s.formLabel}>{t('i_want_learn')}
             <Select options={subjectOptions}
+                    onInputFocus={onInputFocus}
+                    onInputBlur={onInputBlur}
                     value={data?.subject}
                     onChange={selectValue => setData({...data, subject: selectValue})}
+
             />
           </label>
 
           <label className={s.formLabel}>{t('tutor_from')}
             <Select options={countryOptions}
-                    // value={data?.location}
-                    // onChange={selectValue => setData({...data, location: selectValue})}
+                    onInputFocus={onInputFocus}
+                    onInputBlur={onInputBlur}
+              // value={data?.location}
+              // onChange={selectValue => setData({...data, location: selectValue})}
             />
           </label>
 
@@ -178,13 +209,17 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
             <Select options={langOptions}
                     value={data?.language}
                     onChange={selectValue => setData({...data, language: selectValue})}
+                    onInputFocus={onInputFocus}
+                    onInputBlur={onInputBlur}
             />
           </label>
 
           <label className={s.formLabel}>{t('price_per_hour')}
             <Select options={priceOptions}
                     value={data?.price}
+                    onInputFocus={onInputFocus}
                     onChange={selectValue => setData({...data, price: selectValue})}
+                    onInputBlur={onInputBlur}
             />
           </label>
 
@@ -205,7 +240,7 @@ const FindTutorFilters = ({setLoading, setTutors, subjects, languages, loading, 
             }
           </button>
         </form>
-      </>
+      </div>
 
     )
       ;

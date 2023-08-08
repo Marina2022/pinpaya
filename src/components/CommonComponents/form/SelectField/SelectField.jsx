@@ -2,8 +2,9 @@ import s from './SelectField.module.scss'
 import Select from "../Select/Select";
 import {Field} from "formik";
 import React from "react";
+import cn from "classnames";
 
-const SelectField = ({name, classname, options,  ...rest}) => {
+const SelectField = ({name, classname, options, fontSize,  ...rest}) => {
   return (
     <Field name={name}>
       {
@@ -15,7 +16,8 @@ const SelectField = ({name, classname, options,  ...rest}) => {
                     {...field}
                     onChange={onChange}
                     error={meta.error}
-                    classname={s.select}
+                    classname={cn(s.select, classname)}
+                    fontSize={fontSize}
             />
             <div className={s.errorMessage}>{meta.error}</div>
 

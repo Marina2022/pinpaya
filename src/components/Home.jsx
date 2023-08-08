@@ -106,7 +106,7 @@ export default function Home(){
                         </Col>
                         <Col md="6">
                             <div>
-                                <img className="main-img img-fluid" src="/public/student-main.webp" alt="student"/>
+                                <img className="main-img img-fluid" src="student-main.webp" alt="student"/>
                             </div>
                         </Col>
                     </Row>
@@ -117,7 +117,7 @@ export default function Home(){
                     <Row>
                         <Col md="6">
                             <div>
-                                <img className="main-img img-fluid " src="/public/tutor-main.webp" alt="student"/>
+                                <img className="main-img img-fluid " src="tutor-main.webp" alt="student"/>
                             </div>
                         </Col>
                         <Col md="6">
@@ -142,21 +142,21 @@ export default function Home(){
                     <h3 className="mb-3">{t('how_it_works')}</h3>
                     <Row>
                         <Col md="4">
-                            <div className="mb-3 text-center mt-3"><img width="300" height="200" src="/public/how1.svg" alt=""/></div>
+                            <div className="mb-3 text-center mt-3"><img width="300" height="200" src="how1.svg" alt=""/></div>
                             <div className="text-center">
                                 <div><b>{t('home14')}</b></div>
                                 <div>{t('home15')}</div>
                             </div>
                         </Col>
                         <Col md="4">
-                            <div className="mb-3 text-center mt-3 "><img width="300" height="200" src="/public/how2.svg" alt=""/></div>
+                            <div className="mb-3 text-center mt-3 "><img width="300" height="200" src="how2.svg" alt=""/></div>
                             <div className="text-center">
                                 <div><b>{t('home16')}</b></div>
                                 <div>{t('home17')}</div>
                             </div>
                         </Col>
                         <Col md="4">
-                            <div className="mb-3 text-center mt-3"><img width="300" height="200" src="/public/how3.webp" alt=""/></div>
+                            <div className="mb-3 text-center mt-3"><img width="300" height="200" src="how3.webp" alt=""/></div>
                             <div className="text-center">
                                 <div><b>{t('home18')}</b></div>
                                 <div>{t('home19')}</div>

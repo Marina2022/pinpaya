@@ -37,8 +37,6 @@ const CheckoutModal = ({show, setShow, tutor, getData, selected, setSelected}) =
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // const [show, setShow] = useState(false);
-
   const handleShow = () => setShow(true);
   const bookLessons = () => {
     setShow(true);

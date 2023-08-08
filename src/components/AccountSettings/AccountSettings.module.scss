@@ -1,0 +1,95 @@
+.accountSettings {
+  padding: 40px;
+  background-color: #fff;
+
+  @media (max-width: 768px) {
+    padding: 15px 15px 35px;
+  }
+}
+
+.twoInputsWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    gap: 0;
+
+  }
+
+  & > * {
+    width: 100%;
+  }
+}
+
+
+.btn {
+  margin-top: 16px;
+  width: unset;
+
+  @media (max-width: 576px) {
+    padding-inline: 15px;
+    width: 100%;
+  }
+}
+
+.label {
+  margin-top: 20px;
+}
+
+.subtitle {
+  margin-top: 35px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 28px;
+}
+
+
+.preview {
+  position: absolute;
+  top: -117px;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 3px;
+  border: #dddddd dashed 1px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileInputLabel {
+  width: 150px;
+  height: 150px;
+  border: 1px dashed #999;
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.imgPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+.previewText {
+
+  font-size: 14px;
+  color: #777;
+}
+
+.submitError {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
