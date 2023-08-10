@@ -104,7 +104,7 @@ export default function MyEarnings() {
         {/*</Form>*/}
 
         <div>
-          <div style={{'overflowX': 'scroll'}}>
+          <div className='innerPageScroll'>
             <Table striped hover className="mt-3 bg-white">
               <thead>
               <tr>

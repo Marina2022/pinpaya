@@ -110,7 +110,7 @@ export default function MyLessons() {
       <div>
         {
           reschedule?.tutor_id &&
-          <div className="text-danger d-flex align-items-center fw-bold"><ExclamationCircle size={20}/> Tutor canceled
+          <div className="text-danger align-items-center fw-bold mb-sm-1"><ExclamationCircle size={20}/> Tutor canceled
             one or more lessons, please reschedule <Link style={{paddingLeft: '5px'}}
                                                          to={`/student/reschedule/${reschedule.tutor_id}`}> here. </Link>
           </div>

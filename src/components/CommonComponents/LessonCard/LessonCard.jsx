@@ -150,15 +150,9 @@ const LessonCard = ({item, message, confirmLesson, quit}) => {
                 </a>
                 :
                 <a href={`/lesson/${item.last.id}`}>
-                  <button style={{
-                    fontSize: '14px',
-                    borderRadius: '3px',
-                    height: '53px',
-                    background: '#FFE33C',
-                    color: 'black'
-                  }} className="btn d-block w-100 btn7">
-                    <img src="/public/videocam.svg" style={{width: '24px'}} alt=""/> {t('start_lesson')}
-                  </button>
+                  <BigOrangeBtn classname={s.yellowBtn}>
+                    <img className={s.videocamIcon} src={videocam} style={{width: '24px'}} alt=""/> {t('start_lesson')}
+                  </BigOrangeBtn>
                 </a>
               }
             </>

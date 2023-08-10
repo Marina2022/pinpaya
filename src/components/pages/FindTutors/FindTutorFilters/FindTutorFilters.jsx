@@ -119,9 +119,12 @@ const FindTutorFilters = ({
       setIsOpen && setIsOpen(false);
       // window.location.reload()
 
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-    window.pageYOffset = 0
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+      window.pageYOffset = 0
+      document.body.style.height = window.innerHeight + 'px'
+      document.body.style.overflow = 'unset'
+
     }
 
     const subjectOptions =
@@ -175,7 +178,7 @@ const FindTutorFilters = ({
       ]
 
     return (
-      <div>
+      // <div>
         <form className={cn(s.filterForm, classname)} onSubmit={send}>
 
           <SearchField
@@ -240,7 +243,7 @@ const FindTutorFilters = ({
             }
           </button>
         </form>
-      </div>
+      // </div>
 
     )
       ;

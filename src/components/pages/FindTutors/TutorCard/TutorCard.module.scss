@@ -11,6 +11,10 @@
 
   &:last-child {
     margin-bottom: 0;
+
+    @media (max-width: 992px) {
+      margin-bottom: 17px;
+    }
   }
 
   &:hover {

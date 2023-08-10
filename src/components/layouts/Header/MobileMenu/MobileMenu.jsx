@@ -2,7 +2,7 @@ import s from './MobileMenu.module.scss';
 
 import {motion, AnimatePresence} from 'framer-motion';
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useStateContext} from "../../../../contexts/ContextProvider";
 import SearchField from "../../../CommonComponents/form/SearchField/SearchField";
@@ -31,6 +31,7 @@ const MobileMenu = ({currentCode, setCurrentCode, onLogout}) => {
     body.style.overflow = 'unset'
   }
 
+  const location = useLocation()
 
   return (
     <div style={{minHeight: '100%'}}>
@@ -65,26 +66,26 @@ const MobileMenu = ({currentCode, setCurrentCode, onLogout}) => {
                       </li>
 
                       <li className="menu-item">
-                        <Link to="tutor/my-lessons" onClick={onClose}>{t('my_lessons')}</Link>
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} to="tutor/my-lessons" onClick={onClose}>{t('my_lessons')}</Link>
                       </li>
                       <li className="menu-item">
-                        <Link onClick={onClose
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose
                         } to="tutor/my-tutor-profile">  {t('my_tutor_profile')}</Link>
                       </li>
                       <li className="menu-item">
-                        <Link onClick={onClose}
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose}
                               to="tutor/my-schedule">  {t('my_schedule')}</Link>
                       </li>
 
                       <li className="menu-item">
-                        <Link onClick={onClose} to="tutor/order-history">{t('order_history')}</Link>
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="tutor/order-history">{t('order_history')}</Link>
                       </li>
 
                       <li className="menu-item">
-                        <Link onClick={onClose} to="tutor/my-earnings">{t('my_earnings')}</Link>
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="tutor/my-earnings">{t('my_earnings')}</Link>
                       </li>
                       <li className="menu-item">
-                        <Link onClick={onClose}
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose}
                               to="tutor/account-settings">{t('account_settings')}</Link>
                       </li>
                       <li className="menu-item">
@@ -101,7 +102,7 @@ const MobileMenu = ({currentCode, setCurrentCode, onLogout}) => {
 
                     <ul className={s.mobileNav}>
                       <li className="menu-item">
-                        <Link className={s.walletLink}
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} className={s.walletLink}
                               onClick={onClose}
                               to={type === 'tutor' ? '/tutor/my-earnings' : '/student/my-wallet'}>
                           <div className={s.wallet}>
@@ -114,20 +115,17 @@ const MobileMenu = ({currentCode, setCurrentCode, onLogout}) => {
                         </Link>
                       </li>
                       <li className="menu-item">
-                        <Link onClick={onClose} to="student/my-lessons">{t('my_lessons')}</Link>
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="student/my-lessons">{t('my_lessons')}</Link>
                       </li>
                       <li className="menu-item">
-                        <Link onClick={onClose}
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose}
                               to="student/order-history">{t('order_history')}</Link></li>
                       <li className="menu-item">
-                        <Link onClick={onClose} to="student/my-wallet">{t('my_wallet')}</Link>
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="student/my-wallet">{t('my_wallet')}</Link>
                       </li>
-                      {/*<li className="menu-item">*/}
-                      {/*  <Link onClick={onClose}*/}
-                      {/*        to="student/payment-methods">{t('payment_methods')}</Link>*/}
-                      {/*</li>*/}
+
                       <li className="menu-item">
-                        <Link onClick={onClose}
+                        <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose}
                               to="student/account-settings">{t('account_settings')}</Link>
                       </li>
                       <li className="menu-item">
@@ -145,24 +143,24 @@ const MobileMenu = ({currentCode, setCurrentCode, onLogout}) => {
                 <li id="menu-item-5548"
                     className="menu-item mt-2 menu-item-type-post_type menu-item-object-page menu-item-5548"
                 >
-                  <Link onClick={onClose} to="about">{t('about_pinpaya')}</Link>
+                  <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="about">{t('about_pinpaya')}</Link>
                 </li>
                 <li id="menu-item-6339"
                     className="menu-item menu-item-type-post_type menu-item-object-page menu-item-6339">
-                  <Link onClick={onClose} to="become-tutor">{t('become_private_tutor')}</Link>
+                  <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="become-tutor">{t('become_private_tutor')}</Link>
                 </li>
                 <li id="menu-item-3757"
                     className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3757">
-                  <Link onClick={onClose} to="find-tutor">{t('find_private_tutor')}</Link></li>
+                  <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="find-tutor">{t('find_private_tutor')}</Link></li>
                 <li id="menu-item-3755"
                     className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3755">
-                  <Link onClick={onClose} to="faq">FAQ</Link></li>
+                  <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="faq">FAQ</Link></li>
                 <li id="menu-item-5581"
                     className="menu-item menu-item-type-post_type menu-item-object-page menu-item-5581">
-                  <Link onClick={onClose} to="support">{t('support')}</Link></li>
+                  <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="support">{t('support')}</Link></li>
                 <li id="menu-item-14537"
                     className="menu-item menu-item-type-custom menu-item-object-custom menu-item-14537">
-                  <Link onClick={onClose} to="blog">{t('blog')}</Link></li>
+                  <Link reloadDocument={location.pathname.includes("/lesson/") ? true : false} onClick={onClose} to="blog">{t('blog')}</Link></li>
               </ul>
             </div>
           </motion.div>

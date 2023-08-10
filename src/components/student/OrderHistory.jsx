@@ -25,7 +25,7 @@ export default function OrderHistory() {
       <div className="bg-white p-4">
         <h1 className='titleOrderHistory'
         >{t('order_history')}</h1>
-        <div style={{'overflowX': 'scroll'}}>
+        <div className='innerPageScroll'>
           <Table striped hover className="mt-3 bg-white ">
             <thead>
             <tr>
