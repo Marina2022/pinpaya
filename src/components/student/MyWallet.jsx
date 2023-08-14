@@ -7,7 +7,7 @@ import moment from "moment/moment";
 import AxiosClient from "../../axios-client";
 import {useTranslation} from "react-i18next";
 
-import coin from  '../../assets/coin.svg'
+import coin from '../../assets/coin.svg'
 
 export default function MyWallet() {
   const {user} = useStateContext();
@@ -28,20 +28,6 @@ export default function MyWallet() {
     })
   }, [])
 
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    const payload = {
-      number: ibanRef.current.value
-    }
-
-    AxiosClient.post('/student/withdraw', payload).then(({data}) => {
-      console.log('done');
-    }).catch(err => {
-    })
-  };
-
   return (
     <div className="bg-white p-4">
       <h1 className='profilePageTitle'>{t('my_wallet')}</h1>
@@ -49,24 +35,6 @@ export default function MyWallet() {
         <div>
           <img src={coin} style={{width: '34px'}}/> <span style={{fontSize: 20}}>{user?.wallet} €</span>
         </div>
-
-        {/*Пока убрала*/}
-
-        {/*<Form onSubmit={onSubmit}>*/}
-        {/*  <div className="mt-3 mb-4">*/}
-        {/*    <input*/}
-        {/*      type="text"*/}
-        {/*      placeholder={t('your_iban')}*/}
-        {/*      ref={ibanRef}*/}
-        {/*      required={true}*/}
-        {/*      // onChange={(e) => setUsername(e.target.value)}*/}
-        {/*      // value={username}*/}
-        {/*    />*/}
-        {/*    <button disabled={user?.wallet > 25 && withdraw ? false : true}*/}
-        {/*            className="btn">{t('request_withdrawal')}</button>*/}
-        {/*  </div>*/}
-        {/*</Form>*/}
-
         <div>
           <div className='innerPageScroll'>
             <Table striped hover className="mt-3 bg-white">
@@ -82,7 +50,7 @@ export default function MyWallet() {
                 wallet?.length > 0 &&
                 wallet.map(item =>
                   <tr>
-                    <td>{moment(item.created_at).format('DD.MM.Y')}</td>
+                    <td>{moment(item.created_at).format('DD.MM.Y HH:mm')}</td>
                     <td>{item.text}</td>
                     <td>{item.amount}</td>
                   </tr>

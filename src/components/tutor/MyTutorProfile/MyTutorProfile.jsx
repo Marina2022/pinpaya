@@ -16,6 +16,7 @@ import FieldNotice from "../../CommonComponents/form/FieldNotice/FieldNotice";
 import SelectField from "../../CommonComponents/form/SelectField/SelectField";
 import TextareaField from "../../CommonComponents/form/TextareaField/TextareaField";
 import BigOrangeBtn from "../../CommonComponents/BigOrangeBtn/BigOrangeBtn";
+import {useOutletContext} from "react-router-dom";
 
 export default function MyTutorProfile() {
   const [file, setFile] = useState()
@@ -62,7 +63,6 @@ export default function MyTutorProfile() {
     window.scrollTo(0, 0)
   }, [])
 
-
   useEffect(() => {
     axiosClient.get('tutor/get-additional').then(({data}) => {
       setSubjects(data.data.subjects);
@@ -75,12 +75,9 @@ export default function MyTutorProfile() {
     })
   }, [])
 
-
   function handleChange(event) {
     setFile(event.target.files[0])
-
     const reader = new FileReader
-
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = function (e) { // Как только картинка загрузится
       previewRef.current.style.backgroundImage = `url(${e.target.result})`;
@@ -107,7 +104,6 @@ export default function MyTutorProfile() {
     }).finally(() => previewRef.current.style.backgroundImage = 'none')
   }
 
-
   const validationSchema = Yup.object({
     education: Yup.string().required("Required"),
     experience: Yup.number().required("Required").typeError('Must be a number'),
@@ -120,7 +116,6 @@ export default function MyTutorProfile() {
   })
 
   const onSubmit = async (values) => {
-
     const payload = {
       languages: values.languages,
       subjects: values.subjects,
@@ -139,6 +134,8 @@ export default function MyTutorProfile() {
 
     axiosClient.post('tutor/set-additional', payload).then(({data}) => {
       setSuccess(true);
+      setProfileFilled(true);
+
     }).catch(err => {
       const response = err.response;
       if (response && response.status === 422) {
@@ -172,9 +169,9 @@ export default function MyTutorProfile() {
         value: '0',
         label: t('no_accept_lessons')
       },
-
     ]
 
+  const {setProfileFilled} = useOutletContext();
 
   return (
     <div className={s.globalWrapper}>
@@ -214,10 +211,9 @@ export default function MyTutorProfile() {
                     {
                       ({field, meta, form}) => {
                         return (
-                          <>
+                          <div className={s.multiselectWrapper}>
                             <MultiSelect maxSelectedLabels={10} display="chip" value={field.value}
                                          onChange={(e) => {
-                                           // setMySubjects(e.value)
                                            form.setFieldValue('subjects', e.value)
                                          }}
                                          options={subjects}
@@ -225,19 +221,15 @@ export default function MyTutorProfile() {
                                          optionValue="id"
                                          placeholder="Select Subject" className="w-full md:w-20rem"/>
                             <div className={s.errorMessage}>{meta.error}</div>
-                          </>
+                          </div>
                         )
                       }
                     }
                   </Field>
                   <FieldNotice>{t('tutor_profile_notice')}</FieldNotice>
                 </div>
-
-
                 <div>
-
                   <Label classname={s.speakLabel}>{t('i_speak')}</Label>
-
                   <Field name='languages'>
                     {
                       ({field, meta, form}) => {
@@ -247,7 +239,6 @@ export default function MyTutorProfile() {
                                          onChange={(e) => {
                                            form.setFieldValue('languages', e.value)
                                          }}
-
                                          options={languages} optionLabel="name" optionValue="id"
                                          placeholder="Select Language" className="w-full md:w-20rem"/>
                             <div className={s.errorMessage}>{meta.error}</div>

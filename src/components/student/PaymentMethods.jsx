@@ -18,10 +18,6 @@ export default function PaymentMethods(){
                     </thead>
                     <tbody>
                     <tr>
-                        {/*<td>1</td>*/}
-                        {/*<td>20</td>*/}
-                        {/*<td>Card</td>*/}
-                        {/*<td>10.08.2023</td>*/}
                     <div className="p-2">{t('no_method')}</div>
                     </tr>
                     </tbody>

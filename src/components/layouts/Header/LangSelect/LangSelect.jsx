@@ -1,5 +1,4 @@
 import s from './LangSelect.module.scss'
-import cookies from "js-cookie";
 import React, { useState} from "react";
 import {useTranslation} from "react-i18next";
 import cn from "classnames";
@@ -48,9 +47,7 @@ export default LangSelect;
 
 
 const Dropdown = ({setIsOpen, setCurrentCode}) => {
-
   const {t, i18n} = useTranslation();
-
   return (
     <>
       <div className='transparentOverlay' onClick={() => setIsOpen(false)}>
@@ -77,7 +74,6 @@ const Dropdown = ({setIsOpen, setCurrentCode}) => {
     </>
   )
 }
-
 
 const GlobeIcon = ({width = 24, height = 24}) => (
   <svg

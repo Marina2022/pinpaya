@@ -51,38 +51,46 @@ const UserMenu = ({classname}) => {
             <div className={s.userMenu}>
 
               <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
-                <div className="m-2"><NavLink style={navLinkFunction} to="my-lessons"> <img src={menu1}
-                                                                                            alt='icon'/>{t('my_lessons')}
-                </NavLink>
+                <div className="m-2">
+                  <NavLink style={navLinkFunction} to="my-lessons">
+                    <img src={menu1} alt='icon'/>{t('my_lessons')}
+                  </NavLink>
                 </div>
 
-                <div className="m-2"><NavLink
-                  style={navLinkFunction}
-                  to="my-tutor-profile">
-                  <img src={menu7} alt='icon'/>
-
-                  {t('my_tutor_profile')}
-                </NavLink></div>
-
-                <div className="m-2"><NavLink style={navLinkFunction} to="my-schedule"> <img
-                  src={menu8}
-                  alt='icon'/>{t('my_schedule')}
-                </NavLink>
+                <div className="m-2">
+                  <NavLink
+                    style={navLinkFunction}
+                    to="my-tutor-profile">
+                    <img src={menu7} alt='icon'/> {t('my_tutor_profile')}
+                  </NavLink>
                 </div>
 
-                <div className="m-2"><NavLink style={navLinkFunction} to="order-history">
-                  <img src={menu2} alt='icon'/>{t('order_history')}
-                </NavLink>
+                <div className="m-2">
+                  <NavLink style={navLinkFunction} to="my-schedule">
+                    <img src={menu8} alt='icon'/>{t('my_schedule')}
+                  </NavLink>
                 </div>
-                <div className="m-2"><NavLink style={navLinkFunction} to="my-earnings"> <img src={menu3}
-                                                                                             alt='icon'/>{t('my_earnings')}
-                </NavLink>
+
+                <div className="m-2">
+                  <NavLink style={navLinkFunction} to="order-history">
+                    <img src={menu2} alt='icon'/>{t('order_history')}
+                  </NavLink>
                 </div>
-                <div className="m-2"><NavLink style={navLinkFunction} to="account-settings"> <img src={menu5}
-                                                                                                  alt='icon'/>{t('account_settings')}
-                </NavLink></div>
-                <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}><img src={menu6}
-                                                                                                    alt='icon'/>{t('logout')}
+
+                <div className="m-2">
+                  <NavLink style={navLinkFunction} to="my-earnings">
+                    <img src={menu3} alt='icon'/>{t('my_earnings')}
+                  </NavLink>
+                </div>
+
+                <div className="m-2">
+                  <NavLink style={navLinkFunction} to="account-settings">
+                    <img src={menu5} alt='icon'/>{t('account_settings')}
+                  </NavLink>
+                </div>
+
+                <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}>
+                  <img src={menu6} alt='icon'/>{t('logout')}
                 </div>
               </div>
             </div>
@@ -93,25 +101,29 @@ const UserMenu = ({classname}) => {
 
             <div className={s.userMenu}>
               <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
-                <div className="m-2"><NavLink style={navLinkFunction} to="my-lessons"> <img src={menu1}
-                                                                                            alt='icon'/>{t('my_lessons')}
+                <div className="m-2"><NavLink style={navLinkFunction} to="my-lessons">
+                  <img src={menu1} alt='icon'/>{t('my_lessons')}
                 </NavLink>
                 </div>
 
-                <div className="m-2"><NavLink style={navLinkFunction} to="order-history"><img src={menu2}
-                                                                                              alt='icon'/>{t('order_history')}
+                <div className="m-2">
+                  <NavLink style={navLinkFunction} to="order-history">
+                    <img src={menu2} alt='icon'/>{t('order_history')}
+                  </NavLink>
+                </div>
+
+                <div className="m-2"><NavLink style={navLinkFunction} to="my-wallet">
+                  <img src={menu3} alt='icon'/>{t('my_wallet')}
                 </NavLink>
                 </div>
 
-                <div className="m-2"><NavLink style={navLinkFunction} to="my-wallet"><img src={menu3}
-                                                                                          alt='icon'/>{t('my_wallet')}
-                </NavLink></div>
+                <div className="m-2"><NavLink style={navLinkFunction} to="account-settings">
+                  <img src={menu5} alt='icon'/>{t('account_settings')}
+                </NavLink>
+                </div>
 
-                <div className="m-2"><NavLink style={navLinkFunction} to="account-settings"><img src={menu5}
-                                                                                                 alt='icon'/>{t('account_settings')}
-                </NavLink></div>
-                <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}><img src={menu6}
-                                                                                                    alt='icon'/>{t('logout')}
+                <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}>
+                  <img src={menu6} alt='icon'/>{t('logout')}
                 </div>
               </div>
             </div>

@@ -11,7 +11,6 @@ const SelectField = ({name, classname, options, fontSize,  ...rest}) => {
         ({field, form, meta}) => {
           const onChange = (value) => form.setFieldValue(name, value)
           return <>
-
             <Select options={options}
                     {...field}
                     onChange={onChange}

@@ -33,7 +33,6 @@ const FindTutorsFiltersMobile = (props) => {
   const onClose = () => {
     setFiltersIsOpen(false)
     body.style.overflow = 'unset'
-    // window.location.reload()
     window.pageYOffset = 0
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;

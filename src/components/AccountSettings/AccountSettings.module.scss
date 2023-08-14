@@ -68,11 +68,9 @@
   height: 150px;
   border: 1px dashed #999;
   border-radius: 5px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .imgPreview {
@@ -81,9 +79,7 @@
   object-fit: contain;
 }
 
-
 .previewText {
-
   font-size: 14px;
   color: #777;
 }

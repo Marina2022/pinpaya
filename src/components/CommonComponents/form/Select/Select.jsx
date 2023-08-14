@@ -7,17 +7,11 @@ const Select = ({options, classname, onChange, value, error, fontSize, onInputFo
   return (
     <div className={cn(s.wrapper, classname)}>
 
-
       <ReactSelect options={options}
-        // react-select в onChange отправляет не (e), а value. А в value - объект
-        // типа   {value: '', label: ''), а не value из html-селекта
                    onFocus={onInputFocus}
-                   onBlur={(e)=>console.log('onBlur') }
-        // onBlur={onInputBlur}
+                   onBlur={(e) => console.log('onBlur')}
                    value={value}
                    onChange={onChange}
-
-        // className={s.select}
                    theme={(theme) => ({
                      ...theme,
                      colors: {

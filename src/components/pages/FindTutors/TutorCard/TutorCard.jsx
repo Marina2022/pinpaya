@@ -67,17 +67,17 @@ const TutorCard = ({item}) => {
         <div className={s.priceBlock}>
           <div className={s.price}>
             <img src={startGold} alt="star" className={s.star}/>
-            {item.price} €
+            {
+              item.check_trial === 1 && <span className={s.oldPrice}>{item.price} €</span>
+            }
+            {item.check_trial === 1 ? item.price / 2 : item.price} €
           </div>
           <div className={s.perHourText}>{t(item.check_trial === 1 ? t('first_trial') : t('per_hour'))}</div>
         </div>
-
         <div className={s.buttonsBlock}>
-
           <button className={s.messageBtn} onClick={() => message(item)}>
             {t('message')}
           </button>
-
           {
             item.check_trial === 0 ?
               <Link to={'/tutor/' + item.id} className={s.scheduleBtnOrange}>

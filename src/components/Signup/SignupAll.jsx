@@ -5,7 +5,6 @@ import {useStateContext} from "../../contexts/ContextProvider.jsx";
 import {countries} from "../../data";
 import firebaseChat from "../../hooks/firebaseChat";
 import {useTranslation} from "react-i18next";
-
 import logo from '../../assets/pinpaya-logo.svg'
 import {Form, Formik} from "formik";
 import * as Yup from "yup";
@@ -37,7 +36,6 @@ export default function SignupAll({type}) {
       }
     })
   }
-
 
   const countryOptions =
     [
@@ -73,8 +71,6 @@ export default function SignupAll({type}) {
 
   return (
     <div className="login-signup-form animated fadeInDown">
-
-
       <Formik initialValues={initialValues} onSubmit={onFormikSubmit} validationSchema={validationSchema}
               validateOnChange={false} validateOnBlur={false} enableReinitialize={true}>
         {
@@ -85,9 +81,6 @@ export default function SignupAll({type}) {
                 <div className="text-center mb-4">
                   <Link to="/"><img src={logo} alt="logo"/></Link>
                 </div>
-
-
-                {/*<form onSubmit={onSubmit}>*/}
                 <h1 className="title mb-4">
                   {
                     type === 'tutor' ?
@@ -95,11 +88,9 @@ export default function SignupAll({type}) {
                       t('student_signup')
                   }
                 </h1>
-
                 {fromServerErrors &&
                   <div className='alert'>
                     {Object.keys(fromServerErrors).map(key => {
-                        console.log(key)
                         return <p key={key}>{fromServerErrors[key][0]}</p>
                       }
                     )}
@@ -118,18 +109,15 @@ export default function SignupAll({type}) {
                   <TextField name='email' placeholder={t('email')} classname={s.input}/>
                 </div>
 
-
                 <div className={s.formControl}>
                   <SelectField name='location' options={countryOptions}
                                classname={s.input} fontSize={14}
                   />
                 </div>
 
-
                 <div className={s.formControl}>
                   <TextField name='phone' placeholder={t('phone')} classname={s.input}/>
                 </div>
-
 
                 <div className={s.formControl}>
                   <TextField name='age' placeholder={t('age')} classname={s.input}/>
@@ -144,7 +132,7 @@ export default function SignupAll({type}) {
                              type="password"/>
                 </div>
 
-                <BigOrangeBtn type='submit'>{t('signup')}</BigOrangeBtn>
+                <BigOrangeBtn type='submit' disable={isSubmitting}>{t('signup')}</BigOrangeBtn>
                 {
                   Object.keys(errors).length > 0 && <div className={s.submitError}>*{t('fill_fields')}</div>
                 }
@@ -152,7 +140,6 @@ export default function SignupAll({type}) {
                 <p className="message">
                   {t('already_registered')} <Link to="/login">{t('signin')}</Link>
                 </p>
-                {/*</form>*/}
               </div>
             </Form>
           }

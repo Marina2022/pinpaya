@@ -2,7 +2,8 @@
     "add_cert": "Add new certificate",
     "fill_fields": "Fill in all fields correctly",
 
-
+    "students_will_not_see": "Students will not see your profile until is completed and a grade is added.",
+    "update_my_tutor_profile": "Update my tutor profile",
 
     "find_private_tutor": "Find a private Tutor",
     "become_private_tutor": "Become a private Tutor",

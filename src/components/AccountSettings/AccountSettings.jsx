@@ -47,7 +47,6 @@ export default function AccountSettings() {
     ]
 
   const [preview, setPreview] = useState(null);
-
   const phoneRegExp = /^[0-9+\- ]{8,18}$/
 
   const validationSchema = Yup.object({
@@ -72,20 +71,15 @@ export default function AccountSettings() {
     age: data?.age,
   }
 
-
   const onFormikSubmit = (values, {setSubmitting}) => {
     const payload = {...values, location: values.location.value, preview: preview}
-
-
     setErrors(null);
     setSuccess(null);
-    // data.preview = preview;
     AxiosClient.post(`${type}/change-info`, payload).then(({data}) => {
       setSuccess(true);
       window.location.reload()
     }).catch(err => {
       const response = err.response;
-
       if (response && response.status === 422) {
         if (response.data.errors) {
           setErrors(response.data.errors);
@@ -98,7 +92,6 @@ export default function AccountSettings() {
     })
       .finally(() => setSubmitting(false))
   }
-
 
   const initialValuesPass = {
     new_password: '',
@@ -113,10 +106,8 @@ export default function AccountSettings() {
       setSuccess(true);
       setSubmitting(false)
       resetForm();
-
     }).catch(err => {
       const response = err.response;
-
       if (response && response.status === 422) {
         if (response.data.errors) {
           setErrors(response.data.errors);

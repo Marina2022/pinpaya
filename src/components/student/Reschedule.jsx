@@ -92,9 +92,6 @@ export default function Reschedule(){
                     })
                 }
             }
-
-
-
     };
 
     function setZindex(){
@@ -127,7 +124,6 @@ export default function Reschedule(){
                                 lessons.map(item =>
                                     <Col >
                                         <div className="my-3 border p-3 bg-white" >
-
                                             <Row>
                                                 <Col md={4}><div><b>{moment(item.start_time).format('DD.MM.Y HH:mm:ss')}</b></div></Col>
                                                 <Col md={4}>
@@ -196,7 +192,6 @@ export default function Reschedule(){
                             </Spinner>
                         </div>
                     }
-
                 </Modal.Body>
             </Modal>
         </>

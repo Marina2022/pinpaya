@@ -21,6 +21,9 @@ export default function Menu(){
     const [msg, setMsg] = useState(false);
     const {t, i18n} = useTranslation();
 
+
+    const [isSending, setIsSending] = useState(false)
+
     useEffect(()=>{
         window.scrollTo(0, 0)
     }, [])
@@ -41,13 +44,14 @@ export default function Menu(){
     }
 
     const resendLink = () => {
+        setIsSending(true)
         AxiosClient.post('student/resend-email').then((data) => {
             setMsg(true);
+            setIsSending(false)
         })
     }
 
     return(
-
             <div className={cn("container-1312", s.globalWrapper)}>
                 <div className={s.menuPart}>
                   <UserMenu classname={s.menu} />
@@ -55,9 +59,8 @@ export default function Menu(){
 
                 <div className={s.contentPart}>
                     {user && user.email_verified_at == null &&
-                      <PleaseVerify resendLink={resendLink} />
+                      <PleaseVerify resendLink={resendLink} isSending={isSending} />
                     }
-
                     {msg &&
                         <div className="alert alert-success mb-3" role="alert" style={{ backgroundColor: '#d4edda'}}>
                             <h4 className="text-dark">{t('email_sended')}</h4>

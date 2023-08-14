@@ -40,7 +40,7 @@ export default function OrderHistory() {
                 orders.map(item =>
                   <tr key={item.id}>
                     <td>{item.id}</td>
-                    <td>{moment(item.created_at).format('DD.MM.Y')}</td>
+                    <td>{moment(item.created_at).format('DD.MM.Y HH:mm')}</td>
                     <td>{item.status}</td>
                     <td>{item?.student?.name}</td>
                     <td>{item.lessons_count} {item.lessons_count == 1 ? 'lesson' : 'lessons'}</td>

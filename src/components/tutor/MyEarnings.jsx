@@ -19,7 +19,7 @@ export default function MyEarnings() {
 
   const [flag, setFlag] = useState(false)
 
-   const {t, i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -44,9 +44,7 @@ export default function MyEarnings() {
 
   const onSubmit = (values, {resetForm}) => {
     const payload = {...values}
-
     AxiosClient.post('/tutor/withdraw', payload).then(({data}) => {
-      // window.location.reload();
       console.log('done');
       setFlag(prev => !prev)
       resetForm()
@@ -68,41 +66,21 @@ export default function MyEarnings() {
           {!withdraw &&
             <div className="mt-2 text-danger">{t('withdraw_pending')}</div>
           }
-
         </div>
-
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}
                 validateOnChange={false} validateOnBlur={false} enableReinitialize={true}>
           {
             ({isSubmitting, errors, values}) => {
               return <Form noValidate={true}>
-
-                {/*<Form onSubmit={onSubmit}>*/}
                 <div className="mt-3 mb-4">
-
                   <TextField name='number' placeholder={t('your_iban')} style={{'marginBottom': 16}}/>
-
-                  {/*<input*/}
-                  {/*  type="text"*/}
-                  {/*  placeholder={t('your_iban')}*/}
-                  {/*  ref={ibanRef}*/}
-                  {/*  required={true}*/}
-                  {/*  // onChange={(e) => setUsername(e.target.value)}*/}
-                  {/*  // value={username}*/}
-                  {/*/>*/}
-
-                  {/*<button disabled={user?.wallet > 25 && withdraw ? false : true}*/}
-                  <BigOrangeBtn style={{'maxWidth': 250}}
-                                // disabled={user?.wallet > 25 && withdraw ? false : true}
-                  >
+                  <BigOrangeBtn style={{'maxWidth': 250}}>
                     {t('request_withdrawal')}</BigOrangeBtn>
                 </div>
               </Form>
             }
           }
         </Formik>
-        {/*</Form>*/}
-
         <div>
           <div className='innerPageScroll'>
             <Table striped hover className="mt-3 bg-white">
@@ -118,7 +96,7 @@ export default function MyEarnings() {
                 wallet?.length > 0 &&
                 wallet.map(item =>
                   <tr>
-                    <td>{moment(item.created_at).format('DD.MM.Y')}</td>
+                    <td>{moment(item.created_at).format('DD.MM.Y HH:mm')}</td>
                     <td>{item.text}</td>
                     <td>{item.student.name}</td>
                   </tr>

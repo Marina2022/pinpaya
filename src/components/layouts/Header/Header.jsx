@@ -5,36 +5,27 @@ import React, {useEffect, useState} from "react";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import {useTranslation} from "react-i18next";
 import {Spinner} from "react-bootstrap";
-
 import logo from '../../../assets/header/pinpaya-logo.svg'
 import userIcon from '../../../assets/header/user.svg'
 import coinsIcon from '../../../assets/header/coins.svg'
 import chat from '../../../assets/header/chat.svg'
 import arrowDown from '../../../assets/arrow-down.svg'
-
 import LangSelect from "./LangSelect/LangSelect";
 import BigOrangeBtn from "../../CommonComponents/BigOrangeBtn/BigOrangeBtn";
 import cn from "classnames";
 import MobileMenu from "./MobileMenu/MobileMenu";
-import cookies from "js-cookie";
 import {signOut} from "firebase/auth";
 import {auth} from "../../../firebase";
 import AxiosClient from "../../../axios-client";
 import UserMenuHeader from "./UserMenuHeader/UserMenuHeader";
 
-
 const Header = ({triggerMessage, showLoader}) => {
-
   const [currentCode, setCurrentCode] = useState(localStorage.getItem('i18next') || 'en')
   const {user, type, setUser, setToken} = useStateContext()
-
   const {t, i18n} = useTranslation();
-
   const [isUserMenuShown, setUserMenuIsShown] = useState(false)
 
-
   useEffect(() => {
-    // const currentLanguageCode = cookies.get('i18nextLng') || 'en'
     const currentLanguageCode = localStorage.getItem('i18next') || 'en';
     setCurrentCode(currentLanguageCode)
   }, [])
@@ -44,7 +35,6 @@ const Header = ({triggerMessage, showLoader}) => {
   }, [])
 
   const [resizeHeight, setResizeHeight] = useState(true)
-
 
   // Расчет высоты hv (и перерасчет при ресайзе):
   useEffect(() => {
@@ -57,7 +47,6 @@ const Header = ({triggerMessage, showLoader}) => {
     const root = document.querySelector(':root');
 
     function calcHeight() {
-      // const heightWindow = window.innerHeight;
       const heightWindow = window.visualViewport.height;
       root.style.setProperty('--myVh', heightWindow / 100 + 'px');
     }
@@ -78,7 +67,6 @@ const Header = ({triggerMessage, showLoader}) => {
       setToken(null);
       navigate('/login');
     })
-
   }
 
   return (
@@ -89,23 +77,19 @@ const Header = ({triggerMessage, showLoader}) => {
           <NavLink to="/find-tutor" className={({isActive}) => isActive ? s.activeNavLink : s.navLink}>
             {t('find_private_tutor')}
           </NavLink>
-
           <NavLink to="/become-tutor" className={({isActive}) => isActive ? s.activeNavLink : s.navLink}>
             {t('become_private_tutor')}
           </NavLink>
-
           <NavLink to="/faq" className={({isActive}) => isActive ? s.activeNavLink : s.navLink}>
             FAQ
           </NavLink>
         </nav>
-
         <div className={s.userNav}>
           {showLoader ? (
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           ) : (
-
             user ?
               <>
                 <Link className={s.walletLink} to={type === 'tutor' ? '/tutor/my-earnings' : '/student/my-wallet'}>
@@ -117,18 +101,15 @@ const Header = ({triggerMessage, showLoader}) => {
                     </div>
                   </div>
                 </Link>
-
                 <button className={cn('normalBtn', s.chatBtn)} onClick={() => triggerMessage()}>
                   <img src={chat} alt="chat icon"/>
                   {user?.notif === 1 &&
                     <div className={s.unread}></div>
                   }
                 </button>
-
                 <div className={s.langSelect}>
                   <LangSelect currentCode={currentCode} setCurrentCode={setCurrentCode}/>
                 </div>
-
                 <Link to={`/${type}`}
                       className={s.userLink}
                       onMouseEnter={() => setUserMenuIsShown(true)}
@@ -140,7 +121,6 @@ const Header = ({triggerMessage, showLoader}) => {
                       <img className={s.userAvatar} src='https://app.pinpaya.com/no-image.png' alt="avatar"/>
                     }
                     <span className={s.userName}>{user.name} <img src={arrowDown} alt="icon"/></span>
-
                   </div>
                   {
                     isUserMenuShown && <div className={s.userMenuPopup}>
@@ -148,7 +128,6 @@ const Header = ({triggerMessage, showLoader}) => {
                     </div>
                   }
                 </Link>
-
               </>
               :
               <>
@@ -168,6 +147,5 @@ const Header = ({triggerMessage, showLoader}) => {
     </>
   );
 };
-
 
 export default Header;

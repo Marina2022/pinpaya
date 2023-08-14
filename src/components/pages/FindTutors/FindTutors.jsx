@@ -17,13 +17,15 @@ export default function FindTutors() {
   const [loading, setLoading] = useState(false);
   const {t, i18n} = useTranslation();
 
-  useEffect(()=>{
+  useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   useEffect(() => {
     axiosClient.get('/get-tutors').then(({data}) => {
-      setTutors(data.data);
+      const allTutors = data.data
+      const tutorsWithFilledProfile = allTutors.filter(tutor => !!tutor.about && tutor.avatar)
+      setTutors(tutorsWithFilledProfile);
     })
     axiosClient.get('/get-form-fields').then(({data}) => {
       setSubjects(data.subjects);

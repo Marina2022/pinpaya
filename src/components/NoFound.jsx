@@ -9,7 +9,7 @@ export default function NoFound(){
 
     return(
         <>
-            404 -Page Not Found
+            404 - Page Not Found
         </>
     )
 }

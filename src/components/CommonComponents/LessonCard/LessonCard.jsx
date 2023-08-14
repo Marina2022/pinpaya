@@ -7,7 +7,6 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 import {useStateContext} from "../../../contexts/ContextProvider";
 import BigOrangeBtn from "../BigOrangeBtn/BigOrangeBtn";
-
 import videocam from '../../../assets/profile/videocam.svg'
 import cn from "classnames";
 
@@ -15,9 +14,7 @@ const LessonCard = ({item, message, confirmLesson, quit}) => {
   const {type} = useStateContext()
   const {t, i18n} = useTranslation();
 
-
   return (
-
     <div key={item.id} className={s.lessonCard}>
       <div className={s.globalWrapper}>
         <div className={s.mainInfo}>
@@ -45,7 +42,6 @@ const LessonCard = ({item, message, confirmLesson, quit}) => {
                 }
               </div>
             }
-
 
           </div>
           <div className={s.desc}>
@@ -169,15 +165,12 @@ const LessonCard = ({item, message, confirmLesson, quit}) => {
         </div>
       </div>
 
-
       <div className="d-flex mt-4 my-lesson-activity text-center text-sm-start">
-
         <div style={{cursor: 'pointer', marginRight: '25px', color: '#666666'}}
              onClick={() => quit(item.id, item.count_done)}>
           <Trash color="#666666"
                  size={20}/> {t('quit_tutoring')}
         </div>
-
         <div style={{cursor: 'pointer', marginRight: '25px'}}>
           <Link style={{color: '#666666'}}
                 to={
@@ -190,14 +183,11 @@ const LessonCard = ({item, message, confirmLesson, quit}) => {
               color="#666666" size={20}/> {t('change_lesson_dates')}
           </Link>
         </div>
-
         <div style={{cursor: 'pointer', marginRight: '25px', color: '#666666'}} onClick={() => message(item)}>
           <ChatSquare color="#666666" size={20}/> {t('chat')}
         </div>
       </div>
-
     </div>
-
   );
 };
 

@@ -11,6 +11,8 @@ import UserMenu from "../../CommonComponents/UserMenu/UserMenu";
 import s from './Menu.module.scss'
 import cn from "classnames";
 import PleaseVerify from "../../CommonComponents/PleaseVerify/PleaseVerify";
+import StudentDontSee from "../../CommonComponents/StudentDontSee/StudentDontSee";
+import OurRegularPopup from "../../CommonComponents/OurRegularPopup/OurRegularPopup";
 
 export default function Menu() {
   const {token, type, user} = useStateContext()
@@ -22,15 +24,27 @@ export default function Menu() {
     window.scrollTo(0, 0)
   }, [])
 
+
+  const [profileFilled, setProfileFilled] = useState(true)
+
+  useEffect(()=>{
+    if (user) setProfileFilled(!!user.about && user.avatar!==null)
+  }, [user])
+
+  const [isSending, setIsSending] = useState(false)
+
   if (!token || type !== "tutor") {
     return <Navigate to={'/login'}/>
   } else {
-    <Navigate to={'/tutor'}/>
+     <Navigate to={'/tutor'}/>
   }
 
+
   const resendLink = () => {
+    setIsSending(true)
     AxiosClient.post('tutor/resend-email').then((data) => {
       setMsg(true);
+      setIsSending(false)
     })
   }
 
@@ -42,16 +56,28 @@ export default function Menu() {
 
         <div className={s.contentPart} >
           {user && user.email_verified_at === null &&
-           <PleaseVerify resendLink={resendLink} />
+           <PleaseVerify resendLink={resendLink} isSending={isSending} />
           }
+
+          {type === 'tutor' && !profileFilled &&
+            <StudentDontSee />
+          }
+
 
           {msg &&
             <div className="alert alert-success mb-3" role="alert" style={{backgroundColor: '#d4edda'}}>
-              <h4 className="text-dark">{t('email_sended')}</h4>
+              <h4 className="text-dark" >{t('email_sended')}</h4>
             </div>
           }
-          {location.pathname == '/tutor' ? <MyLessons/> : ''}
-          <Outlet/>
+          {location.pathname === '/tutor' ? <MyLessons/> : ''}
+          <Outlet context={{setProfileFilled: setProfileFilled}} />
+
+          <OurRegularPopup>
+            <div style={{display: 'flex', justifyContent: 'center', margin: 20}}>
+              <h4>Все окей</h4>
+            </div>
+          </OurRegularPopup>
+
         </div>
       </div>
 

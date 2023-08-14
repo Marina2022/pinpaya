@@ -9,10 +9,8 @@
   z-index: 999999;
   padding: 55px 0 0 25px;
   overflow-y: scroll;
-  //height: 100vh
   height: calc( var(--myVh) * 100 );
 }
-
 
 .menuContent {
   width: 320px;
@@ -76,11 +74,9 @@
   color: black!important;
 }
 
-
 .langSelect {
   margin-bottom: 20px;
 }
-
 
 .mobileNav {
   list-style: none;
@@ -105,7 +101,6 @@
       margin-top: 5px;
     }
   }
-
 }
 
 .logoutItem {
@@ -115,8 +110,6 @@
 .searchField {
   margin-bottom: 20px;
 }
-
-
 
 .wallet {
   display: flex;
@@ -146,11 +139,5 @@
 .textSuccess {
   font-size: 11px;
   line-height: 20px;
-}
-
-.walletLink {
-  @media (max-width: 576px) {
-    //display: none;
-  }
 }
 

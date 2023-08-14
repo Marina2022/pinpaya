@@ -19,7 +19,6 @@ import cn from "classnames";
 
 
 const UserMenuHeader = ({isShown, setIsShown}) => {
-
   const location = useLocation()
   const {setUser, setToken, user, type} = useStateContext()
 
@@ -48,40 +47,45 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
     <>
       {
         user && <div>
-
           {type === 'tutor' &&
             <div className={s.userMenu}>
               <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
                 <div className="m-2">
-                  <NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="tutor/my-lessons" onClick={() => setIsShown(false)}>
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="tutor/my-lessons" onClick={() => setIsShown(false)}>
                     <img width='24' height='24' src={menu1} alt='icon'/>{t('my_lessons')}
                   </NavLink>
                 </div>
 
                 <div className="m-2">
-                  <NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="tutor/my-tutor-profile" onClick={() => setIsShown(false)}>
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="tutor/my-tutor-profile" onClick={() => setIsShown(false)}>
                     <img width='24' height='24' src={menu7} alt='icon'/> {t('my_tutor_profile')}
                   </NavLink></div>
 
                 <div className="m-2">
-                  <NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="tutor/my-schedule" onClick={() => setIsShown(false)}>
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="tutor/my-schedule" onClick={() => setIsShown(false)}>
                     <img width='24' height='24' src={menu8} alt='icon'/>{t('my_schedule')}
                   </NavLink>
                 </div>
 
                 <div className="m-2">
-                  <NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="tutor/order-history" onClick={() => setIsShown(false)}>
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="tutor/order-history" onClick={() => setIsShown(false)}>
                     <img width='24' height='24' src={menu2} alt='icon'/>{t('order_history')}
                   </NavLink>
                 </div>
 
                 <div className="m-2">
-                  <NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="tutor/my-earnings" onClick={() => setIsShown(false)}>
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="tutor/my-earnings" onClick={() => setIsShown(false)}>
                     <img width='24' height='24' src={menu3} alt='icon'/>{t('my_earnings')}
                   </NavLink>
                 </div>
                 <div className="m-2">
-                  <NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="tutor/account-settings" onClick={() => setIsShown(false)}>
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="tutor/account-settings" onClick={() => setIsShown(false)}>
                     <img width='24' height='24' src={menu5}
                          alt='icon'/>{t('account_settings')}
                   </NavLink></div>
@@ -100,25 +104,31 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
             <div className={s.userMenu}>
               <div className={cn("bg-white user-left-menu", s.menuWrapper)}>
                 <div className="m-2">
-                  <NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="student/my-lessons">
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="student/my-lessons">
                     <img src={menu1} alt='icon'/>{t('my_lessons')}
                   </NavLink>
                 </div>
 
-                <div className="m-2"><NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="student/order-history"><img src={menu2}
-                                                                                                      alt='icon'/>{t('order_history')}
+                <div className="m-2"><NavLink reloadDocument={location.pathname.includes("/lesson/")}
+                                              style={navLinkFunction} to="student/order-history">
+                  <img src={menu2} alt='icon'/>{t('order_history')}
                 </NavLink>
                 </div>
 
-                <div className="m-2"><NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="student/my-wallet"><img src={menu3}
-                                                                                                  alt='icon'/>{t('my_wallet')}
-                </NavLink></div>
+                <div className="m-2">
+                  <NavLink reloadDocument={location.pathname.includes("/lesson/")} style={navLinkFunction}
+                           to="student/my-wallet">
+                    <img src={menu3} alt='icon'/>{t('my_wallet')}
+                  </NavLink>
+                </div>
 
-                <div className="m-2"><NavLink reloadDocument={location.pathname.includes("/lesson/") ? true : false} style={navLinkFunction} to="student/account-settings"><img src={menu5}
-                                                                                                         alt='icon'/>{t('account_settings')}
+                <div className="m-2"><NavLink reloadDocument={location.pathname.includes("/lesson/")}
+                                              style={navLinkFunction} to="student/account-settings">
+                  <img src={menu5} alt='icon'/>{t('account_settings')}
                 </NavLink></div>
-                <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}><img src={menu6}
-                                                                                                    alt='icon'/>{t('logout')}
+                <div className="m-2 logout-menu" style={{color: '#dc3545'}} onClick={onLogout}>
+                  <img src={menu6} alt='icon'/>{t('logout')}
                 </div>
               </div>
             </div>
@@ -126,8 +136,6 @@ const UserMenuHeader = ({isShown, setIsShown}) => {
         </div>
       }
     </>
-
-
   );
 };
 

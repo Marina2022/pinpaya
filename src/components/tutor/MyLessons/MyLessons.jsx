@@ -98,7 +98,7 @@ export default function MyLessons() {
 
   return (
     <div>
-      <h1 className="profilePageTitle">{t('my_lessons')}</h1>
+      <h1 className="myLessonsTitle">{t('my_lessons')}</h1>
       <div>
         {
           lessons?.length > 0 &&

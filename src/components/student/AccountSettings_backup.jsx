@@ -35,16 +35,11 @@ export default function AccountSettings_backup(){
     }, [])
 
 
-
-
-
-
     const onSubmit = (e) => {
         e.preventDefault()
 
         setErrors(null);
         setSuccess(null);
-        //////********************** и все?
         AxiosClient.post('student/change-info', data).then(({data}) => {
             setSuccess(true);
         }).catch(err => {
@@ -71,7 +66,6 @@ export default function AccountSettings_backup(){
         }
         setErrors(null);
         setSuccess(null);
-        //////////  еще здесь
         AxiosClient.post('student/change-password', payload).then(({data}) => {
             setSuccess(true);
 
@@ -185,7 +179,6 @@ export default function AccountSettings_backup(){
                             </Form.Group>
                         </Col>
                     </Row>
-
                     <Button variant="primary" type="submit">
                         {t('update')}
                     </Button>

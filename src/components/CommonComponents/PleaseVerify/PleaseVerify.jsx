@@ -1,21 +1,16 @@
 import React from 'react';
 import s from './PleaseVerify.module.scss';
-import BigOrangeBtn from "../BigOrangeBtn/BigOrangeBtn";
 import {useTranslation} from "react-i18next";
+import cn from "classnames";
 
-
-
-const PleaseVerify = ({resendLink}) => {
+const PleaseVerify = ({resendLink, classname, isSending}) => {
 
   const {t, i18n} = useTranslation();
 
   return (
-    <div className={s.verify} role="alert">
-      <h4 className="text-dark">{t('verif_account')}</h4>
-      <h6>
-        <BigOrangeBtn onClick={resendLink} classname={s.verifyBtn}
-        >{t('resend_link')}</BigOrangeBtn>
-      </h6>
+    <div className={cn(s.verify, classname)} role="alert">
+      <span>  {t('verif_account')}. </span>
+      <a className={s.resendLink} style={{opacity: isSending ? .5 : 1}} onClick={resendLink}>{t('resend_link')}</a>
     </div>
   );
 };

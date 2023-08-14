@@ -21,6 +21,7 @@ body {
   font-size: 14px;
   color: #242424;
   background-color: #f6f6f6;
+  position: relative;
 }
 
 input:not([type='checkbox']), select {
@@ -291,6 +292,16 @@ table > tbody > tr > td {
   left: 0;
 }
 
+.whiteOverlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgb(255,255,255, .8);
+  z-index: 999;
+}
+
 .normalBtn {
   background-color: transparent;
   border: none;
@@ -321,9 +332,21 @@ table > tbody > tr > td {
   background-color: rgb(0,0,0,.2);
 }
 
+.myLessonsTitle {
+  margin-top: 20px;
+  font-size: 36px;
+  line-height: 40px;
+  margin-bottom: 40px;
+  font-weight: 700;
 
+  @media (max-width: 768px) {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+}
 
 .profilePageTitle {
+
   font-size: 36px;
   line-height: 40px;
   margin-bottom: 40px;
@@ -341,6 +364,7 @@ table > tbody > tr > td {
   line-height: 40px;
   margin-bottom: 20px;
   font-weight: 700;
+
 
   @media (max-width: 768px) {
     font-size: 22px;

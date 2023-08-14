@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {useTranslation} from "react-i18next";
 import TextInput from "../TextInput/TextInput";
-
 import s from './SearchField.module.scss'
 import searchBtn from '../../../../assets/search.svg'
 

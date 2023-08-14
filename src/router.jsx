@@ -37,6 +37,7 @@ import TutorReschedule from "./components/tutor/Reschedule";
 import Cache from "./components/Cache";
 import VerifEmail from "./components/VerifEmail";
 import Video from "./components/Video";
+import NoFound from "./components/NoFound";
 
 const router = createBrowserRouter([
   {
@@ -205,7 +206,7 @@ const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <div> Not found </div>
+        element: <NoFound/>
       },
     ],
     exact: true

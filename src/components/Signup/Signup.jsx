@@ -1,15 +1,12 @@
 import React, {useState} from "react";
-import StudentSignup from "../StudentSignup.jsx";
 import SignupAll from "./SignupAll.jsx";
 import '../../index.scss';
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-
 import logo from '../../assets/pinpaya-logo.svg'
 import BigOrangeBtn from "../CommonComponents/BigOrangeBtn/BigOrangeBtn";
 
 export default function Signup(){
-
     const [type, setType] = useState(null);
     const {t, i18n} = useTranslation();
     return(
@@ -31,10 +28,8 @@ export default function Signup(){
                     </div>
                 </div>
             }
-
             {type === 'student' ? <SignupAll type={'student'} /> : '' }
             {type === 'tutor' ? <SignupAll type={'tutor'} /> : '' }
-
         </>
 
     )

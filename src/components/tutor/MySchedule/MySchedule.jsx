@@ -2,9 +2,9 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import AxiosClient from "../../../axios-client";
-import {Button, Col, Form, Row} from "react-bootstrap";
+import {Col, Form, Row} from "react-bootstrap";
 import TimePicker from 'react-bootstrap-time-picker';
 import useMounted from "../../../hooks/useMounted";
 import moment from "moment/moment";
@@ -66,11 +66,9 @@ export default function MySchedule() {
     getSchedule();
   }, [])
 
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -266,7 +264,6 @@ export default function MySchedule() {
             </>
           )
         }
-
       </div>
     </div>
   );

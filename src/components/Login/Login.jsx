@@ -35,7 +35,6 @@ export default function Login() {
     password: Yup.string().required("Required").min(8, 'Minimum 8 characters'),
   })
 
-
   const onSubmit = async (values) => {
     const payload = {
       email: values.email,
@@ -79,7 +78,6 @@ export default function Login() {
         <div className={s.logo}>
           <Link to="/"><img src={logo} alt="logo"/></Link>
         </div>
-
 
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}
                 validateOnChange={false} validateOnBlur={false}>
