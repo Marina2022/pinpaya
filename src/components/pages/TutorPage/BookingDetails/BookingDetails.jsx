@@ -25,12 +25,10 @@ const BookingDetails = ({tutor, getData, selected, setSelected, show, setShow}) 
   const {user} = useStateContext();
   const {currentUser} = useContext(AuthContext);
 
-  // функция - была в старом проекте, на всякий случай сохранила
   const message = () => {
     firebaseCreateChat(currentUser, tutor, user);
     document.getElementsByClassName('messageTrigger')[0].click();
   }
-
 
   return (
     <>
@@ -40,13 +38,17 @@ const BookingDetails = ({tutor, getData, selected, setSelected, show, setShow}) 
             className={s.dash}>-</span></p>
 
           <div className={s.priceWrapper}>
-            <span className={s.price}>{tutor.price} € </span>
+            <span className={s.price}>
+              {
+                tutor.check_trial === 1 && <span className={s.oldPrice}>{tutor.price} €</span>
+              }
+              {tutor.check_trial === 1 ? tutor.price / 2 : tutor.price} €
+            </span>
             <span className={s.trialLesson}>{tutor.check_trial === 1
               ? `/${t('first_trial')}`
               : `/${t('per_hour')}`}</span>
           </div>
 
-          {/*<BigOrangeBtn onClick={scrollTo} classname={s.scheduleBtn}>*/}
           <BigOrangeBtn classname={s.scheduleBtn} onClick={scrollTo}>
             {t('schedule_lessons')}
           </BigOrangeBtn>

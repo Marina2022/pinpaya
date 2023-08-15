@@ -1,11 +1,6 @@
 import {useParams} from "react-router-dom";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import AxiosClient from "../../../axios-client";
-import {useStateContext} from "../../../contexts/ContextProvider";
-import firebaseCreateChat from "../../../hooks/firebaseCreateChat";
-import {AuthContext} from "../../../contexts/AuthContext";
-
-import {useTranslation} from "react-i18next";
 import BookingDetails from "./BookingDetails/BookingDetails";
 import TutorVideo from "./TutorVideo/TutorVideo";
 import TutorDesc from "./TutorDesc/TutorDesc";

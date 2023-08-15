@@ -24,7 +24,6 @@ export default function Menu() {
     window.scrollTo(0, 0)
   }, [])
 
-
   const [profileFilled, setProfileFilled] = useState(true)
 
   useEffect(()=>{
@@ -38,7 +37,6 @@ export default function Menu() {
   } else {
      <Navigate to={'/tutor'}/>
   }
-
 
   const resendLink = () => {
     setIsSending(true)
@@ -62,7 +60,6 @@ export default function Menu() {
           {type === 'tutor' && !profileFilled &&
             <StudentDontSee />
           }
-
 
           {msg &&
             <div className="alert alert-success mb-3" role="alert" style={{backgroundColor: '#d4edda'}}>
